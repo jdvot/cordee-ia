@@ -388,6 +388,13 @@ section {
   .nav-logo {
     font-size: 20px;
   }
+  /* Hero grid: stack subtitle + CTAs on mobile (the inline-attr selector
+     in the responsive section below didn't match because React renders
+     "minmax(0, 1.2fr)" with space after the comma). */
+  .hero-cta-grid {
+    grid-template-columns: 1fr !important;
+    gap: 24px !important;
+  }
 }
 
 /* =========================================================
@@ -441,15 +448,18 @@ section[id="methode"] [style*="grid-template-columns: 120px 1fr"] > div:first-ch
     letter-spacing: 0.1em !important;
   }
 
-  /* 2-column grids → 1 column */
-  section [style*="grid-template-columns: minmax(0,1fr) minmax(0,1.2fr)"],
-  section [style*="grid-template-columns: minmax(0,1fr) minmax(0,1.3fr)"],
-  section [style*="grid-template-columns: minmax(0,1fr) minmax(0,1.4fr)"],
-  section [style*="grid-template-columns: minmax(0,1fr) minmax(0,1.5fr)"],
-  section [style*="grid-template-columns: minmax(0,1fr) minmax(0,1.6fr)"],
-  section [style*="grid-template-columns: minmax(0,1.2fr) minmax(0,1fr)"],
-  section [style*="grid-template-columns: minmax(0,1.3fr) minmax(0,1fr)"],
-  section [style*="grid-template-columns: minmax(0,1.4fr) minmax(0,1fr)"] {
+  /* 2-column grids → 1 column.
+     React renders inline styles with a space after each comma, e.g.
+     "minmax(0, 1.2fr)" (NOT "minmax(0,1.2fr)"). Selectors must match
+     the rendered form. */
+  section [style*="minmax(0, 1fr) minmax(0, 1.2fr)"],
+  section [style*="minmax(0, 1fr) minmax(0, 1.3fr)"],
+  section [style*="minmax(0, 1fr) minmax(0, 1.4fr)"],
+  section [style*="minmax(0, 1fr) minmax(0, 1.5fr)"],
+  section [style*="minmax(0, 1fr) minmax(0, 1.6fr)"],
+  section [style*="minmax(0, 1.2fr) minmax(0, 1fr)"],
+  section [style*="minmax(0, 1.3fr) minmax(0, 1fr)"],
+  section [style*="minmax(0, 1.4fr) minmax(0, 1fr)"] {
     grid-template-columns: 1fr !important;
     gap: 32px !important;
   }
