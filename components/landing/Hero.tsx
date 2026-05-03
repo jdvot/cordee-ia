@@ -60,6 +60,7 @@ export function Hero() {
         </Reveal>
 
         <div
+          className="hero-cta-grid"
           style={{
             display: "grid",
             gridTemplateColumns: "minmax(0,1.2fr) minmax(0,1fr)",
