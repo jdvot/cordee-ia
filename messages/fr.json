@@ -465,14 +465,10 @@
         "github-ci": "CI lint + typecheck + build + test"
       },
       "license_options": {
-        "MIT": "Permissive, par défaut. Fork libre.",
-        "Apache-2.0": "Permissive + clause brevets.",
-        "AGPL-3.0": "Copyleft fort. Toute modif réutilisée doit être OSS.",
-        "none": "Code privé, tous droits réservés.",
-        "MIT_label": "MIT",
-        "Apache-2.0_label": "Apache 2.0",
-        "AGPL-3.0_label": "AGPL 3.0",
-        "none_label": "Aucune"
+        "MIT": { "label": "MIT", "hint": "Permissive, par défaut. Fork libre." },
+        "Apache-2.0": { "label": "Apache 2.0", "hint": "Permissive + clause brevets." },
+        "AGPL-3.0": { "label": "AGPL 3.0", "hint": "Copyleft fort. Toute modif réutilisée doit être OSS." },
+        "none": { "label": "Aucune", "hint": "Code privé, tous droits réservés." }
       }
     }
   }

@@ -1,52 +1,28 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useTranslations } from "next-intl";
 import { Reveal } from "./atoms";
 
-const PHASES = [
-  {
-    n: "01",
-    title: "Reconnaissance",
-    sub: "Cartographier le terrain",
-    desc: "Audit éclair de votre paysage IA : cas d'usage, données, équipes, contraintes réglementaires. On sépare les sommets accessibles des faux espoirs.",
-    out: ["Diagnostic en 10 jours", "Carte des cas d'usage", "Matrice valeur × risque"],
-    alt: "1 200 m",
-  },
-  {
-    n: "02",
-    title: "Encordement",
-    sub: "Aligner la cordée",
-    desc: "Atelier dirigeants + équipe tech. On définit les rôles, les garde-fous, le rythme. Aucune ascension ne réussit sans encordement clair.",
-    out: ["Charte IA interne", "Comité de pilotage", "Cadrage des 5 priorités"],
-    alt: "1 800 m",
-  },
-  {
-    n: "03",
-    title: "Acclimatation",
-    sub: "Pilote sur cas réel",
-    desc: "Un cas d'usage, ciblé, livré en six semaines. RAG, agents, fine-tuning : on choisit la bonne corde pour la bonne paroi. Pas de démo jouet.",
-    out: ["Pilote en production", "Mesure ROI baseline", "Équipe interne formée"],
-    alt: "2 600 m",
-  },
-  {
-    n: "04",
-    title: "Ascension",
-    sub: "Industrialiser",
-    desc: "Passage à l'échelle : MLOps, observabilité, gouvernance. La cordée monte régulière, sans à-coups. Vous n'aurez pas besoin de nous pour la phase suivante.",
-    out: ["Plateforme IA interne", "SLO + monitoring", "Plan de transfert"],
-    alt: "3 400 m",
-  },
-  {
-    n: "05",
-    title: "Sommet",
-    sub: "Autonomie + mesure",
-    desc: "On redescend. Vous gardez la cordée, les outils, l'expertise. Bilan ROI, plan de capitalisation, prochains itinéraires possibles.",
-    out: ["ROI documenté", "Roadmap 18 mois", "Cordée autonome"],
-    alt: "4 200 m",
-  },
-];
+const ALTITUDES = ["1 200 m", "1 800 m", "2 600 m", "3 400 m", "4 200 m"];
 
 export function Method() {
+  const t = useTranslations("Method");
+  const phaseEntries = t.raw("phases") as Array<{
+    title: string;
+    sub: string;
+    desc: string;
+    out: string[];
+  }>;
+  const PHASES = phaseEntries.map((p, i) => ({
+    n: String(i + 1).padStart(2, "0"),
+    title: p.title,
+    sub: p.sub,
+    desc: p.desc,
+    out: p.out,
+    alt: ALTITUDES[i] ?? "",
+  }));
+
   const trackRef = useRef<HTMLDivElement>(null);
   const [progress, setProgress] = useState(0);
 
@@ -73,23 +49,21 @@ export function Method() {
     <section id="methode">
       <div className="container">
         <div className="section-eyebrow">
-          <span className="num">02 / Méthode</span>
+          <span className="num">{t("eyebrow")}</span>
           <span className="rule" />
         </div>
 
         <Reveal>
           <h2 className="display h2" style={{ maxWidth: "16ch", margin: "0 0 24px" }}>
-            Cinq phases.{" "}
+            {t("titlePart1")}{" "}
             <em style={{ fontStyle: "italic", color: "var(--color-accent)" }}>
-              Une seule corde.
+              {t("titleEm")}
             </em>
           </h2>
         </Reveal>
         <Reveal delay={80}>
           <p className="body-lg" style={{ maxWidth: "56ch", margin: "0 0 80px" }}>
-            Ce que nous faisons quand vous nous engagez. Pas un cadre théorique :
-            une routine d&apos;ascension répétée sur 32 missions. Chaque phase
-            s&apos;ouvre sur un livrable signé.
+            {t("intro")}
           </p>
         </Reveal>
 
@@ -171,7 +145,7 @@ export function Method() {
                   letterSpacing: "0.1em",
                 }}
               >
-                SOMMET
+                {t("summit")}
               </div>
               <div
                 style={{
@@ -185,7 +159,7 @@ export function Method() {
                   letterSpacing: "0.1em",
                 }}
               >
-                CAMP DE BASE
+                {t("basecamp")}
               </div>
             </div>
           </div>
@@ -223,7 +197,7 @@ export function Method() {
                     {p.n}
                   </span>
                   <span className="caption">
-                    {p.alt} — Phase {p.n}
+                    {p.alt} — {t("phaseLabel")} {p.n}
                   </span>
                 </div>
                 <h3

@@ -1,9 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 import { ArrowRight, CordeeMark } from "./atoms";
+import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 
 export function Nav() {
+  const t = useTranslations("Nav");
   const [scrolled, setScrolled] = useState(false);
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 16);
@@ -13,7 +17,7 @@ export function Nav() {
   return (
     <nav className={"nav " + (scrolled ? "scrolled" : "")}>
       <div className="container nav-inner">
-        <a href="#" className="nav-logo" aria-label="Cordée.IA">
+        <a href="#" className="nav-logo" aria-label={t("ariaLabel")}>
           <span className="mark">
             <CordeeMark size={26} />
           </span>
@@ -22,16 +26,19 @@ export function Nav() {
           </span>
         </a>
         <div className="nav-links">
-          <a href="#methode">Méthode</a>
-          <a href="#expertise">Expertise</a>
-          <a href="#personas">Pour qui</a>
-          <a href="#use-cases">Cas d&apos;usage</a>
-          <a href="#faq">FAQ</a>
-          <a href="/generator">Générateur</a>
+          <a href="#methode">{t("method")}</a>
+          <a href="#expertise">{t("expertise")}</a>
+          <a href="#personas">{t("personas")}</a>
+          <a href="#use-cases">{t("useCases")}</a>
+          <a href="#faq">{t("faq")}</a>
+          <Link href="/generator">{t("generator")}</Link>
         </div>
-        <a href="#cta" className="btn btn-accent">
-          Réserver 30 min <ArrowRight size={14} />
-        </a>
+        <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+          <LanguageSwitcher variant="nav" />
+          <a href="#cta" className="btn btn-accent">
+            {t("ctaBook")} <ArrowRight size={14} />
+          </a>
+        </div>
       </div>
     </nav>
   );

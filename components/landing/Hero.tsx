@@ -1,15 +1,50 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { ArrowRight, Counter, Reveal, Topo } from "./atoms";
 
-const STATS = [
-  { num: <><Counter to={113} />%</>, lab: "ROI moyen à 12 mois", note: "Sur 32 missions" },
-  { num: <><Counter to={2.4} decimals={1} />×</>, lab: "Vélocité produit", note: "Mesure DORA" },
-  { num: <><Counter to={47} />j</>, lab: "Premier livrable", note: "Pilote en prod" },
-  { num: <><Counter to={32} /></>, lab: "Cordées depuis 2022", note: "Aucune redescente" },
-];
-
 export function Hero() {
+  const t = useTranslations("Hero");
+
+  const STATS = [
+    {
+      num: (
+        <>
+          <Counter to={113} />%
+        </>
+      ),
+      lab: t("stats.roi.lab"),
+      note: t("stats.roi.note"),
+    },
+    {
+      num: (
+        <>
+          <Counter to={2.4} decimals={1} />×
+        </>
+      ),
+      lab: t("stats.velocity.lab"),
+      note: t("stats.velocity.note"),
+    },
+    {
+      num: (
+        <>
+          <Counter to={47} />j
+        </>
+      ),
+      lab: t("stats.delivery.lab"),
+      note: t("stats.delivery.note"),
+    },
+    {
+      num: (
+        <>
+          <Counter to={32} />
+        </>
+      ),
+      lab: t("stats.missions.lab"),
+      note: t("stats.missions.note"),
+    },
+  ];
+
   return (
     <section
       style={{
@@ -23,7 +58,7 @@ export function Hero() {
         <Reveal>
           <div className="badge" style={{ marginBottom: 32 }}>
             <span className="dot" />
-            Cabinet de conseil IA — Paris &amp; Lyon
+            {t("badge")}
           </div>
         </Reveal>
 
@@ -32,11 +67,11 @@ export function Hero() {
             className="display h1"
             style={{ marginBottom: 32, maxWidth: "16ch", letterSpacing: "-0.035em" }}
           >
-            L&apos;altitude se gagne{" "}
+            {t("titlePart1")}{" "}
             <em style={{ fontStyle: "italic", color: "var(--color-accent)" }}>
-              en cordée
+              {t("titleEm")}
             </em>
-            , pas en solo.
+            {t("titlePart2")}
           </h1>
         </Reveal>
 
@@ -51,20 +86,17 @@ export function Hero() {
         >
           <Reveal delay={160}>
             <p className="body-lg" style={{ maxWidth: "50ch", margin: 0 }}>
-              Nous accompagnons les CTO et dirigeants industriels à transformer
-              l&apos;IA générative en levier opérationnel. Sans hype. Sans pilotes
-              qui ne sortent jamais. Une méthode, cinq phases, des résultats
-              mesurables.
+              {t("subtitle")}
             </p>
           </Reveal>
 
           <Reveal delay={240}>
             <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
               <a href="#cta" className="btn btn-accent btn-arrow">
-                Réserver 30 min <ArrowRight />
+                {t("ctaBook")} <ArrowRight />
               </a>
               <a href="#methode" className="btn btn-ghost btn-arrow">
-                Voir la méthode <ArrowRight />
+                {t("ctaMethod")} <ArrowRight />
               </a>
             </div>
           </Reveal>
