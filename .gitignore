@@ -36,3 +36,9 @@ Thumbs.db
 # Claude Code local state (DO commit .claude/ definitions, NOT the runtime state)
 .claude/.session/
 .claude/cache/
+node_modules
+.next
+.vercel
+.env*.local
+*.tsbuildinfo
+next-env.d.ts

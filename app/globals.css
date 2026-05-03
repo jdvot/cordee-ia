@@ -1,0 +1,58 @@
+@import "tailwindcss";
+
+@theme {
+  /* Granite — sérieux, expertise, structure */
+  --color-primary: #1a2b3c;
+  --color-primary-hover: #243748;
+  --color-primary-foreground: #f8f7f4;
+
+  /* Cuivre — chaleur humaine, focal points, CTA */
+  --color-accent: #d4824a;
+  --color-accent-hover: #c4723a;
+  --color-accent-foreground: #1a2b3c;
+
+  /* Neige — fond, respiration */
+  --color-background: #f8f7f4;
+  --color-foreground: #0a1521;
+  --color-muted: #8b9ba8;
+  --color-muted-foreground: #4a5a6b;
+
+  --color-success: #6b8b6e;
+  --color-border: #e5e2da;
+
+  /* Typography */
+  --font-display: "Fraunces", Georgia, serif;
+  --font-body: "Inter", -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", "Fira Code", monospace;
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-body);
+    font-feature-settings: "ss01", "cv11";
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+    line-height: 1.0;
+  }
+
+  /* Topographic background pattern (5% opacity, generated via SVG) */
+  .topo-bg {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="600" height="600" viewBox="0 0 600 600"><g fill="none" stroke="%231a2b3c" stroke-opacity="0.05" stroke-width="1"><circle cx="300" cy="300" r="40"/><circle cx="300" cy="300" r="80"/><circle cx="300" cy="300" r="120"/><circle cx="300" cy="300" r="160"/><circle cx="300" cy="300" r="200"/><circle cx="300" cy="300" r="240"/><circle cx="300" cy="300" r="280"/></g></svg>');
+    background-size: 600px 600px;
+  }
+}
