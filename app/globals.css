@@ -388,6 +388,24 @@ section {
 }
 
 /* =========================================================
+   Method timeline — fix orphan rail bottom (desktop)
+   The sticky vertical rail used to leave the final marker +
+   "CAMP DE BASE" label floating alone after the last phase.
+   We hide those orphans entirely on desktop too — the colored
+   gauge + 5 markers carry the same meaning without the labels.
+   ========================================================= */
+
+section[id="methode"] [style*="position: sticky"][style*="top: 30vh"] > div[style*="top: -28"],
+section[id="methode"] [style*="position: sticky"][style*="top: 30vh"] > div[style*="bottom: -28"] {
+  display: none !important;
+}
+
+/* Constrain the rail wrapper so it doesn't extend past the content */
+section[id="methode"] [style*="grid-template-columns: 120px 1fr"] > div:first-child {
+  align-self: stretch;
+}
+
+/* =========================================================
    Mobile responsive — landing sections
    Approach: target inline-styled grids with attribute selectors
    to keep components untouched (i18n-builder runs concurrently).
