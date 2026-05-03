@@ -30,3 +30,16 @@ alwaysApply: true
 - Add error handling for impossible cases (trust internal callers; validate at system boundaries only).
 - Add backwards-compatibility shims if you can change the caller too.
 - Pre-emptively design for hypothetical future needs.
+
+## Anti-patterns
+
+- **`any` / `as unknown as X`** — if it can be typed, type it. Cast escapes the compiler.
+- **God components / god files** — if a single file holds routing + state + UI + data fetching, split.
+- **Re-implementing standard library** — `Array.prototype.groupBy`, `Object.groupBy`, `structuredClone`, `Promise.allSettled` exist. Use them.
+- **Magic numbers / strings without a constant** — `if (status === 3)` is unreadable. Name it.
+- **Catch-and-rethrow without handling** — adds nothing, hides the stack trace. Either handle or don't catch.
+- **`useEffect` for derived state** — derive from existing state, do not sync via effect.
+- **Mutating props or function arguments** — return new values, never reassign inputs.
+- **Comments duplicating code** — `// increment counter` above `counter++` — delete.
+- **Premature memoization** — `useMemo` / `useCallback` everywhere "for perf". Profile first.
+- **Catch-all `try/catch` around an entire function** — reduces the catch to "something went wrong". Scope tight.

@@ -36,13 +36,27 @@ Cordée.IA fait ce travail à ta place. Tu réponds à 6 questions, tu cliques
 
 ## Stack
 
-- **Next.js 16** (App Router) + React 19
+- **Next.js 16.2** (App Router) + React 19.2
 - **Tailwind CSS v4** (via `@theme inline`)
 - **Shadcn-style components** (Radix UI primitives, custom code minimaliste)
 - **react-hook-form + zod** pour le questionnaire validé
 - **archiver** pour streamer le `.zip` côté serveur
-- **framer-motion** pour les animations (compteurs au scroll, transitions stepper)
-- **TypeScript strict** (no `any`, no `as unknown as`)
+- **framer-motion 12** pour les animations (compteurs au scroll, transitions stepper)
+- **TypeScript 5.x strict** (no `any`, no `as unknown as`)
+- **pnpm** comme gestionnaire de paquets
+
+## Modèles Claude utilisés (routing 90/10)
+
+Les starters générés appliquent le routing recommandé par Anthropic :
+
+- **90 % Sonnet 4.6** — daily driver, tâches mécaniques (research, doc, dependency bump, restructure)
+- **10 % Opus 4.7** — reasoning lourd (challenger, code review, db migration, security audit, agent teams)
+- **Économie estimée** : jusqu'à -70 % de coût vs all-Opus, avec une qualité préservée
+
+Détails dans le `CLAUDE.md` généré dans chaque starter — section "Modèles Claude — routing recommandé".
+
+> Note : le mode multi-équipiers (`/team`) nécessite Opus 4.7 (Pro / Max / Enterprise).
+> Sonnet 4.6 ne supporte pas le orchestrateur de teammates.
 
 ## Démarrage local
 
