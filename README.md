@@ -103,7 +103,6 @@ pnpm lint        # next lint
 ├── SECURITY.md                     # Politique de sécurité
 ├── CHANGELOG.md                    # Historique des changements
 ├── REVIEW.md                       # Audit qualité code (transparency)
-├── CHALLENGE.md                    # Audit critique du projet (devil's advocate)
 └── IMPROVEMENTS.md                 # Roadmap d'amélioration
 ```
 
@@ -209,7 +208,6 @@ Le site est disponible en deux langues, gérées via [`next-intl`](https://next-
 - [SECURITY.md](SECURITY.md) — politique de sécurité, vulnérabilités
 - [CHANGELOG.md](CHANGELOG.md) — historique versionné
 - [REVIEW.md](REVIEW.md) — audit qualité code (transparence)
-- [CHALLENGE.md](CHALLENGE.md) — audit critique (devil's advocate)
 - [IMPROVEMENTS.md](IMPROVEMENTS.md) — roadmap
 
 ## Roadmap
