@@ -20,6 +20,7 @@ import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { Stat } from "@/components/ui/Stat";
 import { Questionnaire } from "@/components/Questionnaire";
+import { Nav } from "@/components/landing/Nav";
 
 const REPO_URL = "https://github.com/jdvot/cordee-ia";
 const LINKEDIN_URL = "https://www.linkedin.com/in/julien-dvt/";
@@ -46,14 +47,17 @@ export default async function GeneratorPage({
   await getTranslations({ locale, namespace: "Generator" });
 
   return (
-    <main className="min-h-screen text-[var(--color-foreground)]">
-      <Hero />
-      <HowItWorks />
-      <WhatYouGet />
-      <QuestionnaireSection />
-      <Faq />
-      <Footer />
-    </main>
+    <>
+      <Nav />
+      <main className="min-h-screen text-[var(--color-foreground)]">
+        <Hero />
+        <HowItWorks />
+        <WhatYouGet />
+        <QuestionnaireSection />
+        <Faq />
+        <Footer />
+      </main>
+    </>
   );
 }
 
