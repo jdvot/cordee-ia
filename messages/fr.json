@@ -352,7 +352,8 @@
       "validation": {
         "projectNameRequired": "Renseigne un nom de projet",
         "projectNameMax": "50 caractères max",
-        "projectNamePattern": "Lettres, chiffres, point, tiret ou underscore uniquement. Pas d'espaces ni d'accents."
+        "projectNamePattern": "Lettres, chiffres, point, tiret ou underscore uniquement.",
+        "projectNameHint": "Espaces et accents sont remplacés automatiquement (ex: \"Mon Projet IA\" → \"mon-projet-ia\")."
       },
       "step1": {
         "title": "Comment s'appelle ton projet ?",

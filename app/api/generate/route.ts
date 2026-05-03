@@ -103,6 +103,18 @@ const PayloadSchema = z.object({
     )
     .default([]),
   license: z.enum(["MIT", "Apache-2.0", "AGPL-3.0", "none"]).default("MIT"),
+  colors: z
+    .object({
+      primary: z
+        .string()
+        .regex(/^#[0-9a-fA-F]{6}$/)
+        .default("#1A2B3C"),
+      accent: z
+        .string()
+        .regex(/^#[0-9a-fA-F]{6}$/)
+        .default("#D4824A"),
+    })
+    .default({ primary: "#1A2B3C", accent: "#D4824A" }),
 });
 
 type Payload = z.infer<typeof PayloadSchema>;
@@ -278,7 +290,10 @@ async function collectFiles(
         out.push({ name: rel, content: renderEmptyDesign(payload) });
         continue;
       }
-      // use-example → fall through, copy as-is
+      // use-example → read template + substitute palette hex values.
+      const raw = await fs.readFile(abs, "utf-8");
+      out.push({ name: rel, content: customizeDesignMd(raw, payload) });
+      continue;
     }
 
     if (rel === ".mcp.json") {
@@ -335,6 +350,71 @@ async function readBuf(p: string): Promise<Buffer | null> {
 }
 
 // ─── Customizers ───────────────────────────────────────────────────────────
+
+// ─── Color helpers ─────────────────────────────────────────────────────────
+
+function hexToRgb(hex: string): { r: number; g: number; b: number } {
+  const h = hex.replace("#", "");
+  return {
+    r: parseInt(h.slice(0, 2), 16),
+    g: parseInt(h.slice(2, 4), 16),
+    b: parseInt(h.slice(4, 6), 16),
+  };
+}
+
+function rgbToHex(r: number, g: number, b: number): string {
+  const c = (n: number) =>
+    Math.max(0, Math.min(255, Math.round(n)))
+      .toString(16)
+      .padStart(2, "0");
+  return `#${c(r)}${c(g)}${c(b)}`.toUpperCase();
+}
+
+/**
+ * Lighten or darken a hex color by an amount in [-1, 1].
+ * Negative = darker, positive = lighter. Naive RGB-space mix — fine for
+ * generating hover variants from a base.
+ */
+function shadeHex(hex: string, amount: number): string {
+  const { r, g, b } = hexToRgb(hex);
+  if (amount >= 0) {
+    return rgbToHex(r + (255 - r) * amount, g + (255 - g) * amount, b + (255 - b) * amount);
+  }
+  const a = 1 + amount; // 0..1
+  return rgbToHex(r * a, g * a, b * a);
+}
+
+/**
+ * Replace the default palette hex values in templates/greenfield/DESIGN.md
+ * with the user's chosen primary + accent. Hover variants are derived
+ * mechanically (primary → +6% lighten, accent → -6% darken).
+ *
+ * Substitution is case-insensitive on the hex input but always emits
+ * uppercase to match the template's existing convention.
+ */
+function customizeDesignMd(raw: string, p: Payload): string {
+  const primary = p.colors.primary.toUpperCase();
+  const accent = p.colors.accent.toUpperCase();
+  const primaryHover = shadeHex(primary, 0.06);
+  const accentHover = shadeHex(accent, -0.06);
+
+  // Map of template hex → replacement. Order matters only when one is a
+  // prefix/substring of another — which it isn't here, so a simple loop
+  // suffices.
+  const replacements: Array<[RegExp, string]> = [
+    [/#1A2B3C/gi, primary],
+    [/#243748/gi, primaryHover],
+    [/#D4824A/gi, accent],
+    [/#C4723A/gi, accentHover],
+  ];
+
+  let out = raw;
+  for (const [re, val] of replacements) out = out.replace(re, val);
+
+  // Project name in the H1 if present.
+  out = out.replace(/^# Cordée\.IA — Design System/m, `# ${p.projectName} — Design System`);
+  return out;
+}
 
 function customizeClaudeMd(raw: string, p: Payload): string {
   let out = raw;
@@ -484,6 +564,8 @@ Généré par [Cordée.IA](https://github.com/jdvot/cordee-ia) — MIT.
 }
 
 function renderEmptyDesign(p: Payload): string {
+  const primary = p.colors.primary.toUpperCase();
+  const accent = p.colors.accent.toUpperCase();
   return `# ${p.projectName} — Design System
 
 > Squelette à remplir. Les 9 sections sont obligatoires pour qu'un agent design produise un site cohérent.
@@ -491,6 +573,22 @@ function renderEmptyDesign(p: Payload): string {
 ## 1. Visual Theme & Atmosphere
 
 ## 2. Color Palette & Roles
+
+\`\`\`css
+:root {
+  /* Primary — pré-rempli depuis le générateur Cordée.IA */
+  --color-primary: ${primary};
+  --color-primary-hover: ${shadeHex(primary, 0.06)};
+  --color-primary-foreground: #F8F7F4;
+
+  /* Accent */
+  --color-accent: ${accent};
+  --color-accent-hover: ${shadeHex(accent, -0.06)};
+  --color-accent-foreground: ${primary};
+
+  /* À compléter : background, foreground, muted, border, success, etc. */
+}
+\`\`\`
 
 ## 3. Typography
 

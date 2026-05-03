@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowLeft, ArrowRight, Download, Loader2 } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
@@ -15,6 +15,11 @@ import { Textarea } from "@/components/ui/Textarea";
 import { Label } from "@/components/ui/Label";
 import { Checkbox } from "@/components/ui/Checkbox";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/RadioGroup";
+import {
+  ColorPicker,
+  DEFAULT_COLORS,
+  type ColorsValue,
+} from "@/components/generator/ColorPicker";
 
 // ─── Schema ────────────────────────────────────────────────────────────────
 
@@ -120,6 +125,18 @@ function buildSchema(messages: {
     designSystem: z.enum(["use-example", "empty-template", "skip"]),
     extras: z.array(z.enum(EXTRA_VALUES)).default([]),
     license: z.enum(LICENSE_VALUES).default("MIT"),
+    colors: z
+      .object({
+        primary: z
+          .string()
+          .regex(/^#[0-9a-fA-F]{6}$/)
+          .default(DEFAULT_COLORS.primary),
+        accent: z
+          .string()
+          .regex(/^#[0-9a-fA-F]{6}$/)
+          .default(DEFAULT_COLORS.accent),
+      })
+      .default(DEFAULT_COLORS),
   });
 }
 
@@ -139,6 +156,7 @@ interface QuestionnaireProps {
 
 export function Questionnaire({ onValuesChange }: QuestionnaireProps = {}) {
   const t = useTranslations("Generator.Questionnaire");
+  const locale = useLocale();
 
   const FormSchema = React.useMemo(
     () =>
@@ -240,6 +258,7 @@ export function Questionnaire({ onValuesChange }: QuestionnaireProps = {}) {
       designSystem: "empty-template",
       extras: ["editorconfig", "prettierrc"],
       license: "MIT",
+      colors: DEFAULT_COLORS,
     },
   });
 
@@ -378,7 +397,7 @@ export function Questionnaire({ onValuesChange }: QuestionnaireProps = {}) {
                   />
                   {!errors.projectName && (
                     <p className="text-xs text-[var(--color-muted-foreground)]">
-                      {t("validation.projectNamePattern")}
+                      {t("validation.projectNameHint")}
                     </p>
                   )}
                   {errors.projectName && (
@@ -597,6 +616,31 @@ export function Questionnaire({ onValuesChange }: QuestionnaireProps = {}) {
                       />
                     </RadioGroup>
                   )}
+                />
+
+                {/* Color customization — only when DESIGN.md is generated. */}
+                <Controller
+                  control={control}
+                  name="designSystem"
+                  render={({ field: dsField }) =>
+                    dsField.value === "skip" ? (
+                      <></>
+                    ) : (
+                      <Controller
+                        control={control}
+                        name="colors"
+                        render={({ field: cField }) => (
+                          <div className="pt-4 mt-2 border-t border-[var(--color-border)]">
+                            <ColorPicker
+                              value={cField.value as ColorsValue}
+                              onChange={(next) => cField.onChange(next)}
+                              locale={locale}
+                            />
+                          </div>
+                        )}
+                      />
+                    )
+                  }
                 />
               </div>
             )}

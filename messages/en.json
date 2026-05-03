@@ -352,7 +352,8 @@
       "validation": {
         "projectNameRequired": "Please enter a project name",
         "projectNameMax": "50 characters max",
-        "projectNamePattern": "Letters, digits, dot, dash or underscore only. No spaces, no accents."
+        "projectNamePattern": "Letters, digits, dot, dash or underscore only.",
+        "projectNameHint": "Spaces and accents are replaced automatically (e.g. \"My AI Project\" → \"my-ai-project\")."
       },
       "step1": {
         "title": "What's your project called?",

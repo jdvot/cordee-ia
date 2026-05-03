@@ -5,8 +5,7 @@ import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { ArrowRight, CordeeMark } from "./atoms";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
-import { DarkToggle } from "@/components/ui/DarkToggle";
-import { ColorPicker } from "@/components/ui/ColorPicker";
+import { DarkToggle } from "@/components/generator/DarkToggle";
 
 export function Nav() {
   const t = useTranslations("Nav");
