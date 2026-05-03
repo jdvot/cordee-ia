@@ -136,13 +136,15 @@ export function Method() {
               <div
                 style={{
                   position: "absolute",
-                  top: -28,
+                  top: -40,
                   left: "50%",
                   transform: "translateX(-50%)",
                   fontFamily: "var(--font-mono)",
                   fontSize: 10,
                   color: "var(--color-muted)",
                   letterSpacing: "0.1em",
+                  whiteSpace: "nowrap",
+                  textAlign: "center",
                 }}
               >
                 {t("summit")}
@@ -150,13 +152,15 @@ export function Method() {
               <div
                 style={{
                   position: "absolute",
-                  bottom: -28,
+                  bottom: -40,
                   left: "50%",
                   transform: "translateX(-50%)",
                   fontFamily: "var(--font-mono)",
                   fontSize: 10,
                   color: "var(--color-muted)",
                   letterSpacing: "0.1em",
+                  whiteSpace: "nowrap",
+                  textAlign: "center",
                 }}
               >
                 {t("basecamp")}

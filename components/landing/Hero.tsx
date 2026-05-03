@@ -8,38 +8,22 @@ export function Hero() {
 
   const STATS = [
     {
-      num: (
-        <>
-          <Counter to={113} />%
-        </>
-      ),
+      num: <Counter to={9} />,
       lab: t("stats.roi.lab"),
       note: t("stats.roi.note"),
     },
     {
-      num: (
-        <>
-          <Counter to={2.4} decimals={1} />×
-        </>
-      ),
+      num: <Counter to={14} />,
       lab: t("stats.velocity.lab"),
       note: t("stats.velocity.note"),
     },
     {
-      num: (
-        <>
-          <Counter to={47} />j
-        </>
-      ),
+      num: <Counter to={10} />,
       lab: t("stats.delivery.lab"),
       note: t("stats.delivery.note"),
     },
     {
-      num: (
-        <>
-          <Counter to={32} />
-        </>
-      ),
+      num: <Counter to={12} />,
       lab: t("stats.missions.lab"),
       note: t("stats.missions.note"),
     },
@@ -92,10 +76,15 @@ export function Hero() {
 
           <Reveal delay={240}>
             <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
-              <a href="#cta" className="btn btn-accent btn-arrow">
+              <a href="generator" className="btn btn-accent btn-arrow">
                 {t("ctaBook")} <ArrowRight />
               </a>
-              <a href="#methode" className="btn btn-ghost btn-arrow">
+              <a
+                href="https://github.com/jdvot/cordee-ia"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-ghost btn-arrow"
+              >
                 {t("ctaMethod")} <ArrowRight />
               </a>
             </div>

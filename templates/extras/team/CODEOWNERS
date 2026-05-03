@@ -1,0 +1,30 @@
+# CODEOWNERS — auto-request review when these paths change
+# https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-security/customizing-your-repository/about-code-owners
+#
+# Replace @your-team / @your-handle with real GitHub handles before merging.
+
+# Default reviewers (everything not matched below)
+*                       @your-team
+
+# Claude Code config — every change goes through tech leads
+.claude/                @your-tech-lead
+CLAUDE.md               @your-tech-lead
+.mcp.json               @your-tech-lead
+
+# CI / infra
+.github/                @your-devops
+Dockerfile              @your-devops
+docker-compose.yml      @your-devops
+
+# Database migrations — separate sign-off
+prisma/migrations/      @your-tech-lead @your-dba
+**/migrations/          @your-tech-lead @your-dba
+
+# Security-sensitive files
+.claude/rules/security.md   @your-security-lead
+.env.example                @your-security-lead
+
+# Documentation
+README.md               @your-team
+CONTRIBUTING.md         @your-team
+docs/                   @your-team

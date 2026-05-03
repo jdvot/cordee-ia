@@ -99,6 +99,7 @@ const PayloadSchema = z.object({
         "docker-compose",
         "vscode-settings",
         "github-ci",
+        "team-files",
       ])
     )
     .default([]),
@@ -239,21 +240,40 @@ export async function POST(req: NextRequest) {
     mode: 0o755,
   });
 
-  // Extras — optional config files at project root
-  const EXTRAS_MAP: Record<Payload["extras"][number], { src: string; dest: string; mode?: number }> = {
-    editorconfig: { src: "extras/.editorconfig", dest: ".editorconfig" },
-    prettierrc: { src: "extras/.prettierrc.json", dest: ".prettierrc.json" },
-    makefile: { src: "extras/Makefile", dest: "Makefile" },
-    dockerfile: { src: "extras/Dockerfile", dest: "Dockerfile" },
-    "docker-compose": { src: "extras/docker-compose.yml", dest: "docker-compose.yml" },
-    "vscode-settings": { src: "extras/.vscode/settings.json", dest: ".vscode/settings.json" },
-    "github-ci": { src: "extras/github/workflows/ci.yml", dest: ".github/workflows/ci.yml" },
+  // Extras — optional files at project root.
+  // Two flavors: single-file (1 src → 1 dest) and dir-tree (whole folder
+  // mirrored into the project root, preserving subpaths).
+  type ExtraSingle = { kind: "file"; src: string; dest: string; mode?: number };
+  type ExtraTree = { kind: "tree"; srcDir: string };
+  const EXTRAS_MAP: Record<Payload["extras"][number], ExtraSingle | ExtraTree> = {
+    editorconfig: { kind: "file", src: "extras/.editorconfig", dest: ".editorconfig" },
+    prettierrc: { kind: "file", src: "extras/.prettierrc.json", dest: ".prettierrc.json" },
+    makefile: { kind: "file", src: "extras/Makefile", dest: "Makefile" },
+    dockerfile: { kind: "file", src: "extras/Dockerfile", dest: "Dockerfile" },
+    "docker-compose": { kind: "file", src: "extras/docker-compose.yml", dest: "docker-compose.yml" },
+    "vscode-settings": { kind: "file", src: "extras/.vscode/settings.json", dest: ".vscode/settings.json" },
+    "github-ci": { kind: "file", src: "extras/github/workflows/ci.yml", dest: ".github/workflows/ci.yml" },
+    "team-files": { kind: "tree", srcDir: "extras/team" },
   };
   for (const extra of payload.extras) {
     const info = EXTRAS_MAP[extra];
     if (!info) continue;
-    const buf = await readBuf(path.join(templatesRoot, info.src));
-    if (buf) files.push({ name: info.dest, content: buf, mode: info.mode });
+    if (info.kind === "file") {
+      const buf = await readBuf(path.join(templatesRoot, info.src));
+      if (buf) files.push({ name: info.dest, content: buf, mode: info.mode });
+    } else {
+      const srcAbs = path.join(templatesRoot, info.srcDir);
+      try {
+        const treeFiles = await walk(srcAbs);
+        for (const fileAbs of treeFiles) {
+          const rel = path.relative(srcAbs, fileAbs).split(path.sep).join("/");
+          const buf = await fs.readFile(fileAbs);
+          files.push({ name: rel, content: buf });
+        }
+      } catch {
+        // Tree missing on disk — skip silently.
+      }
+    }
   }
   // Add .dockerignore automatically if dockerfile or docker-compose chosen
   if (payload.extras.includes("dockerfile") || payload.extras.includes("docker-compose")) {

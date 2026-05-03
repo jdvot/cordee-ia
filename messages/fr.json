@@ -1,9 +1,9 @@
 {
   "Metadata": {
-    "title": "Cordée.IA — Conseil IA pour décideurs",
-    "description": "Cabinet de conseil indépendant. IA appliquée pour CTO, COO et comités d'investissement. Cinq phases. Une seule corde.",
-    "ogTitle": "Cordée.IA",
-    "ogDescription": "Conseil IA pour décideurs. Cinq phases. Une seule corde."
+    "title": "Cordée.IA — Démarre un projet Claude Code en 2 minutes",
+    "description": "Générateur open source de starters Claude Code + Claude Design. 9 questions, 14 stacks, agents stack-aware. MIT, gratuit.",
+    "ogTitle": "Cordée.IA — Starter Claude Code",
+    "ogDescription": "Générateur open source. Réponds à 9 questions, télécharge un .zip prêt à l'emploi."
   },
   "LanguageSwitcher": {
     "label": "Langue",
@@ -12,173 +12,176 @@
   },
   "Nav": {
     "ariaLabel": "Cordée.IA",
-    "method": "Méthode",
-    "expertise": "Expertise",
+    "method": "Comment ça marche",
+    "expertise": "Ce qui est dans le zip",
     "personas": "Pour qui",
     "useCases": "Cas d'usage",
     "faq": "FAQ",
     "generator": "Générateur",
-    "ctaBook": "Réserver 30 min"
+    "ctaBook": "Générer mon starter"
   },
   "Hero": {
-    "badge": "Cabinet de conseil IA — Paris & Lyon",
-    "titlePart1": "L'altitude se gagne",
-    "titleEm": "en cordée",
-    "titlePart2": ", pas en solo.",
-    "subtitle": "Nous accompagnons les CTO et dirigeants industriels à transformer l'IA générative en levier opérationnel. Sans hype. Sans pilotes qui ne sortent jamais. Une méthode, cinq phases, des résultats mesurables.",
-    "ctaBook": "Réserver 30 min",
-    "ctaMethod": "Voir la méthode",
+    "badge": "Open source · MIT · Next.js 16",
+    "titlePart1": "Démarre un projet Claude Code",
+    "titleEm": "en 2 minutes",
+    "titlePart2": ", pas en 2 heures.",
+    "subtitle": "Réponds à 9 questions. Télécharge un .zip prêt à l'emploi : agents stack-aware, skills, MCPs, design system, hooks de sécurité. Pas de compte, pas de paywall, pas de stockage.",
+    "ctaBook": "Générer mon starter",
+    "ctaMethod": "Voir le repo",
     "stats": {
-      "roi": { "lab": "ROI moyen à 12 mois", "note": "Sur 32 missions" },
-      "velocity": { "lab": "Vélocité produit", "note": "Mesure DORA" },
-      "delivery": { "lab": "Premier livrable", "note": "Pilote en prod" },
-      "missions": { "lab": "Cordées depuis 2022", "note": "Aucune redescente" }
+      "roi": { "lab": "Questions", "note": "Stepper guidé" },
+      "velocity": { "lab": "Stacks supportées", "note": "Next, Nest, FastAPI, Go, Rust…" },
+      "delivery": { "lab": "Agents Claude", "note": "Stack-aware (test, deps…)" },
+      "missions": { "lab": "MCPs configurables", "note": "Notion, Sentry, Figma…" }
     }
   },
   "Method": {
-    "eyebrow": "02 / Méthode",
-    "titlePart1": "Cinq phases.",
-    "titleEm": "Une seule corde.",
-    "intro": "Ce que nous faisons quand vous nous engagez. Pas un cadre théorique : une routine d'ascension répétée sur 32 missions. Chaque phase s'ouvre sur un livrable signé.",
-    "summit": "SOMMET",
-    "basecamp": "CAMP DE BASE",
-    "phaseLabel": "Phase",
+    "eyebrow": "01 / Comment ça marche",
+    "titlePart1": "Cinq étapes.",
+    "titleEm": "Aucune installation.",
+    "intro": "De la première question au premier prompt utile dans Claude Code. Pas de compte, pas de CLI à installer, pas de tracking. La génération se fait côté serveur Next.js, en mémoire, à chaque requête.",
+    "summit": "FIN",
+    "basecamp": "DÉPART",
+    "phaseLabel": "Étape",
     "phases": [
       {
-        "title": "Reconnaissance",
-        "sub": "Cartographier le terrain",
-        "desc": "Audit éclair de votre paysage IA : cas d'usage, données, équipes, contraintes réglementaires. On sépare les sommets accessibles des faux espoirs.",
-        "out": ["Diagnostic en 10 jours", "Carte des cas d'usage", "Matrice valeur × risque"]
+        "title": "Réponds aux 9 questions",
+        "sub": "2 minutes max",
+        "desc": "Nom, mode (greenfield ou overlay), stack, agents, skills, MCPs, design system, fichiers complémentaires, licence. Tu peux revenir en arrière à tout moment.",
+        "out": ["Stepper 9 étapes", "Validation live", "Pas de compte requis"]
       },
       {
-        "title": "Encordement",
-        "sub": "Aligner la cordée",
-        "desc": "Atelier dirigeants + équipe tech. On définit les rôles, les garde-fous, le rythme. Aucune ascension ne réussit sans encordement clair.",
-        "out": ["Charte IA interne", "Comité de pilotage", "Cadrage des 5 priorités"]
+        "title": "Le générateur customise",
+        "sub": "Tout est filtré, pas générique",
+        "desc": "Le serveur lit les templates, filtre les agents/skills/MCPs cochés, substitue ton nom de projet, ta description, tes couleurs, ta licence. Aucun fichier que tu n'as pas demandé.",
+        "out": ["Filtre par sélection", "Variantes par stack", "Substitution nom/couleurs"]
       },
       {
-        "title": "Acclimatation",
-        "sub": "Pilote sur cas réel",
-        "desc": "Un cas d'usage, ciblé, livré en six semaines. RAG, agents, fine-tuning : on choisit la bonne corde pour la bonne paroi. Pas de démo jouet.",
-        "out": ["Pilote en production", "Mesure ROI baseline", "Équipe interne formée"]
+        "title": "Tu télécharges le zip",
+        "sub": "Streamé en mémoire",
+        "desc": "Le .zip est généré à la volée et streamé. Rien n'est stocké côté serveur, rien n'est envoyé à un tiers (ni Anthropic ni OpenAI). Le payload du formulaire vit le temps de la requête HTTP.",
+        "out": ["Zero storage", "Zero tracking", "Zero tiers"]
       },
       {
-        "title": "Ascension",
-        "sub": "Industrialiser",
-        "desc": "Passage à l'échelle : MLOps, observabilité, gouvernance. La cordée monte régulière, sans à-coups. Vous n'aurez pas besoin de nous pour la phase suivante.",
-        "out": ["Plateforme IA interne", "SLO + monitoring", "Plan de transfert"]
+        "title": "Tu dézippes",
+        "sub": "install.sh dual-mode",
+        "desc": "Greenfield : tu dézippes dans un dossier vide. Overlay : tu lances install.sh dans ton repo existant, il fait un backup et drop la config Claude par-dessus sans rien casser.",
+        "out": ["Greenfield mode", "Overlay mode", "Backup automatique"]
       },
       {
-        "title": "Sommet",
-        "sub": "Autonomie + mesure",
-        "desc": "On redescend. Vous gardez la cordée, les outils, l'expertise. Bilan ROI, plan de capitalisation, prochains itinéraires possibles.",
-        "out": ["ROI documenté", "Roadmap 18 mois", "Cordée autonome"]
+        "title": "Tu lances claude",
+        "sub": "Premier prompt suggéré",
+        "desc": "Greenfield : /kickoff initialise le projet à partir de zéro. Overlay : /audit cartographie le codebase existant en 10 minutes. C'est parti.",
+        "out": ["/kickoff (greenfield)", "/audit (overlay)", "Modèle 90/10 documenté"]
       }
     ]
   },
   "Expertise": {
-    "eyebrow": "03 / Expertise",
-    "titlePart1": "Six terrains.",
-    "titleEm": "Aucune posture.",
-    "intro": "Nous intervenons sur ce que nous avons opéré nous-mêmes. Pas de mission « découverte » à vos frais, pas de slides recyclées d'un autre client. Si ce n'est pas dans cette liste, on vous oriente ailleurs.",
+    "eyebrow": "02 / Ce que tu reçois",
+    "titlePart1": "Six familles de fichiers.",
+    "titleEm": "Tout versionnable.",
+    "intro": "Tout ce qui est dans le zip est lisible, modifiable, supprimable. Aucun binaire, aucun lock-in, aucune dépendance à Cordée.IA après génération. C'est ton repo.",
     "items": [
       {
-        "t": "Stratégie & cadrage IA",
-        "d": "Diagnostic, cas d'usage, business case. Décider quoi lancer, quoi arrêter, quoi attendre.",
-        "tags": ["Audit éclair", "Roadmap 18 mois", "Comité de pilotage"]
+        "t": "Agents Claude (stack-aware)",
+        "d": "10 agents disponibles. Le test-writer arrive avec pytest pour FastAPI, testify pour Go, Vitest pour Next.js. Pas un template générique réécrit à la main.",
+        "tags": ["test-writer", "pr-reviewer", "challenger", "+7 autres"]
       },
       {
-        "t": "Architecture LLM",
-        "d": "RAG hybride, agents, fine-tuning. La bonne corde pour la bonne paroi — pas de stack imposée.",
-        "tags": ["RAG", "Agents", "Fine-tuning", "Évaluation"]
+        "t": "Skills (slash commands)",
+        "d": "8 skills réutilisables. /kickoff, /audit, /design-handoff, /release, /standup… À invoquer comme une commande slash dans Claude Code.",
+        "tags": ["/kickoff", "/audit", "/design-handoff", "+5 autres"]
       },
       {
-        "t": "Industrialisation",
-        "d": "MLOps, observabilité, garde-fous métier. Sortir des proofs-of-concept qui ne sortent jamais.",
-        "tags": ["MLOps", "Observabilité", "Sécurité"]
+        "t": "Rules (conventions)",
+        "d": "Règles de coding par stack, workflow git, sécurité (secrets, GDPR, healthcare si applicable). Lues à chaque session Claude Code.",
+        "tags": ["coding-standards", "git-workflow", "security"]
       },
       {
-        "t": "Gouvernance & conformité",
-        "d": "AI Act, RGPD, charte interne. Cadre de décision robuste pour les comités d'investissement.",
-        "tags": ["AI Act", "RGPD", "Charte"]
+        "t": "Hooks (automatisations)",
+        "d": "pre-edit-secrets bloque les .env et credentials. post-edit-format lance Prettier ou Black selon le fichier. Compatibles Claude Code natifs.",
+        "tags": ["pre-edit-secrets", "post-edit-format"]
       },
       {
-        "t": "Formation des équipes",
-        "d": "Montée en compétence des équipes tech et métier. Vous gardez la cordée à la fin.",
-        "tags": ["Coaching tech", "Ateliers métier"]
+        "t": "MCPs configurés",
+        "d": "12 serveurs MCP au choix : Notion, Sentry, Figma, Playwright, GitHub, Linear, Vercel, Supabase, Stripe, Postgres, Slack, Context7. Cochés = configurés.",
+        "tags": ["Notion", "Sentry", "Playwright", "+9 autres"]
       },
       {
-        "t": "Due diligence IA",
-        "d": "Évaluation de produits ou cibles d'acquisition. Ce qui marche vraiment vs. ce qui démontre.",
-        "tags": ["DD technique", "Audit modèle"]
+        "t": "Design system + extras",
+        "d": "DESIGN.md (exemple Cordée granite+cuivre, ou template vide à 9 sections, ou rien), .editorconfig, Dockerfile, CI GitHub Actions, .vscode, license MIT/Apache/AGPL.",
+        "tags": ["DESIGN.md", "Dockerfile", "CI", "+3 autres"]
       }
     ]
   },
   "Personas": {
-    "eyebrow": "04 / Pour qui",
-    "titlePart1": "On encorde",
-    "titleEm": "trois profils.",
-    "titlePart2": "Pas plus.",
-    "whatWeBring": "Ce qu'on apporte",
+    "eyebrow": "03 / Pour qui",
+    "titlePart1": "Trois profils",
+    "titleEm": "principaux.",
+    "titlePart2": " Plus toi, samedi prochain.",
+    "whatWeBring": "Ce que ça résout",
     "items": [
       {
-        "role": "CTO",
-        "title": "Vous êtes CTO",
-        "quote": "« On a 14 POC. Aucun en prod. Le ComEx s'impatiente. »",
+        "role": "Consultant · Freelance",
+        "title": "Tu démarres 5+ projets clients par an",
+        "quote": "« Je copie-colle mon CLAUDE.md du projet précédent à chaque fois. »",
         "points": [
-          "Cartographier ce qui mérite d'aller en production",
-          "Architecture cible robuste, pas un patchwork de démos",
-          "Plan de transfert vers vos équipes"
+          "Génère un starter customisé pour chaque mission",
+          "Couleurs et nom client substitués automatiquement",
+          "Pas de drift entre tes projets — la base reste cohérente"
         ]
       },
       {
-        "role": "COO / Directeur Industriel",
-        "title": "Vous êtes COO",
-        "quote": "« L'IA, oui, mais sans casser l'opérationnel. »",
+        "role": "Tech Lead · CTO",
+        "title": "Tu veux un standard équipe",
+        "quote": "« Chacun a sa version du CLAUDE.md, c'est le bordel. »",
         "points": [
-          "Identifier les gisements de productivité réels",
-          "Garde-fous métier intégrés dès le pilote",
-          "Mesure d'impact côté terrain, pas en lab"
+          "Génère le starter officiel de l'équipe une fois",
+          "Push-le sur un repo template GitHub",
+          "Tous les nouveaux projets l'héritent automatiquement"
         ]
       },
       {
-        "role": "Comité d'investissement",
-        "title": "Vous êtes ComEx / Board",
-        "quote": "« On finance, mais on veut comprendre ce qu'on signe. »",
+        "role": "Formateur · Speaker",
+        "title": "Tu animes ateliers ou cours",
+        "quote": "« 30 étudiants, 30 setups différents, 30 problèmes différents. »",
         "points": [
-          "Due diligence technique sur cibles ou produits",
-          "Lecture indépendante des promesses fournisseurs",
-          "Cadre de décision aligné sur l'AI Act"
+          "Distribue le même .zip à toute la classe",
+          "Tout le monde commence sur le même pied",
+          "Démo live de la chaîne Claude Design → Code possible"
         ]
       }
     ]
   },
   "Process": {
-    "eyebrow": "05 / Process & livrables",
-    "titlePart1": "Six mois.",
-    "titleEm": "Cinq jalons.",
-    "intro": "Chaque jalon est un livrable signé. Pas de « rapport intermédiaire » qui prend la poussière. À J+47, vous avez un système en production. À J+180, vous n'avez plus besoin de nous.",
-    "engagement": "Engagement type",
+    "eyebrow": "04 / Le zip en détail",
+    "titlePart1": "Huit fichiers clés.",
+    "titleEm": "Zéro magie.",
+    "intro": "Tout ce qu'il y a dans le zip, dans l'ordre où tu vas le rencontrer en ouvrant le projet. Aucune dépendance Cordée.IA après génération — tu peux supprimer ou modifier ce que tu veux.",
+    "engagement": "Specs techniques",
     "fields": {
-      "duration": "Durée",
-      "durationValue": "4 à 6 mois",
-      "team": "Cordée",
-      "teamValue": "2–3 consultants seniors",
-      "fee": "Forfait",
-      "feeValue": "À partir de 85 k€ HT",
-      "start": "Démarrage",
-      "startValue": "3 semaines après signature"
+      "duration": "Génération",
+      "durationValue": "< 1 seconde",
+      "team": "Stockage",
+      "teamValue": "Aucun (tout en mémoire)",
+      "fee": "Coût",
+      "feeValue": "Gratuit, MIT, à vie",
+      "start": "Compte requis",
+      "startValue": "Aucun"
     },
     "deliverables": [
-      { "w": "J+10", "t": "Diagnostic", "d": "Carte des cas d'usage, matrice valeur × risque, recommandations." },
-      { "w": "J+25", "t": "Cadrage", "d": "Charte IA, comité de pilotage, choix des 5 priorités." },
-      { "w": "J+47", "t": "Pilote en prod", "d": "Premier cas d'usage livré, mesuré, transféré." },
-      { "w": "J+90", "t": "Plateforme", "d": "Architecture cible, MLOps, observabilité, garde-fous." },
-      { "w": "J+180", "t": "Bilan & passage", "d": "ROI documenté, équipes autonomes, roadmap actualisée." }
+      { "w": "1.", "t": "CLAUDE.md", "d": "Instructions Claude Code customisées avec ton nom de projet, ta stack, ta description." },
+      { "w": "2.", "t": ".claude/settings.json", "d": "Permissions, hooks, env vars, teammateMode auto (compatible Sonnet 4.6 et Opus 4.7)." },
+      { "w": "3.", "t": ".claude/agents/", "d": "Les agents que tu as cochés. Variantes par stack pour test-writer et dependency-updater." },
+      { "w": "4.", "t": ".claude/skills/", "d": "Les skills cochés (/kickoff, /audit, etc.). Markdown éditable." },
+      { "w": "5.", "t": ".claude/rules/", "d": "Coding standards, git workflow, sécurité. Lus à chaque session." },
+      { "w": "6.", "t": ".mcp.json", "d": "Les serveurs MCP cochés, prêts à utiliser. Auth OAuth ou via env vars selon le serveur." },
+      { "w": "7.", "t": "DESIGN.md", "d": "Design system 9 sections (exemple, vide ou absent selon ton choix)." },
+      { "w": "8.", "t": "install.sh", "d": "Script dual-mode : exécute-le pour copier la config dans un repo existant (overlay)." }
     ]
   },
   "UseCases": {
-    "eyebrow": "07 / Cas d'usage",
+    "eyebrow": "05 / Cas d'usage",
     "titlePart1": "Six terrains.",
     "titleEm": "Une seule corde.",
     "introPart1": "Cordée.IA est gratuit, open source, MIT. Voici à qui il sert concrètement et comment l'utiliser. Si ton cas n'est pas couvert,",
@@ -192,7 +195,7 @@
       {
         "persona": "Indie hacker · Freelance",
         "title": "Démarrer un projet from scratch",
-        "desc": "Réponds à 6 questions, télécharge le .zip, lance claude. 2 minutes au lieu de 2 heures de config CLAUDE.md.",
+        "desc": "Réponds à 9 questions, télécharge le .zip, lance claude. 2 minutes au lieu de 2 heures de config CLAUDE.md.",
         "cta": "Essayer le générateur"
       },
       {
@@ -231,60 +234,60 @@
     "eyebrow": "06 / Questions",
     "titlePart1": "On répond",
     "titleEm": "franchement.",
-    "intro": "Six questions qui reviennent en réunion de cadrage. Si la vôtre n'y est pas, écrivez-nous — on répond en moins de 24h.",
+    "intro": "Six questions qui reviennent. Si la tienne n'y est pas, ouvre une issue sur le repo — on répond en moins de 24h.",
     "items": [
       {
-        "q": "Quelle différence avec un cabinet de conseil généraliste ?",
-        "a": "Nous ne faisons que de l'IA appliquée — et seulement sur des terrains que nous opérons nous-mêmes. Pas de junior à 1 200 €/jour qui découvre votre métier en lisant la presse spécialisée. Trois consultants seniors au maximum, présents tous les jours sur la mission."
+        "q": "C'est vraiment gratuit ?",
+        "a": "Oui. Le code est sous licence MIT, le générateur est open source, jamais de paywall. Le repo est public sur github.com/jdvot/cordee-ia."
       },
       {
-        "q": "Pourquoi un forfait et pas un T&M ?",
-        "a": "Le forfait nous engage sur le résultat, pas sur les heures. Si la mission dépasse, c'est notre problème, pas le vôtre. Conséquence : nous ne prenons pas tous les sujets, et nous refusons les missions mal cadrées."
+        "q": "Mes données sont-elles envoyées à un serveur ?",
+        "a": "Tout est généré côté serveur Next.js, à la volée, en mémoire. Rien n'est stocké, rien n'est envoyé à OpenAI ni à Anthropic. Le payload du formulaire vit le temps de la requête HTTP, le .zip est streamé directement vers ton navigateur."
       },
       {
-        "q": "Vous travaillez avec quels modèles / fournisseurs ?",
-        "a": "Indépendants. Selon le cas : Claude, GPT, Mistral, Llama en self-hosted. Nous n'avons aucun partenariat commercial avec un éditeur de modèle. La recommandation suit la valeur métier, pas une rétrocommission."
+        "q": "Je peux modifier le zip ensuite ?",
+        "a": "Oui, c'est ton repo. Modifie, supprime, ajoute, force-push. Cordée.IA n'a aucun lien avec le projet une fois généré — pas de phone-home, pas de tracking, pas d'update push."
       },
       {
-        "q": "Et la conformité — AI Act, RGPD, secret industriel ?",
-        "a": "Cadre intégré dès la phase de cadrage. Nous travaillons régulièrement avec des équipes juridiques internes et des cabinets spécialisés. Hébergement souverain disponible (OVHcloud, Scaleway) sur demande."
+        "q": "Pourquoi Claude Code et pas Cursor ou Cline ?",
+        "a": "Le starter est tool-agnostic — les agents et skills marchent avec n'importe quel outil qui lit les fichiers .md. Mais la structure .claude/, les hooks et les settings sont optimisés pour Claude Code en priorité."
       },
       {
-        "q": "Combien de missions menez-vous en parallèle ?",
-        "a": "Trois, jamais plus. C'est ce qui nous permet de garantir la présence terrain et le forfait. Un démarrage demande typiquement 3 semaines après signature — parfois plus si nous sommes complets."
+        "q": "Quels modèles Claude sont utilisés ?",
+        "a": "Le starter recommande le routing 90/10 d'Anthropic : 90% Sonnet 4.6 sur le mécanique (research, doc, deps), 10% Opus 4.7 + effort xhigh sur le reasoning lourd (challenger, code review, db migrations). Documenté dans le CLAUDE.md généré."
       },
       {
-        "q": "Travaillez-vous avec des PME ou seulement des grands comptes ?",
-        "a": "Les deux, à condition que le sujet soit cadrable et que la décision puisse être prise rapidement. Nous avons accompagné des ETI familiales comme des groupes du SBF 120. Le forfait minimum est de 85 k€ HT."
+        "q": "Comment vous gagnez de l'argent ?",
+        "a": "On ne gagne pas. Le repo est OSS sous MIT. C'est un asset que j'utilise sur mes missions et ateliers Claude Code, partagé parce que ça peut faire gagner du temps à d'autres. Pas de produit à scaler."
       }
     ]
   },
   "CTA": {
-    "eyebrow": "Prochain départ",
-    "titlePart1": "30 minutes,",
-    "titlePart2": "pour décider",
-    "titleEm": "si on monte ensemble.",
-    "intro": "Premier appel cadré — votre contexte, vos contraintes, ce qu'on peut vraiment apporter. Sans slides, sans engagement.",
-    "ctaBook": "Réserver un créneau",
-    "responseTime": "Réponse sous 24h ouvrées"
+    "eyebrow": "Prêt ?",
+    "titlePart1": "Deux minutes,",
+    "titlePart2": "pour démarrer",
+    "titleEm": "ton prochain projet.",
+    "intro": "Pas de compte. Pas de paywall. Pas de stockage. Le .zip est streamé directement dans ton navigateur. Tu peux fermer l'onglet juste après — tout ce qu'il te faut est dans le fichier.",
+    "ctaBook": "Générer mon starter",
+    "responseTime": "Open source · MIT · github.com/jdvot/cordee-ia"
   },
   "Footer": {
-    "tagline": "Cabinet de conseil indépendant. IA appliquée pour CTO, COO et comités d'investissement.",
-    "cities": "Paris · Lyon · Genève",
-    "cabinet": "Cabinet",
-    "cabinetLinks": ["Méthode", "Expertise", "Pour qui", "Cas clients", "Équipe"],
+    "tagline": "Générateur open source de starters Claude Code + Claude Design. MIT, gratuit, sans compte.",
+    "cities": "Open source · MIT",
+    "cabinet": "Produit",
+    "cabinetLinks": ["Comment ça marche", "Ce qui est dans le zip", "Pour qui", "Cas d'usage", "FAQ"],
     "resources": "Ressources",
-    "resourcesLinks": ["Études", "Note AI Act", "Charte IA modèle", "Newsletter — La Cordée", "Générateur de starter"],
+    "resourcesLinks": ["Repo GitHub", "USE_CASES.md", "CONTRIBUTING.md", "CHANGELOG.md", "Issues"],
     "legal": "Légal",
-    "legalLinks": ["Mentions légales", "Politique de confidentialité", "CGU", "contact@cordee.ia"],
-    "copyright": "© 2026 Cordée.IA SAS — Capital 50 000 € — RCS Paris 932 481 207",
-    "version": "v.2026.05 — fait à 1 200 m"
+    "legalLinks": ["Licence MIT", "Politique de confidentialité (zéro tracking)", "Code of Conduct", "julien.dvt57@gmail.com"],
+    "copyright": "© 2026 Julien Devot — Cordée.IA est sous licence MIT",
+    "version": "v.2026.05 — fait en France"
   },
   "Generator": {
     "Hero": {
       "badge": "Cordée.IA — open source, MIT",
       "title": "Démarre un projet Claude Code + Claude Design en 2 minutes",
-      "subtitle": "Réponds à 6 questions. Télécharge un .zip prêt à l'emploi. Gratuit, open source, MIT.",
+      "subtitle": "Réponds à 9 questions. Télécharge un .zip prêt à l'emploi. Gratuit, open source, MIT.",
       "ctaStart": "Démarrer le questionnaire",
       "ctaRepo": "Voir le repo GitHub",
       "stats": {
@@ -299,8 +302,8 @@
       "title": "Comment ça marche",
       "subtitle": "Quatre étapes, dans cet ordre. Pas de compte, pas de paywall.",
       "steps": [
-        { "title": "Réponds aux 6 questions", "desc": "Nom du projet, mode, stack, agents, skills, MCPs. 2 minutes max." },
-        { "title": "On customize les templates", "desc": "Le générateur ne garde que ce que tu as choisi et personnalise CLAUDE.md, .mcp.json, .claude/." },
+        { "title": "Réponds aux 9 questions", "desc": "Nom du projet, mode, stack, agents, skills, MCPs, design system, extras, licence. 2 minutes max." },
+        { "title": "On customize les templates", "desc": "Le générateur ne garde que ce que tu as choisi et personnalise CLAUDE.md, .mcp.json, .claude/. Variantes par stack pour les agents." },
         { "title": "Tu télécharges le zip", "desc": "Un .zip prêt à dézipper dans ton repo (greenfield) ou par-dessus un repo existant (overlay)." },
         { "title": "Tu lances claude et tu codes", "desc": "Premier prompt suggéré : /kickoff (greenfield) ou /audit (overlay). C'est parti." }
       ]
@@ -310,7 +313,7 @@
       "title": "Ce que tu reçois dans le zip",
       "subtitle": "Tout est versionnable, lisible, modifiable. Aucun fichier binaire, aucun lock-in.",
       "items": [
-        { "name": ".claude/", "desc": "settings, 4 agents, 3 skills, 2 hooks, 3 rules." },
+        { "name": ".claude/", "desc": "settings, agents, skills, hooks, rules — selon tes choix." },
         { "name": "CLAUDE.md", "desc": "Instructions Claude Code customisées avec ton stack." },
         { "name": "DESIGN.md", "desc": "Design system 9 sections (vide ou exemple Cordée)." },
         { "name": ".mcp.json", "desc": "MCPs sélectionnés (notion, context7, figma…)." },
@@ -321,7 +324,7 @@
     "QuestionnaireSection": {
       "eyebrow": "Configuration",
       "title": "Configure ton starter",
-      "subtitle": "Six étapes. Aucun compte. La génération se fait côté serveur Next.js, rien n'est stocké."
+      "subtitle": "Neuf étapes. Aucun compte. La génération se fait côté serveur Next.js, rien n'est stocké."
     },
     "Faq": {
       "eyebrow": "Questions fréquentes",
@@ -332,7 +335,7 @@
         { "q": "Mes données sont-elles envoyées à un serveur ?", "a": "Tout est généré côté serveur Next.js, à la volée, en mémoire. Rien n'est stocké, rien n'est envoyé à OpenAI ni à Anthropic. Le payload du formulaire vit le temps de la requête HTTP." },
         { "q": "Je peux modifier le zip ensuite ?", "a": "Oui, c'est ton repo. Modifie, supprime, ajoute, force-push. Cordée.IA n'a aucun lien avec le projet une fois généré." },
         { "q": "Pourquoi Claude Code et pas Cursor ou Cline ?", "a": "Le starter est tool-agnostic — les agents et skills marchent avec n'importe quel outil qui lit les fichiers .md. Mais la structure .claude/ et les hooks sont optimisés pour Claude Code." },
-        { "q": "Comment vous gagnez de l'argent ?", "a": "On ne gagne pas. Le repo est OSS. Je consulte à côté (Cordée.IA consulting). Le générateur est ma manière de partager ce qui marche en mission." },
+        { "q": "Comment vous gagnez de l'argent ?", "a": "On ne gagne pas. Le repo est OSS. Un asset partagé, pas un produit à scaler." },
         { "q": "Et si j'ai un projet existant ?", "a": "Choisis « Projet existant » dans le questionnaire. Le install.sh ajoute uniquement les fichiers Claude par-dessus ton repo, sans rien casser. Backup automatique du .claude/ existant." }
       ]
     },
@@ -373,7 +376,7 @@
       },
       "step3": {
         "title": "Stack technique ?",
-        "subtitle": "Optionnel. Sert à pré-remplir les conventions de code dans CLAUDE.md."
+        "subtitle": "Optionnel. Sert à pré-remplir les conventions de code dans CLAUDE.md et choisir les variantes d'agents (test-writer, dependency-updater)."
       },
       "step4": {
         "title": "Agents Claude voulus ?",
@@ -403,7 +406,7 @@
       },
       "step9": {
         "title": "Quelle licence ?",
-        "subtitle": "Le fichier LICENSE est ajouté à la racine. Aucun cas = code privé tous droits réservés."
+        "subtitle": "Le fichier LICENSE est ajouté à la racine. Aucune = code privé tous droits réservés."
       },
       "stack_options": {
         "nextjs": "Next.js",
@@ -429,8 +432,8 @@
         "db-migration-reviewer": "Review migrations Prisma/Alembic/Drizzle (Opus xhigh)",
         "a11y-auditor": "Audit accessibilité WCAG 2.2 (Sonnet)",
         "doc-writer": "Écrit ou met à jour la doc (Sonnet)",
-        "dependency-updater": "Bump deps + lit les changelogs (Sonnet)",
-        "test-writer": "Écrit des tests Vitest/Jest/pytest (Sonnet)",
+        "dependency-updater": "Bump deps + lit les changelogs (Sonnet, stack-aware)",
+        "test-writer": "Écrit des tests Vitest/Jest/pytest/go test/cargo test (Sonnet, stack-aware)",
         "page-writer": "Owner d'une page Notion / markdown (Sonnet)"
       },
       "skill_options": {
@@ -464,7 +467,8 @@
         "dockerfile": "Multi-stage build Node 24 / Python 3.12",
         "docker-compose": "App + Postgres en local",
         "vscode-settings": "ESLint format on save, Tailwind IntelliSense",
-        "github-ci": "CI lint + typecheck + build + test"
+        "github-ci": "CI lint + typecheck + build + test",
+        "team-files": "Template équipe (CONTRIBUTING + CODEOWNERS + PR/issue templates)"
       },
       "license_options": {
         "MIT": { "label": "MIT", "hint": "Permissive, par défaut. Fork libre." },
