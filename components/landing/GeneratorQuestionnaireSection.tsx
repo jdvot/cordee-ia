@@ -31,12 +31,12 @@ export function GeneratorQuestionnaireSection({ locale }: Props) {
   const t = useTranslations("Generator.QuestionnaireSection");
   const isFr = locale === "fr";
 
-  // Bilingual hardcoded copy for the side hints — short, generic, doesn't
+  // Bilingual hardcoded copy for the side hints, short, generic, doesn't
   // need a translation key (we'd add one if these grow).
   const tipLabel = isFr ? "Compteur" : "Counter";
   const tipText = isFr
-    ? "Le décompte se met à jour à chaque sélection — chaque case cochée ajoute un fichier au .zip."
-    : "The count updates with every selection — each box you tick adds a file to the .zip.";
+    ? "Le décompte se met à jour à chaque sélection, chaque case cochée ajoute un fichier au .zip."
+    : "The count updates with every selection, each box you tick adds a file to the .zip.";
   const outputLabel = isFr ? "Aperçu live" : "Live preview";
 
   const [values, setValues] = React.useState<ZipSelections>(DEFAULT_SELECTIONS);
@@ -75,7 +75,7 @@ export function GeneratorQuestionnaireSection({ locale }: Props) {
         />
 
         <div className="mt-16 grid lg:grid-cols-[220px_minmax(0,640px)_280px] gap-8 items-start">
-          {/* LEFT — Animated file counter */}
+          {/* LEFT, Animated file counter */}
           <aside className="hidden lg:block sticky top-32">
             <div className="text-xs font-mono uppercase tracking-wider text-[var(--color-muted)] mb-3">
               {tipLabel}
@@ -90,12 +90,12 @@ export function GeneratorQuestionnaireSection({ locale }: Props) {
             </p>
           </aside>
 
-          {/* CENTER — Questionnaire (lifted state via onValuesChange) */}
+          {/* CENTER, Questionnaire (lifted state via onValuesChange) */}
           <div>
             <Questionnaire onValuesChange={handleValuesChange} />
           </div>
 
-          {/* RIGHT — Live file tree preview */}
+          {/* RIGHT, Live file tree preview */}
           <aside className="hidden lg:block sticky top-32">
             <div className="text-xs font-mono uppercase tracking-wider text-[var(--color-accent)] mb-3">
               {outputLabel}

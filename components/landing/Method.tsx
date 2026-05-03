@@ -201,7 +201,7 @@ export function Method() {
                     {p.n}
                   </span>
                   <span className="caption">
-                    {p.alt} — {t("phaseLabel")} {p.n}
+                    {p.alt}, {t("phaseLabel")} {p.n}
                   </span>
                 </div>
                 <h3

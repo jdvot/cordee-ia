@@ -1,8 +1,8 @@
 {
   "Metadata": {
-    "title": "Cordée.IA — Démarre un projet Claude Code en 2 minutes",
+    "title": "Cordée.IA, Démarre un projet Claude Code en 2 minutes",
     "description": "Générateur open source de starters Claude Code + Claude Design. 9 questions, 14 stacks, agents stack-aware. MIT, gratuit.",
-    "ogTitle": "Cordée.IA — Starter Claude Code",
+    "ogTitle": "Cordée.IA, Starter Claude Code",
     "ogDescription": "Générateur open source. Réponds à 9 questions, télécharge un .zip prêt à l'emploi."
   },
   "LanguageSwitcher": {
@@ -128,7 +128,7 @@
         "points": [
           "Génère un starter customisé pour chaque mission",
           "Couleurs et nom client substitués automatiquement",
-          "Pas de drift entre tes projets — la base reste cohérente"
+          "Pas de drift entre tes projets, la base reste cohérente"
         ]
       },
       {
@@ -157,7 +157,7 @@
     "eyebrow": "04 / Le zip en détail",
     "titlePart1": "Huit fichiers clés.",
     "titleEm": "Zéro magie.",
-    "intro": "Tout ce qu'il y a dans le zip, dans l'ordre où tu vas le rencontrer en ouvrant le projet. Aucune dépendance Cordée.IA après génération — tu peux supprimer ou modifier ce que tu veux.",
+    "intro": "Tout ce qu'il y a dans le zip, dans l'ordre où tu vas le rencontrer en ouvrant le projet. Aucune dépendance Cordée.IA après génération, tu peux supprimer ou modifier ce que tu veux.",
     "engagement": "Specs techniques",
     "fields": {
       "duration": "Génération",
@@ -234,7 +234,7 @@
     "eyebrow": "06 / Questions",
     "titlePart1": "On répond",
     "titleEm": "franchement.",
-    "intro": "Six questions qui reviennent. Si la tienne n'y est pas, ouvre une issue sur le repo — on répond en moins de 24h.",
+    "intro": "Six questions qui reviennent. Si la tienne n'y est pas, ouvre une issue sur le repo, on répond en moins de 24h.",
     "items": [
       {
         "q": "C'est vraiment gratuit ?",
@@ -246,11 +246,11 @@
       },
       {
         "q": "Je peux modifier le zip ensuite ?",
-        "a": "Oui, c'est ton repo. Modifie, supprime, ajoute, force-push. Cordée.IA n'a aucun lien avec le projet une fois généré — pas de phone-home, pas de tracking, pas d'update push."
+        "a": "Oui, c'est ton repo. Modifie, supprime, ajoute, force-push. Cordée.IA n'a aucun lien avec le projet une fois généré, pas de phone-home, pas de tracking, pas d'update push."
       },
       {
         "q": "Pourquoi Claude Code et pas Cursor ou Cline ?",
-        "a": "Le starter est tool-agnostic — les agents et skills marchent avec n'importe quel outil qui lit les fichiers .md. Mais la structure .claude/, les hooks et les settings sont optimisés pour Claude Code en priorité."
+        "a": "Le starter est tool-agnostic, les agents et skills marchent avec n'importe quel outil qui lit les fichiers .md. Mais la structure .claude/, les hooks et les settings sont optimisés pour Claude Code en priorité."
       },
       {
         "q": "Quels modèles Claude sont utilisés ?",
@@ -267,7 +267,7 @@
     "titlePart1": "Deux minutes,",
     "titlePart2": "pour démarrer",
     "titleEm": "ton prochain projet.",
-    "intro": "Pas de compte. Pas de paywall. Pas de stockage. Le .zip est streamé directement dans ton navigateur. Tu peux fermer l'onglet juste après — tout ce qu'il te faut est dans le fichier.",
+    "intro": "Pas de compte. Pas de paywall. Pas de stockage. Le .zip est streamé directement dans ton navigateur. Tu peux fermer l'onglet juste après, tout ce qu'il te faut est dans le fichier.",
     "ctaBook": "Générer mon starter",
     "responseTime": "Open source · MIT · github.com/jdvot/cordee-ia"
   },
@@ -280,12 +280,12 @@
     "resourcesLinks": ["Repo GitHub", "USE_CASES.md", "CONTRIBUTING.md", "CHANGELOG.md", "Issues"],
     "legal": "Légal",
     "legalLinks": ["Licence MIT", "Politique de confidentialité (zéro tracking)", "Code of Conduct", "julien.dvt57@gmail.com"],
-    "copyright": "© 2026 Julien Devot — Cordée.IA est sous licence MIT",
-    "version": "v.2026.05 — fait en France"
+    "copyright": "© 2026 Julien Devot, Cordée.IA est sous licence MIT",
+    "version": "v.2026.05, fait en France"
   },
   "Generator": {
     "Hero": {
-      "badge": "Cordée.IA — open source, MIT",
+      "badge": "Cordée.IA, open source, MIT",
       "title": "Démarre un projet Claude Code + Claude Design en 2 minutes",
       "subtitle": "Réponds à 9 questions. Télécharge un .zip prêt à l'emploi. Gratuit, open source, MIT.",
       "ctaStart": "Démarrer le questionnaire",
@@ -313,7 +313,7 @@
       "title": "Ce que tu reçois dans le zip",
       "subtitle": "Tout est versionnable, lisible, modifiable. Aucun fichier binaire, aucun lock-in.",
       "items": [
-        { "name": ".claude/", "desc": "settings, agents, skills, hooks, rules — selon tes choix." },
+        { "name": ".claude/", "desc": "settings, agents, skills, hooks, rules, selon tes choix." },
         { "name": "CLAUDE.md", "desc": "Instructions Claude Code customisées avec ton stack." },
         { "name": "DESIGN.md", "desc": "Design system 9 sections (vide ou exemple Cordée)." },
         { "name": ".mcp.json", "desc": "MCPs sélectionnés (notion, context7, figma…)." },
@@ -334,13 +334,13 @@
         { "q": "C'est vraiment gratuit ?", "a": "Oui. Le code est sous licence MIT, le générateur est open source, jamais de paywall." },
         { "q": "Mes données sont-elles envoyées à un serveur ?", "a": "Tout est généré côté serveur Next.js, à la volée, en mémoire. Rien n'est stocké, rien n'est envoyé à OpenAI ni à Anthropic. Le payload du formulaire vit le temps de la requête HTTP." },
         { "q": "Je peux modifier le zip ensuite ?", "a": "Oui, c'est ton repo. Modifie, supprime, ajoute, force-push. Cordée.IA n'a aucun lien avec le projet une fois généré." },
-        { "q": "Pourquoi Claude Code et pas Cursor ou Cline ?", "a": "Le starter est tool-agnostic — les agents et skills marchent avec n'importe quel outil qui lit les fichiers .md. Mais la structure .claude/ et les hooks sont optimisés pour Claude Code." },
+        { "q": "Pourquoi Claude Code et pas Cursor ou Cline ?", "a": "Le starter est tool-agnostic, les agents et skills marchent avec n'importe quel outil qui lit les fichiers .md. Mais la structure .claude/ et les hooks sont optimisés pour Claude Code." },
         { "q": "Comment vous gagnez de l'argent ?", "a": "On ne gagne pas. Le repo est OSS. Un asset partagé, pas un produit à scaler." },
         { "q": "Et si j'ai un projet existant ?", "a": "Choisis « Projet existant » dans le questionnaire. Le install.sh ajoute uniquement les fichiers Claude par-dessus ton repo, sans rien casser. Backup automatique du .claude/ existant." }
       ]
     },
     "Footer": {
-      "copyright": "Cordée.IA — MIT — 2026",
+      "copyright": "Cordée.IA, MIT, 2026",
       "linkedin": "LinkedIn",
       "contact": "Contact"
     },

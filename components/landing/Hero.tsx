@@ -92,7 +92,7 @@ export function Hero() {
           </Reveal>
         </div>
 
-        {/* Stats with vertical dividers — premium feel */}
+        {/* Stats with vertical dividers, premium feel */}
         <Reveal delay={400}>
           <div
             style={{

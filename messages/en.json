@@ -1,8 +1,8 @@
 {
   "Metadata": {
-    "title": "Cordée.IA — Bootstrap a Claude Code project in 2 minutes",
+    "title": "Cordée.IA, Bootstrap a Claude Code project in 2 minutes",
     "description": "Open-source generator for Claude Code + Claude Design starters. 9 questions, 14 stacks, stack-aware agents. MIT, free.",
-    "ogTitle": "Cordée.IA — Claude Code Starter",
+    "ogTitle": "Cordée.IA, Claude Code Starter",
     "ogDescription": "Open-source generator. Answer 9 questions, download a ready-to-use .zip."
   },
   "LanguageSwitcher": {
@@ -47,7 +47,7 @@
       {
         "title": "Answer the 9 questions",
         "sub": "2 minutes max",
-        "desc": "Name, mode (greenfield or overlay), stack, agents, skills, MCPs, design system, extras, license. Go back at any point — nothing is locked.",
+        "desc": "Name, mode (greenfield or overlay), stack, agents, skills, MCPs, design system, extras, license. Go back at any point, nothing is locked.",
         "out": ["9-step stepper", "Live validation", "No account required"]
       },
       {
@@ -128,7 +128,7 @@
         "points": [
           "Generate a customized starter for each engagement",
           "Client name and brand colors substituted automatically",
-          "No drift between projects — the baseline stays consistent"
+          "No drift between projects, the baseline stays consistent"
         ]
       },
       {
@@ -157,7 +157,7 @@
     "eyebrow": "04 / The zip in detail",
     "titlePart1": "Eight key files.",
     "titleEm": "Zero magic.",
-    "intro": "Everything in the zip, in the order you'll meet it when you open the project. No Cordée.IA dependency after generation — delete or modify whatever you want.",
+    "intro": "Everything in the zip, in the order you'll meet it when you open the project. No Cordée.IA dependency after generation, delete or modify whatever you want.",
     "engagement": "Tech specs",
     "fields": {
       "duration": "Generation",
@@ -176,7 +176,7 @@
       { "w": "4.", "t": ".claude/skills/", "d": "The skills you checked (/kickoff, /audit, etc.). Editable markdown." },
       { "w": "5.", "t": ".claude/rules/", "d": "Coding standards, git workflow, security. Loaded on every session." },
       { "w": "6.", "t": ".mcp.json", "d": "The MCP servers you checked, ready to use. OAuth or env-var auth depending on the server." },
-      { "w": "7.", "t": "DESIGN.md", "d": "9-section design system (example, blank, or absent — your choice)." },
+      { "w": "7.", "t": "DESIGN.md", "d": "9-section design system (example, blank, or absent, your choice)." },
       { "w": "8.", "t": "install.sh", "d": "Dual-mode script: run it to drop the config on top of an existing repo (overlay mode)." }
     ]
   },
@@ -234,7 +234,7 @@
     "eyebrow": "06 / Questions",
     "titlePart1": "Honest",
     "titleEm": "answers.",
-    "intro": "Six questions that come up often. If yours isn't here, open an issue on the repo — we reply within 24h.",
+    "intro": "Six questions that come up often. If yours isn't here, open an issue on the repo, we reply within 24h.",
     "items": [
       {
         "q": "Is it really free?",
@@ -246,11 +246,11 @@
       },
       {
         "q": "Can I modify the zip afterwards?",
-        "a": "Yes — it's your repo. Modify, delete, add, force-push. Cordée.IA has zero connection to the project after generation: no phone-home, no tracking, no auto-updates."
+        "a": "Yes, it's your repo. Modify, delete, add, force-push. Cordée.IA has zero connection to the project after generation: no phone-home, no tracking, no auto-updates."
       },
       {
         "q": "Why Claude Code and not Cursor or Cline?",
-        "a": "The starter is tool-agnostic — the agents and skills work with any tool that reads .md files. But the .claude/ structure, hooks, and settings are optimized for Claude Code first."
+        "a": "The starter is tool-agnostic, the agents and skills work with any tool that reads .md files. But the .claude/ structure, hooks, and settings are optimized for Claude Code first."
       },
       {
         "q": "Which Claude models are used?",
@@ -267,7 +267,7 @@
     "titlePart1": "Two minutes",
     "titlePart2": "to start",
     "titleEm": "your next project.",
-    "intro": "No account. No paywall. No storage. The .zip is streamed straight to your browser. Close the tab right after — everything you need is in the file.",
+    "intro": "No account. No paywall. No storage. The .zip is streamed straight to your browser. Close the tab right after, everything you need is in the file.",
     "ctaBook": "Generate my starter",
     "responseTime": "Open source · MIT · github.com/jdvot/cordee-ia"
   },
@@ -280,12 +280,12 @@
     "resourcesLinks": ["GitHub repo", "USE_CASES.md", "CONTRIBUTING.md", "CHANGELOG.md", "Issues"],
     "legal": "Legal",
     "legalLinks": ["MIT license", "Privacy policy (zero tracking)", "Code of Conduct", "julien.dvt57@gmail.com"],
-    "copyright": "© 2026 Julien Devot — Cordée.IA is MIT-licensed",
-    "version": "v.2026.05 — made in France"
+    "copyright": "© 2026 Julien Devot, Cordée.IA is MIT-licensed",
+    "version": "v.2026.05, made in France"
   },
   "Generator": {
     "Hero": {
-      "badge": "Cordée.IA — open source, MIT",
+      "badge": "Cordée.IA, open source, MIT",
       "title": "Bootstrap a Claude Code + Claude Design project in 2 minutes",
       "subtitle": "Answer 9 questions. Download a ready-to-use .zip. Free, open source, MIT.",
       "ctaStart": "Start the questionnaire",
@@ -313,7 +313,7 @@
       "title": "What you get in the zip",
       "subtitle": "Everything is versionable, readable, editable. No binary files, no lock-in.",
       "items": [
-        { "name": ".claude/", "desc": "settings, agents, skills, hooks, rules — based on your choices." },
+        { "name": ".claude/", "desc": "settings, agents, skills, hooks, rules, based on your choices." },
         { "name": "CLAUDE.md", "desc": "Claude Code instructions customized with your stack." },
         { "name": "DESIGN.md", "desc": "9-section design system (blank or Cordée example)." },
         { "name": ".mcp.json", "desc": "Selected MCPs (notion, context7, figma…)." },
@@ -334,13 +334,13 @@
         { "q": "Is it really free?", "a": "Yes. Code is MIT-licensed, the generator is open source, no paywall ever." },
         { "q": "Is my data sent to a server?", "a": "Everything is generated server-side on Next.js, on the fly, in memory. Nothing is stored, nothing is sent to OpenAI or Anthropic. The form payload lives only for the HTTP request." },
         { "q": "Can I modify the zip afterwards?", "a": "Yes, it's your repo. Modify, delete, add, force-push. Cordée.IA has no link to the project once generated." },
-        { "q": "Why Claude Code and not Cursor or Cline?", "a": "The starter is tool-agnostic — the agents and skills work with any tool that reads .md files. But the .claude/ structure and hooks are optimized for Claude Code." },
+        { "q": "Why Claude Code and not Cursor or Cline?", "a": "The starter is tool-agnostic, the agents and skills work with any tool that reads .md files. But the .claude/ structure and hooks are optimized for Claude Code." },
         { "q": "How do you make money?", "a": "We don't. The repo is OSS. A shared asset, not a product to scale." },
         { "q": "What if I have an existing project?", "a": "Pick \"Existing project\" in the questionnaire. install.sh adds only the Claude files on top of your repo, without breaking anything. Automatic backup of any prior .claude/." }
       ]
     },
     "Footer": {
-      "copyright": "Cordée.IA — MIT — 2026",
+      "copyright": "Cordée.IA, MIT, 2026",
       "linkedin": "LinkedIn",
       "contact": "Contact"
     },

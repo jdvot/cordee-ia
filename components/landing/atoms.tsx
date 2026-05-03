@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState, type ReactNode, type CSSProperties } from "react";
 
 /* =========================================================
-   Topographic background — concentric ellipses, hand-rotated.
+   Topographic background, concentric ellipses, hand-rotated.
    ========================================================= */
 
 interface TopoProps {
@@ -45,7 +45,7 @@ export function Topo({ density = 14 }: TopoProps) {
 }
 
 /* =========================================================
-   Counter — animates to target value when scrolled into view.
+   Counter, animates to target value when scrolled into view.
    ========================================================= */
 
 interface CounterProps {
@@ -104,7 +104,7 @@ export function Counter({
 }
 
 /* =========================================================
-   Reveal — fade + translateY when scrolled into view.
+   Reveal, fade + translateY when scrolled into view.
    ========================================================= */
 
 interface RevealProps {
@@ -147,7 +147,7 @@ export function Reveal({
 }
 
 /* =========================================================
-   Placeholder — striped monochrome with monospace caption.
+   Placeholder, striped monochrome with monospace caption.
    ========================================================= */
 
 interface PlaceholderProps {

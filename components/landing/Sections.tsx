@@ -248,7 +248,7 @@ export function Personas() {
                         fontStyle: "italic",
                       }}
                     >
-                      —
+                      
                     </span>
                   )}
                   {persona.role}
