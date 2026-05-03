@@ -5,6 +5,8 @@ import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { ArrowRight, CordeeMark } from "./atoms";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
+import { DarkToggle } from "@/components/ui/DarkToggle";
+import { ColorPicker } from "@/components/ui/ColorPicker";
 
 export function Nav() {
   const t = useTranslations("Nav");
@@ -33,7 +35,9 @@ export function Nav() {
           <a href="#faq">{t("faq")}</a>
           <Link href="/generator">{t("generator")}</Link>
         </div>
-        <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+          <ColorPicker className="hidden md:inline-flex" />
+          <DarkToggle />
           <LanguageSwitcher variant="nav" />
           <a href="#cta" className="btn btn-accent">
             {t("ctaBook")} <ArrowRight size={14} />
