@@ -3,6 +3,7 @@ name: test-writer
 description: Writes unit, integration, or E2E tests for the current stack (Vitest, Jest, pytest, Playwright). Reads the code to derive cases, covers edge paths, and avoids tautological assertions. Use after implementing a feature or fixing a bug.
 model: sonnet
 effort: medium
+color: green
 tools: [Read, Write, Edit, Glob, Grep, Bash]
 ---
 

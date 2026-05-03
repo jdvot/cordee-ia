@@ -3,6 +3,7 @@ name: researcher
 description: Web research expert. Searches for documentation, benchmarks, and best practices. Documents findings with sources. Use when you need factual matter before deciding.
 model: sonnet
 effort: medium
+color: cyan
 tools: [WebSearch, WebFetch, Read, Write, Glob, Grep]
 ---
 

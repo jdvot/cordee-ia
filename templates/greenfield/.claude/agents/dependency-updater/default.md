@@ -3,6 +3,7 @@ name: dependency-updater
 description: Bumps dependencies safely. Reads upstream changelogs and release notes, classifies updates (patch / minor / major / breaking), and produces a migration plan. Use weekly or before a release window.
 model: sonnet
 effort: medium
+color: green
 tools: [Read, Edit, Bash, WebFetch]
 ---
 

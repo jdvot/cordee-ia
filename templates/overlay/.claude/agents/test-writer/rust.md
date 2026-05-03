@@ -3,6 +3,7 @@ name: test-writer
 description: Writes unit, integration, and async tests for Rust. Built-in `#[test]` + `tokio::test` + `proptest` for property-based. Reads the code to derive cases, covers edge paths, avoids tautological assertions.
 model: sonnet
 effort: medium
+color: green
 tools: [Read, Write, Edit, Glob, Grep, Bash]
 ---
 

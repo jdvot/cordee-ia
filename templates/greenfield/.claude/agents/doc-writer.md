@@ -3,6 +3,7 @@ name: doc-writer
 description: Writes or updates project documentation — README, CHANGELOG, JSDoc, docstrings, ADRs. Reads code to extract truth, never invents behavior. Use when shipping a feature, releasing a version, or onboarding a new dev.
 model: sonnet
 effort: medium
+color: yellow
 tools: [Read, Write, Edit, Glob, Grep]
 ---
 

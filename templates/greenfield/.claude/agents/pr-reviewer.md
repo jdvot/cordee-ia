@@ -3,6 +3,7 @@ name: pr-reviewer
 description: Reviews an open pull request end-to-end. Reads the diff, runs the test suite mentally, checks for breaking changes, security issues, missing tests, and migration safety. Use when a PR is ready for merge gate.
 model: opus
 effort: xhigh
+color: orange
 tools: [Read, Glob, Grep, Bash]
 ---
 

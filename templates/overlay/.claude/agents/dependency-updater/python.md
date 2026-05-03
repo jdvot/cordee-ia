@@ -3,6 +3,7 @@ name: dependency-updater
 description: Bumps Python dependencies safely. Reads upstream changelogs, classifies updates, produces a migration plan. uv / pip / poetry aware. Use weekly or before a release window.
 model: sonnet
 effort: medium
+color: green
 tools: [Read, Edit, Bash, WebFetch]
 ---
 

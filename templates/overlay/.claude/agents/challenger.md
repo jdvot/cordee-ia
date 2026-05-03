@@ -3,6 +3,7 @@ name: challenger
 description: Devil's advocate. Challenges every technical and strategic decision with YAGNI/KISS, cheaper alternatives, hidden risks, unverified hypotheses. Never proposes without first challenging.
 model: opus
 effort: xhigh
+color: red
 tools: [WebSearch, WebFetch, Read, Glob, Grep]
 ---
 

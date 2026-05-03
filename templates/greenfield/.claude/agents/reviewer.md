@@ -3,6 +3,7 @@ name: reviewer
 description: Code reviewer for an existing codebase. Reads PRs / diffs / files and flags risk, security, perf, readability, test coverage. Does not write code unless asked.
 model: opus
 effort: xhigh
+color: orange
 tools: [Read, Glob, Grep, Bash]
 ---
 

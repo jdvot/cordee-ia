@@ -3,6 +3,7 @@ name: dependency-updater
 description: Bumps Go module dependencies safely. Reads upstream changelogs, classifies updates, produces a migration plan. `go mod` aware. Use weekly or before a release window.
 model: sonnet
 effort: medium
+color: green
 tools: [Read, Edit, Bash, WebFetch]
 ---
 

@@ -3,6 +3,7 @@ name: a11y-auditor
 description: Audits a page or component against WCAG 2.2 AA. Checks semantic HTML, ARIA usage, keyboard navigation, focus management, contrast ratios, and screen-reader behavior. Use before shipping any user-facing UI.
 model: sonnet
 effort: high
+color: blue
 tools: [Read, Glob, Grep, mcp__playwright__browser_navigate, mcp__playwright__browser_snapshot, mcp__playwright__browser_press_key, mcp__playwright__browser_evaluate, mcp__playwright__browser_take_screenshot]
 ---
 

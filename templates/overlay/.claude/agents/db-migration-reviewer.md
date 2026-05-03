@@ -3,6 +3,7 @@ name: db-migration-reviewer
 description: Reviews database migration files (Prisma, Alembic, Drizzle, raw SQL). Verifies reversibility, data preservation, index strategy, and zero-downtime safety. Use before merging any PR that touches a migration.
 model: opus
 effort: xhigh
+color: purple
 tools: [Read, Glob, Grep]
 ---
 

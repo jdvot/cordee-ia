@@ -3,6 +3,7 @@ name: dependency-updater
 description: Bumps Node.js / TypeScript dependencies safely. Reads upstream changelogs, classifies updates (patch / minor / major / breaking), and produces a migration plan. pnpm / npm / yarn aware. Use weekly or before a release window.
 model: sonnet
 effort: medium
+color: green
 tools: [Read, Edit, Bash, WebFetch]
 ---
 

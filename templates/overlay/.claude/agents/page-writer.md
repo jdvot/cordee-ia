@@ -3,6 +3,7 @@ name: page-writer
 description: Owner of ONE Notion or markdown page. Reads source matter (research + audit), structures and writes the page with format POUR/CONTRE/ALTERNATIVES per choice. Silent — only reports to lead at the end.
 model: sonnet
 effort: medium
+color: yellow
 tools: [Read, Write, Edit, mcp__notion__notion-fetch, mcp__notion__notion-search, mcp__notion__notion-update-page, mcp__notion__notion-create-pages]
 ---
 

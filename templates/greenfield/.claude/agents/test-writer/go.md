@@ -3,6 +3,7 @@ name: test-writer
 description: Writes unit, integration, and HTTP tests for Go. Standard `testing` + `testify` + `httptest`. Table-driven by default. Reads the code to derive cases, covers edge paths, avoids tautological assertions.
 model: sonnet
 effort: medium
+color: green
 tools: [Read, Write, Edit, Glob, Grep, Bash]
 ---
 
