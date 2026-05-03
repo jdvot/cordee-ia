@@ -372,7 +372,9 @@
         "greenfieldTitle": "New project (greenfield)",
         "greenfieldDesc": "We scaffold .claude/, CLAUDE.md, DESIGN.md, .mcp.json, install.sh.",
         "overlayTitle": "Existing project (overlay)",
-        "overlayDesc": "We add only the Claude files on top of your repo. Your code is untouched."
+        "overlayDesc": "We add only the Claude files on top of your repo. Your code is untouched.",
+        "teamSetupLabel": "Team setup",
+        "teamSetupDesc": "Adds CONTRIBUTING.md, CODEOWNERS, and the GitHub PR/issue templates. Recommended if multiple developers will work on the repo."
       },
       "step3": {
         "title": "Tech stack?",

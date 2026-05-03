@@ -372,7 +372,9 @@
         "greenfieldTitle": "Nouveau projet (greenfield)",
         "greenfieldDesc": "On scaffold .claude/, CLAUDE.md, DESIGN.md, .mcp.json, install.sh.",
         "overlayTitle": "Projet existant (overlay)",
-        "overlayDesc": "On ajoute uniquement les fichiers Claude par-dessus ton repo. Ton code n'est pas touché."
+        "overlayDesc": "On ajoute uniquement les fichiers Claude par-dessus ton repo. Ton code n'est pas touché.",
+        "teamSetupLabel": "Setup équipe",
+        "teamSetupDesc": "Ajoute CONTRIBUTING.md, CODEOWNERS, et les templates GitHub PR/issues. Recommandé si plusieurs développeurs travailleront sur le repo."
       },
       "step3": {
         "title": "Stack technique ?",
