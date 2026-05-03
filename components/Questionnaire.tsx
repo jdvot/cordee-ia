@@ -124,6 +124,7 @@ function buildSchema(messages: {
     mcps: z.array(z.enum(MCP_VALUES)).default([]),
     designSystem: z.enum(["use-example", "empty-template", "skip"]),
     extras: z.array(z.enum(EXTRA_VALUES)).default([]),
+    teamSetup: z.boolean().default(false),
     license: z.enum(LICENSE_VALUES).default("MIT"),
     colors: z
       .object({
@@ -257,6 +258,7 @@ export function Questionnaire({ onValuesChange }: QuestionnaireProps = {}) {
       mcps: ["notion", "context7"],
       designSystem: "empty-template",
       extras: ["editorconfig", "prettierrc"],
+      teamSetup: false,
       license: "MIT",
       colors: DEFAULT_COLORS,
     },
@@ -457,6 +459,36 @@ export function Questionnaire({ onValuesChange }: QuestionnaireProps = {}) {
                       />
                     </RadioGroup>
                   )}
+                />
+                <Controller
+                  control={control}
+                  name="teamSetup"
+                  render={({ field }) => {
+                    const checked = field.value === true;
+                    return (
+                      <label
+                        className={`flex items-start gap-3 p-4 rounded-[10px] border cursor-pointer transition-colors ${
+                          checked
+                            ? "border-[var(--color-accent)] bg-[var(--color-accent-soft)]"
+                            : "border-[var(--color-border)] hover:border-[var(--color-border-strong)]"
+                        }`}
+                      >
+                        <Checkbox
+                          checked={checked}
+                          onCheckedChange={(c) => field.onChange(c === true)}
+                          className="mt-0.5"
+                        />
+                        <div className="flex-1">
+                          <div className="text-sm font-medium text-[var(--color-foreground)]">
+                            {t("step2.teamSetupLabel")}
+                          </div>
+                          <div className="text-xs text-[var(--color-muted-foreground)] mt-1">
+                            {t("step2.teamSetupDesc")}
+                          </div>
+                        </div>
+                      </label>
+                    );
+                  }}
                 />
               </div>
             )}

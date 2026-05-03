@@ -102,6 +102,7 @@ const PayloadSchema = z.object({
       ])
     )
     .default([]),
+  teamSetup: z.boolean().default(false),
   license: z.enum(["MIT", "Apache-2.0", "AGPL-3.0", "none"]).default("MIT"),
   colors: z
     .object({
@@ -254,6 +255,23 @@ export async function POST(req: NextRequest) {
     if (!info) continue;
     const buf = await readBuf(path.join(templatesRoot, info.src));
     if (buf) files.push({ name: info.dest, content: buf, mode: info.mode });
+  }
+
+  // Team setup — dedicated question (separate from extras list).
+  // When enabled, mirror templates/extras/team/ into the project root,
+  // preserving subpaths (CONTRIBUTING.md, CODEOWNERS, .github/...).
+  if (payload.teamSetup) {
+    const teamDir = path.join(templatesRoot, "extras", "team");
+    try {
+      const teamFiles = await walk(teamDir);
+      for (const fileAbs of teamFiles) {
+        const rel = path.relative(teamDir, fileAbs).split(path.sep).join("/");
+        const buf = await fs.readFile(fileAbs);
+        files.push({ name: rel, content: buf });
+      }
+    } catch {
+      // Team tree missing on disk — skip silently.
+    }
   }
 
   // Add .dockerignore automatically if dockerfile or docker-compose chosen
