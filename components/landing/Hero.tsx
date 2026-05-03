@@ -2,12 +2,20 @@
 
 import { ArrowRight, Counter, Reveal, Topo } from "./atoms";
 
+const STATS = [
+  { num: <><Counter to={113} />%</>, lab: "ROI moyen à 12 mois", note: "Sur 32 missions" },
+  { num: <><Counter to={2.4} decimals={1} />×</>, lab: "Vélocité produit", note: "Mesure DORA" },
+  { num: <><Counter to={47} />j</>, lab: "Premier livrable", note: "Pilote en prod" },
+  { num: <><Counter to={32} /></>, lab: "Cordées depuis 2022", note: "Aucune redescente" },
+];
+
 export function Hero() {
   return (
     <section
       style={{
         paddingTop: "calc(var(--section-py) + 32px)",
         paddingBottom: "calc(var(--section-py) - 32px)",
+        overflow: "hidden",
       }}
     >
       <Topo />
@@ -22,7 +30,7 @@ export function Hero() {
         <Reveal delay={80}>
           <h1
             className="display h1"
-            style={{ marginBottom: 32, maxWidth: "16ch" }}
+            style={{ marginBottom: 32, maxWidth: "16ch", letterSpacing: "-0.035em" }}
           >
             L&apos;altitude se gagne{" "}
             <em style={{ fontStyle: "italic", color: "var(--color-accent)" }}>
@@ -62,29 +70,45 @@ export function Hero() {
           </Reveal>
         </div>
 
+        {/* Stats with vertical dividers — premium feel */}
         <Reveal delay={400}>
           <div
             style={{
               display: "grid",
               gridTemplateColumns: "repeat(4, 1fr)",
-              gap: 32,
+              gap: 0,
               marginTop: 96,
               paddingTop: 48,
               borderTop: "1px solid var(--color-border)",
+              position: "relative",
             }}
           >
-            {[
-              { num: <><Counter to={113} />%</>, lab: "ROI moyen à 12 mois" },
-              {
-                num: <><Counter to={2.4} decimals={1} />×</>,
-                lab: "Vélocité produit",
-              },
-              { num: <><Counter to={47} />j</>, lab: "Premier livrable" },
-              { num: <><Counter to={32} /></>, lab: "Cordées menées depuis 2022" },
-            ].map((s, i) => (
-              <div key={i} className="stat">
+            {STATS.map((s, i) => (
+              <div
+                key={i}
+                className="stat"
+                style={{
+                  padding: "0 24px",
+                  borderRight:
+                    i < STATS.length - 1
+                      ? "1px solid var(--color-border)"
+                      : "none",
+                }}
+              >
                 <div className="num">{s.num}</div>
                 <div className="lab">{s.lab}</div>
+                <div
+                  style={{
+                    fontFamily: "var(--font-mono)",
+                    fontSize: 10,
+                    color: "var(--color-muted)",
+                    letterSpacing: "0.08em",
+                    marginTop: 6,
+                    opacity: 0.7,
+                  }}
+                >
+                  {s.note}
+                </div>
               </div>
             ))}
           </div>

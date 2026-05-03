@@ -468,8 +468,47 @@ section {
   font-weight: 500;
 }
 
+.exp-cell {
+  position: relative;
+  overflow: hidden;
+}
+
+.exp-cell::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--color-accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 350ms var(--ease);
+}
+
 .exp-cell:hover {
-  background: color-mix(in oklch, var(--color-accent) 4%, transparent);
+  background: color-mix(in oklch, var(--color-accent) 5%, transparent);
+}
+
+.exp-cell:hover::after {
+  transform: scaleX(1);
+}
+
+.card.hoverable {
+  position: relative;
+  transition: transform 300ms var(--ease), border-color 250ms var(--ease),
+    box-shadow 350ms var(--ease);
+}
+
+.card.hoverable:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Smooth button arrow on hover */
+.btn-accent:hover,
+.btn-primary:hover {
+  letter-spacing: 0.005em;
 }
 
 @keyframes fadeIn {

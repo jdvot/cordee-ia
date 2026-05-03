@@ -11,6 +11,25 @@ alwaysApply: true
 - Worktrees in parent directory: `git worktree add ../wt-<name> -b <branch> main`.
 - Never push directly to `main` — always PR.
 
+## When to branch off `staging` vs `main`
+
+Pick the base branch that matches the gate the change must clear before reaching prod.
+
+- **Branch off `staging`** when:
+  - The repo runs a `staging → main` integration flow with QA on staging.
+  - The change needs to bake on a shared environment with other in-flight features.
+  - The team uses preview / staging deployments for stakeholder review.
+  - Default for `feat/*` and routine `fix/*` work in mature multi-env repos.
+- **Branch off `main`** when:
+  - The repo is single-env (no staging) — `main` is production.
+  - You're shipping a hotfix that must reach prod before next staging promotion (`hotfix/<short-name>`).
+  - `staging` has diverged or is broken and you'd rebase later anyway.
+  - Documentation-only changes that don't need staging validation.
+- **Worktree commands**:
+  - `git worktree add ../wt-<name> -b feat/<name> staging` (default)
+  - `git worktree add ../wt-<name> -b hotfix/<name> main` (urgent prod fix)
+- **Rebase rule**: before pushing, `git rebase origin/<base>` to keep history linear and surface conflicts early.
+
 ## Commits
 
 - Conventional Commits format: `feat(scope): subject`, `fix(scope): subject`, `chore(scope): subject`.
