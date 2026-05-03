@@ -212,8 +212,13 @@ export async function POST(req: NextRequest) {
       files.push({
         name: "LICENSE",
         content: buf
-          .replace(/\[YEAR\]/g, String(new Date().getFullYear()))
-          .replace(/\[FULLNAME\]/g, payload.projectName),
+          // Case-insensitive replacements for the common SPDX placeholders.
+          // MIT.txt uses "[year] [fullname]"; Apache-2.0/AGPL-3.0 use other forms.
+          .replace(/\[year\]/gi, String(new Date().getFullYear()))
+          .replace(/\[fullname\]/gi, payload.projectName)
+          .replace(/<year>/gi, String(new Date().getFullYear()))
+          .replace(/<name of author>/gi, payload.projectName)
+          .replace(/<name of copyright owner>/gi, payload.projectName),
       });
     }
   }
