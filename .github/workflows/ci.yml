@@ -1,0 +1,90 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint-typecheck-build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Lint
+        run: pnpm lint
+
+      - name: Typecheck
+        run: pnpm typecheck
+
+      - name: Build
+        run: pnpm build
+        env:
+          NEXT_TELEMETRY_DISABLED: 1
+
+  templates-validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate settings.json against schema
+        run: |
+          # Check that settings.json files in templates/ are valid JSON
+          # and contain the canonical Agent Teams config (env + teammateMode)
+          for f in templates/*/.claude/settings.json; do
+            echo "→ Validating $f"
+            jq empty "$f" || exit 1
+            jq -e '.env.CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS == "1"' "$f" > /dev/null || {
+              echo "❌ Missing env.CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1 in $f"
+              exit 1
+            }
+            jq -e '.teammateMode' "$f" > /dev/null || {
+              echo "❌ Missing teammateMode in $f"
+              exit 1
+            }
+            # experimental.agentTeams is NOT a valid field in the official schema
+            jq -e '.experimental.agentTeams' "$f" > /dev/null && {
+              echo "❌ Invalid 'experimental.agentTeams' field present in $f — not in official schema"
+              exit 1
+            } || true
+          done
+          echo "✓ All settings.json files validate"
+
+      - name: Test pre-edit-secrets hook
+        run: |
+          for f in templates/*/.claude/hooks/pre-edit-secrets.sh; do
+            echo "→ Testing $f"
+            chmod +x "$f"
+
+            # .env should block (exit 1)
+            echo '{"tool_input":{"file_path":".env"}}' | bash "$f" && {
+              echo "❌ Hook should have blocked .env"; exit 1
+            } || true
+
+            # .env.example should allow (exit 0)
+            echo '{"tool_input":{"file_path":".env.example"}}' | bash "$f" || {
+              echo "❌ Hook incorrectly blocked .env.example"; exit 1
+            }
+
+            # src/index.ts should allow (exit 0)
+            echo '{"tool_input":{"file_path":"src/index.ts"}}' | bash "$f" || {
+              echo "❌ Hook incorrectly blocked normal source file"; exit 1
+            }
+
+            echo "✓ $f passes all hook tests"
+          done
