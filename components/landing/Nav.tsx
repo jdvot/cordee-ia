@@ -25,6 +25,7 @@ export function Nav() {
           <a href="#methode">Méthode</a>
           <a href="#expertise">Expertise</a>
           <a href="#personas">Pour qui</a>
+          <a href="#use-cases">Cas d&apos;usage</a>
           <a href="#faq">FAQ</a>
           <a href="/generator">Générateur</a>
         </div>
