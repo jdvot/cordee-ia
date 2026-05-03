@@ -379,6 +379,174 @@ section {
   .nav-links {
     display: none;
   }
+  .nav-inner {
+    gap: 16px;
+  }
+  .nav-logo {
+    font-size: 20px;
+  }
+}
+
+/* =========================================================
+   Mobile responsive — landing sections
+   Approach: target inline-styled grids with attribute selectors
+   to keep components untouched (i18n-builder runs concurrently).
+   ========================================================= */
+
+@media (max-width: 768px) {
+  /* Generic container tightening */
+  .container-wide {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  /* Stat grids: 4 cols → 2x2 */
+  section [style*="grid-template-columns: repeat(4, 1fr)"],
+  section [style*="grid-template-columns:repeat(4,1fr)"] {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 24px !important;
+    row-gap: 32px !important;
+  }
+  /* Vertical dividers off in 2x2 */
+  .stat {
+    border-right: none !important;
+    padding: 0 12px !important;
+  }
+  .stat .num {
+    font-size: clamp(40px, 12vw, 56px) !important;
+  }
+  .stat .lab {
+    font-size: 10px !important;
+    letter-spacing: 0.1em !important;
+  }
+
+  /* 2-column grids → 1 column */
+  section [style*="grid-template-columns: minmax(0,1fr) minmax(0,1.2fr)"],
+  section [style*="grid-template-columns: minmax(0,1fr) minmax(0,1.3fr)"],
+  section [style*="grid-template-columns: minmax(0,1fr) minmax(0,1.4fr)"],
+  section [style*="grid-template-columns: minmax(0,1fr) minmax(0,1.5fr)"],
+  section [style*="grid-template-columns: minmax(0,1fr) minmax(0,1.6fr)"],
+  section [style*="grid-template-columns: minmax(0,1.2fr) minmax(0,1fr)"],
+  section [style*="grid-template-columns: minmax(0,1.3fr) minmax(0,1fr)"],
+  section [style*="grid-template-columns: minmax(0,1.4fr) minmax(0,1fr)"] {
+    grid-template-columns: 1fr !important;
+    gap: 32px !important;
+  }
+
+  /* Method timeline: kill the vertical rail (120px col) on mobile */
+  section[id="methode"] [style*="grid-template-columns: 120px 1fr"] {
+    grid-template-columns: 1fr !important;
+    gap: 24px !important;
+  }
+  /* Hide the sticky rail entirely on mobile — phases stack as cards */
+  section[id="methode"] [style*="grid-template-columns: 120px 1fr"] > div:first-child {
+    display: none;
+  }
+  /* Phase blocks: collapse vh-based heights on mobile */
+  section[id="methode"] [style*="min-height: 60vh"] {
+    min-height: auto !important;
+    padding: 32px 0 !important;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  /* Footer 4 cols → 2 cols */
+  footer [style*="grid-template-columns: minmax(0,1.5fr) repeat(3, minmax(0,1fr))"] {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 32px !important;
+  }
+
+  /* Cards expertise — tighten padding */
+  .exp-cell {
+    padding: 28px !important;
+  }
+  .card {
+    padding: 24px !important;
+  }
+
+  /* Heading typography tighter */
+  .display.h1 {
+    font-size: clamp(40px, 11vw, 64px);
+  }
+  .display.h2 {
+    font-size: clamp(32px, 9vw, 48px);
+  }
+
+  /* CTA block padding more reasonable */
+  section[id="cta"] [style*="padding: clamp(48px, 8vw, 120px)"] {
+    padding: 40px 24px !important;
+  }
+
+  /* FAQ — close gap when collapsed to single col */
+  section[id="faq"] {
+    padding-top: clamp(64px, 12vw, 120px);
+    padding-bottom: clamp(64px, 12vw, 120px);
+  }
+
+  /* Section eyebrow rule shorter */
+  .section-eyebrow {
+    margin-bottom: 24px;
+  }
+
+  /* Buttons full-width groups */
+  [style*="display: flex"][style*="flexWrap: wrap"][style*="gap: 12"] .btn,
+  [style*="display: flex"][style*="flex-wrap: wrap"][style*="gap: 12"] .btn {
+    flex: 1 1 100%;
+    justify-content: center;
+  }
+
+  /* Personas card: reduce min-height on mobile */
+  .card[style*="minHeight: 360"],
+  .card[style*="min-height: 360"] {
+    min-height: auto !important;
+    padding: 32px !important;
+  }
+}
+
+/* =========================================================
+   Very small phones (< 420px) — extra tightening
+   ========================================================= */
+@media (max-width: 420px) {
+  :root {
+    --container-px: 16px;
+  }
+  .display.h1 {
+    font-size: clamp(36px, 11vw, 48px);
+    line-height: 1.05;
+  }
+  .display.h2 {
+    font-size: clamp(28px, 9vw, 36px);
+  }
+  /* Stats: 1 col on tiny phones */
+  section [style*="grid-template-columns: repeat(4, 1fr)"],
+  section [style*="grid-template-columns:repeat(4,1fr)"] {
+    grid-template-columns: 1fr 1fr !important;
+  }
+  /* Footer 1 col */
+  footer [style*="grid-template-columns: minmax(0,1.5fr) repeat(3, minmax(0,1fr))"] {
+    grid-template-columns: 1fr !important;
+  }
+  /* CTA bottom links wrap properly */
+  section[id="cta"] [style*="alignItems: end"] {
+    align-items: stretch !important;
+  }
+}
+
+/* =========================================================
+   Reduced motion — respect user preference
+   ========================================================= */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
 }
 
 /* ---------- Imagery placeholder ---------- */
