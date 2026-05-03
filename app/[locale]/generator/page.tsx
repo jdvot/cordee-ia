@@ -53,7 +53,7 @@ export default async function GeneratorPage({
         <Hero />
         <HowItWorks />
         <WhatYouGet />
-        <QuestionnaireSection />
+        <QuestionnaireSection locale={locale} />
         <Faq />
         <Footer />
       </main>
@@ -227,20 +227,60 @@ function WhatYouGet() {
 
 // ─── Questionnaire ─────────────────────────────────────────────────────────
 
-function QuestionnaireSection() {
+function QuestionnaireSection({ locale }: { locale: string }) {
   const t = useTranslations("Generator.QuestionnaireSection");
+  const isFr = locale === "fr";
+
+  // Bilingual hardcoded copy for the side hints — short, generic, doesn't
+  // need a translation key (we'd add one if these grow).
+  const tipLabel = isFr ? "Astuce" : "Tip";
+  const tipText = isFr
+    ? "Les valeurs par défaut sont sensées — clique Suivant rapidement si tu n'es pas sûr."
+    : "Defaults are sensible — click Next quickly if you're unsure.";
+  const outputLabel = isFr ? "Sortie" : "Output";
+  const outputText = isFr
+    ? "Tu télécharges un .zip avec .claude/, CLAUDE.md, DESIGN.md, install.sh et tes fichiers complémentaires."
+    : "You'll download a .zip with .claude/, CLAUDE.md, DESIGN.md, install.sh and your chosen extras.";
+
   return (
     <section
       id="questionnaire"
-      className="max-w-[1200px] mx-auto px-6 py-20 md:py-32"
+      className="relative overflow-hidden py-20 md:py-32"
     >
-      <SectionHeader
-        eyebrow={t("eyebrow")}
-        title={t("title")}
-        subtitle={t("subtitle")}
-      />
-      <div className="mt-16">
-        <Questionnaire />
+      {/* Subtle topo bg behind the questionnaire to anchor it visually */}
+      <div className="absolute inset-0 topo-bg pointer-events-none opacity-50" />
+
+      <div className="relative max-w-[1200px] mx-auto px-6">
+        <SectionHeader
+          eyebrow={t("eyebrow")}
+          title={t("title")}
+          subtitle={t("subtitle")}
+        />
+
+        {/* Decorative side notes (desktop only) */}
+        <div className="mt-16 grid lg:grid-cols-[1fr_minmax(0,640px)_1fr] gap-8 items-start">
+          <aside className="hidden lg:block sticky top-32">
+            <div className="text-xs font-mono uppercase tracking-wider text-[var(--color-muted)] mb-3">
+              {tipLabel}
+            </div>
+            <p className="text-sm text-[var(--color-muted-foreground)] leading-relaxed max-w-[220px]">
+              {tipText}
+            </p>
+          </aside>
+
+          <div>
+            <Questionnaire />
+          </div>
+
+          <aside className="hidden lg:block sticky top-32">
+            <div className="text-xs font-mono uppercase tracking-wider text-[var(--color-accent)] mb-3">
+              {outputLabel}
+            </div>
+            <p className="text-sm text-[var(--color-muted-foreground)] leading-relaxed max-w-[220px]">
+              {outputText}
+            </p>
+          </aside>
+        </div>
       </div>
     </section>
   );
