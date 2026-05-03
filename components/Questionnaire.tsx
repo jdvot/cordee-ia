@@ -145,10 +145,7 @@ export function Questionnaire({ onValuesChange }: QuestionnaireProps = {}) {
       buildSchema({
         required: t("validation.projectNameRequired"),
         max: t("validation.projectNameMax"),
-        pattern: t("validation.projectNamePattern", {
-          default:
-            "Lettres, chiffres, point, tiret ou underscore uniquement (pas d'espaces ni d'accents).",
-        }),
+        pattern: t("validation.projectNamePattern"),
       }),
     [t]
   );
@@ -360,11 +357,30 @@ export function Questionnaire({ onValuesChange }: QuestionnaireProps = {}) {
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="projectName">{t("step1.nameLabel")}</Label>
-                  <Input
-                    id="projectName"
-                    placeholder={t("step1.namePlaceholder")}
-                    {...register("projectName")}
+                  <Controller
+                    control={control}
+                    name="projectName"
+                    render={({ field }) => (
+                      <Input
+                        id="projectName"
+                        placeholder={t("step1.namePlaceholder")}
+                        value={field.value}
+                        onChange={field.onChange}
+                        onBlur={(e) => {
+                          const cleaned = sanitizeProjectName(e.target.value);
+                          if (cleaned !== e.target.value) {
+                            field.onChange(cleaned);
+                          }
+                          field.onBlur();
+                        }}
+                      />
+                    )}
                   />
+                  {!errors.projectName && (
+                    <p className="text-xs text-[var(--color-muted-foreground)]">
+                      {t("validation.projectNamePattern")}
+                    </p>
+                  )}
                   {errors.projectName && (
                     <p className="text-xs text-red-600">
                       {errors.projectName.message}
