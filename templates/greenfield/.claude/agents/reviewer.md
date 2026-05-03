@@ -1,8 +1,8 @@
 ---
 name: reviewer
 description: Code reviewer for an existing codebase. Reads PRs / diffs / files and flags risk, security, perf, readability, test coverage. Does not write code unless asked.
-model: sonnet
-effort: high
+model: opus
+effort: xhigh
 tools: [Read, Glob, Grep, Bash]
 ---
 

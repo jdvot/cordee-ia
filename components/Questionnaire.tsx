@@ -25,18 +25,88 @@ const FormSchema = z.object({
   projectDescription: z.string().max(280).optional().default(""),
   mode: z.enum(["greenfield", "overlay"]),
   stack: z
-    .array(z.enum(["nextjs", "nestjs", "fastapi", "go", "rust", "none"]))
+    .array(
+      z.enum([
+        "nextjs",
+        "nestjs",
+        "fastapi",
+        "go",
+        "rust",
+        "none",
+        "vue",
+        "sveltekit",
+        "astro",
+        "remix",
+        "hono",
+        "express",
+        "django",
+        "flask",
+      ])
+    )
     .default([]),
   agents: z
-    .array(z.enum(["researcher", "challenger", "reviewer", "page-writer"]))
+    .array(
+      z.enum([
+        "researcher",
+        "challenger",
+        "reviewer",
+        "page-writer",
+        "pr-reviewer",
+        "db-migration-reviewer",
+        "a11y-auditor",
+        "doc-writer",
+        "dependency-updater",
+        "test-writer",
+      ])
+    )
     .default([]),
-  skills: z.array(z.enum(["kickoff", "audit", "design-handoff"])).default([]),
+  skills: z
+    .array(
+      z.enum([
+        "kickoff",
+        "audit",
+        "design-handoff",
+        "release",
+        "standup",
+        "pr-review",
+        "test-coverage",
+        "doc-update",
+      ])
+    )
+    .default([]),
   mcps: z
     .array(
-      z.enum(["notion", "context7", "playwright", "figma", "sentry", "linear"])
+      z.enum([
+        "notion",
+        "context7",
+        "playwright",
+        "figma",
+        "sentry",
+        "linear",
+        "github",
+        "vercel",
+        "supabase",
+        "stripe",
+        "postgres",
+        "slack",
+      ])
     )
     .default([]),
   designSystem: z.enum(["use-example", "empty-template", "skip"]),
+  extras: z
+    .array(
+      z.enum([
+        "editorconfig",
+        "prettierrc",
+        "makefile",
+        "dockerfile",
+        "docker-compose",
+        "vscode-settings",
+        "github-ci",
+      ])
+    )
+    .default([]),
+  license: z.enum(["MIT", "Apache-2.0", "AGPL-3.0", "none"]).default("MIT"),
 });
 
 export type FormValues = z.infer<typeof FormSchema>;
@@ -44,9 +114,17 @@ export type FormValues = z.infer<typeof FormSchema>;
 // ─── Step content ──────────────────────────────────────────────────────────
 
 const STACK_OPTIONS: { value: FormValues["stack"][number]; label: string }[] = [
-  { value: "nextjs", label: "Next.js (front)" },
-  { value: "nestjs", label: "NestJS (back)" },
-  { value: "fastapi", label: "FastAPI (Python)" },
+  { value: "nextjs", label: "Next.js" },
+  { value: "remix", label: "Remix" },
+  { value: "vue", label: "Vue / Nuxt" },
+  { value: "sveltekit", label: "SvelteKit" },
+  { value: "astro", label: "Astro" },
+  { value: "nestjs", label: "NestJS" },
+  { value: "express", label: "Express" },
+  { value: "hono", label: "Hono (Edge)" },
+  { value: "fastapi", label: "FastAPI" },
+  { value: "django", label: "Django" },
+  { value: "flask", label: "Flask" },
   { value: "go", label: "Go" },
   { value: "rust", label: "Rust" },
   { value: "none", label: "Pas de stack défini" },
@@ -57,10 +135,16 @@ const AGENT_OPTIONS: {
   label: string;
   hint: string;
 }[] = [
-  { value: "researcher", label: "researcher", hint: "Veille web, sources factuelles" },
-  { value: "challenger", label: "challenger", hint: "Avocat du diable, critique chaque décision" },
-  { value: "reviewer", label: "reviewer", hint: "Relecture code, sans écrire" },
-  { value: "page-writer", label: "page-writer", hint: "Owner d'une page (Notion / markdown)" },
+  { value: "researcher", label: "researcher", hint: "Veille web, sources factuelles (Sonnet)" },
+  { value: "challenger", label: "challenger", hint: "Avocat du diable, critique chaque décision (Opus xhigh)" },
+  { value: "reviewer", label: "reviewer", hint: "Relecture code, sans écrire (Opus xhigh)" },
+  { value: "pr-reviewer", label: "pr-reviewer", hint: "Review une PR : diff, tests, breaking changes (Opus xhigh)" },
+  { value: "db-migration-reviewer", label: "db-migration-reviewer", hint: "Review migrations Prisma/Alembic/Drizzle (Opus xhigh)" },
+  { value: "a11y-auditor", label: "a11y-auditor", hint: "Audit accessibilité WCAG 2.2 (Sonnet)" },
+  { value: "doc-writer", label: "doc-writer", hint: "Écrit ou met à jour la doc (Sonnet)" },
+  { value: "dependency-updater", label: "dependency-updater", hint: "Bump deps + lit les changelogs (Sonnet)" },
+  { value: "test-writer", label: "test-writer", hint: "Écrit des tests Vitest/Jest/pytest (Sonnet)" },
+  { value: "page-writer", label: "page-writer", hint: "Owner d'une page Notion / markdown (Sonnet)" },
 ];
 
 const SKILL_OPTIONS: {
@@ -71,6 +155,11 @@ const SKILL_OPTIONS: {
   { value: "kickoff", label: "/kickoff", hint: "Initialiser un projet vierge" },
   { value: "audit", label: "/audit", hint: "Cartographier un codebase existant" },
   { value: "design-handoff", label: "/design-handoff", hint: "Recevoir un livrable Claude Design" },
+  { value: "release", label: "/release", hint: "Bump version + CHANGELOG + tag + publish" },
+  { value: "standup", label: "/standup", hint: "Synthèse quotidienne (commits + PRs + tickets)" },
+  { value: "pr-review", label: "/pr-review", hint: "Review une PR par numéro" },
+  { value: "test-coverage", label: "/test-coverage", hint: "Run coverage + suggère 3 tests prioritaires" },
+  { value: "doc-update", label: "/doc-update", hint: "Scan doc obsolète + 5 fixes" },
 ];
 
 const MCP_OPTIONS: {
@@ -84,11 +173,42 @@ const MCP_OPTIONS: {
   { value: "figma", label: "figma", hint: "Tokens design Figma" },
   { value: "sentry", label: "sentry", hint: "Erreurs production" },
   { value: "linear", label: "linear", hint: "Tickets Linear" },
+  { value: "github", label: "github", hint: "PRs, issues, repos" },
+  { value: "vercel", label: "vercel", hint: "Deploys, env vars, logs" },
+  { value: "supabase", label: "supabase", hint: "DB, auth, storage" },
+  { value: "stripe", label: "stripe", hint: "Customers, prix, webhooks" },
+  { value: "postgres", label: "postgres", hint: "Query DB direct" },
+  { value: "slack", label: "slack", hint: "Messages, channels" },
+];
+
+const EXTRA_OPTIONS: {
+  value: FormValues["extras"][number];
+  label: string;
+  hint: string;
+}[] = [
+  { value: "editorconfig", label: ".editorconfig", hint: "Indent + EOL + charset partagés IDE" },
+  { value: "prettierrc", label: ".prettierrc.json", hint: "Formatage Prettier (sensible defaults)" },
+  { value: "makefile", label: "Makefile", hint: "Cibles dev / build / test / lint / clean" },
+  { value: "dockerfile", label: "Dockerfile", hint: "Multi-stage build Node 24 / Python 3.12" },
+  { value: "docker-compose", label: "docker-compose.yml", hint: "App + Postgres en local" },
+  { value: "vscode-settings", label: ".vscode/settings.json", hint: "ESLint format on save, Tailwind IntelliSense" },
+  { value: "github-ci", label: ".github/workflows/ci.yml", hint: "CI lint + typecheck + build + test" },
+];
+
+const LICENSE_OPTIONS: {
+  value: FormValues["license"];
+  label: string;
+  hint: string;
+}[] = [
+  { value: "MIT", label: "MIT", hint: "Permissive, par défaut. Fork libre." },
+  { value: "Apache-2.0", label: "Apache 2.0", hint: "Permissive + clause brevets." },
+  { value: "AGPL-3.0", label: "AGPL 3.0", hint: "Copyleft fort. Toute modif réutilisée doit être OSS." },
+  { value: "none", label: "Aucune", hint: "Code privé, tous droits réservés." },
 ];
 
 // ─── Component ─────────────────────────────────────────────────────────────
 
-const TOTAL_STEPS = 7;
+const TOTAL_STEPS = 9;
 
 export function Questionnaire() {
   const [step, setStep] = React.useState(1);
@@ -107,6 +227,8 @@ export function Questionnaire() {
       skills: ["kickoff", "design-handoff"],
       mcps: ["notion", "context7"],
       designSystem: "empty-template",
+      extras: ["editorconfig", "prettierrc"],
+      license: "MIT",
     },
   });
 
@@ -436,6 +558,103 @@ export function Questionnaire() {
                         desc="Si ton projet n'a pas d'interface."
                         checked={field.value === "skip"}
                       />
+                    </RadioGroup>
+                  )}
+                />
+              </div>
+            )}
+
+            {/* Step 8 — Extras */}
+            {step === 8 && (
+              <div className="space-y-6">
+                <div>
+                  <h3
+                    className="text-3xl mb-2"
+                    style={{ fontFamily: "var(--font-display)" }}
+                  >
+                    Fichiers complémentaires
+                  </h3>
+                  <p className="text-sm text-[var(--color-muted-foreground)]">
+                    Optionnels. Tu peux toujours les ajouter à la main plus tard.
+                  </p>
+                </div>
+                <Controller
+                  control={control}
+                  name="extras"
+                  render={({ field }) => (
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                      {EXTRA_OPTIONS.map((opt) => {
+                        const checked = field.value.includes(opt.value);
+                        return (
+                          <label
+                            key={opt.value}
+                            className={`flex items-start gap-3 p-4 rounded-[10px] border cursor-pointer transition-colors ${
+                              checked
+                                ? "border-[var(--color-accent)] bg-[var(--color-accent-soft)]"
+                                : "border-[var(--color-border)] hover:border-[var(--color-border-strong)]"
+                            }`}
+                          >
+                            <Checkbox
+                              checked={checked}
+                              onCheckedChange={(c) => {
+                                if (c)
+                                  field.onChange([...field.value, opt.value]);
+                                else
+                                  field.onChange(
+                                    field.value.filter((v) => v !== opt.value)
+                                  );
+                              }}
+                            />
+                            <div className="flex-1">
+                              <div className="font-mono text-sm">
+                                {opt.label}
+                              </div>
+                              <div className="text-xs text-[var(--color-muted-foreground)] mt-1">
+                                {opt.hint}
+                              </div>
+                            </div>
+                          </label>
+                        );
+                      })}
+                    </div>
+                  )}
+                />
+              </div>
+            )}
+
+            {/* Step 9 — License */}
+            {step === 9 && (
+              <div className="space-y-6">
+                <div>
+                  <h3
+                    className="text-3xl mb-2"
+                    style={{ fontFamily: "var(--font-display)" }}
+                  >
+                    Quelle licence ?
+                  </h3>
+                  <p className="text-sm text-[var(--color-muted-foreground)]">
+                    Le fichier LICENSE est ajouté à la racine. Aucun cas =
+                    code privé tous droits réservés.
+                  </p>
+                </div>
+                <Controller
+                  control={control}
+                  name="license"
+                  render={({ field }) => (
+                    <RadioGroup
+                      value={field.value}
+                      onValueChange={field.onChange}
+                      className="gap-3"
+                    >
+                      {LICENSE_OPTIONS.map((opt) => (
+                        <RadioCardOption
+                          key={opt.value}
+                          value={opt.value}
+                          title={opt.label}
+                          desc={opt.hint}
+                          checked={field.value === opt.value}
+                        />
+                      ))}
                     </RadioGroup>
                   )}
                 />

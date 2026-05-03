@@ -21,18 +21,88 @@ const PayloadSchema = z.object({
   projectDescription: z.string().max(280).optional().default(""),
   mode: z.enum(["greenfield", "overlay"]),
   stack: z
-    .array(z.enum(["nextjs", "nestjs", "fastapi", "go", "rust", "none"]))
+    .array(
+      z.enum([
+        "nextjs",
+        "nestjs",
+        "fastapi",
+        "go",
+        "rust",
+        "none",
+        "vue",
+        "sveltekit",
+        "astro",
+        "remix",
+        "hono",
+        "express",
+        "django",
+        "flask",
+      ])
+    )
     .default([]),
   agents: z
-    .array(z.enum(["researcher", "challenger", "reviewer", "page-writer"]))
+    .array(
+      z.enum([
+        "researcher",
+        "challenger",
+        "reviewer",
+        "page-writer",
+        "pr-reviewer",
+        "db-migration-reviewer",
+        "a11y-auditor",
+        "doc-writer",
+        "dependency-updater",
+        "test-writer",
+      ])
+    )
     .default([]),
-  skills: z.array(z.enum(["kickoff", "audit", "design-handoff"])).default([]),
+  skills: z
+    .array(
+      z.enum([
+        "kickoff",
+        "audit",
+        "design-handoff",
+        "release",
+        "standup",
+        "pr-review",
+        "test-coverage",
+        "doc-update",
+      ])
+    )
+    .default([]),
   mcps: z
     .array(
-      z.enum(["notion", "context7", "playwright", "figma", "sentry", "linear"])
+      z.enum([
+        "notion",
+        "context7",
+        "playwright",
+        "figma",
+        "sentry",
+        "linear",
+        "github",
+        "vercel",
+        "supabase",
+        "stripe",
+        "postgres",
+        "slack",
+      ])
     )
     .default([]),
   designSystem: z.enum(["use-example", "empty-template", "skip"]),
+  extras: z
+    .array(
+      z.enum([
+        "editorconfig",
+        "prettierrc",
+        "makefile",
+        "dockerfile",
+        "docker-compose",
+        "vscode-settings",
+        "github-ci",
+      ])
+    )
+    .default([]),
+  license: z.enum(["MIT", "Apache-2.0", "AGPL-3.0", "none"]).default("MIT"),
 });
 
 type Payload = z.infer<typeof PayloadSchema>;
@@ -46,6 +116,14 @@ const STACK_LABELS: Record<Payload["stack"][number], string> = {
   go: "Go",
   rust: "Rust",
   none: "Unspecified",
+  vue: "Vue 3 / Nuxt 3",
+  sveltekit: "SvelteKit (Vite)",
+  astro: "Astro 5",
+  remix: "Remix (React Router 7)",
+  hono: "Hono (Edge runtime)",
+  express: "Express (Node 24)",
+  django: "Django 5 (Python 3.12+)",
+  flask: "Flask (Python 3.12+)",
 };
 
 // ─── Handler ───────────────────────────────────────────────────────────────
@@ -92,6 +170,41 @@ export async function POST(req: NextRequest) {
     content: await readSafe(path.join(templatesRoot, "install.sh")),
     mode: 0o755,
   });
+
+  // Extras — optional config files at project root
+  const EXTRAS_MAP: Record<Payload["extras"][number], { src: string; dest: string; mode?: number }> = {
+    editorconfig: { src: "extras/.editorconfig", dest: ".editorconfig" },
+    prettierrc: { src: "extras/.prettierrc.json", dest: ".prettierrc.json" },
+    makefile: { src: "extras/Makefile", dest: "Makefile" },
+    dockerfile: { src: "extras/Dockerfile", dest: "Dockerfile" },
+    "docker-compose": { src: "extras/docker-compose.yml", dest: "docker-compose.yml" },
+    "vscode-settings": { src: "extras/.vscode/settings.json", dest: ".vscode/settings.json" },
+    "github-ci": { src: "extras/github/workflows/ci.yml", dest: ".github/workflows/ci.yml" },
+  };
+  for (const extra of payload.extras) {
+    const info = EXTRAS_MAP[extra];
+    if (!info) continue;
+    const buf = await readBuf(path.join(templatesRoot, info.src));
+    if (buf) files.push({ name: info.dest, content: buf, mode: info.mode });
+  }
+  // Add .dockerignore automatically if dockerfile or docker-compose chosen
+  if (payload.extras.includes("dockerfile") || payload.extras.includes("docker-compose")) {
+    const buf = await readBuf(path.join(templatesRoot, "extras/.dockerignore"));
+    if (buf) files.push({ name: ".dockerignore", content: buf });
+  }
+
+  // License file at project root
+  if (payload.license !== "none") {
+    const buf = await readSafe(path.join(templatesRoot, "licenses", `${payload.license}.txt`));
+    if (buf) {
+      files.push({
+        name: "LICENSE",
+        content: buf
+          .replace(/\[YEAR\]/g, String(new Date().getFullYear()))
+          .replace(/\[FULLNAME\]/g, payload.projectName),
+      });
+    }
+  }
 
   // Stream archive
   const archive = archiver("zip", { zlib: { level: 9 } });
@@ -213,6 +326,14 @@ async function readSafe(p: string): Promise<string> {
   }
 }
 
+async function readBuf(p: string): Promise<Buffer | null> {
+  try {
+    return await fs.readFile(p);
+  } catch {
+    return null;
+  }
+}
+
 // ─── Customizers ───────────────────────────────────────────────────────────
 
 function customizeClaudeMd(raw: string, p: Payload): string {
@@ -233,10 +354,7 @@ function customizeClaudeMd(raw: string, p: Payload): string {
 
 function renderMcpJson(p: Payload): string {
   const allMcps: Record<string, Record<string, unknown>> = {
-    notion: {
-      type: "http",
-      url: "https://mcp.notion.com/mcp",
-    },
+    notion: { type: "http", url: "https://mcp.notion.com/mcp" },
     context7: {
       type: "stdio",
       command: "npx",
@@ -247,18 +365,27 @@ function renderMcpJson(p: Payload): string {
       command: "npx",
       args: ["-y", "@playwright/mcp@latest"],
     },
-    figma: {
-      type: "http",
-      url: "https://mcp.figma.com/mcp",
+    figma: { type: "http", url: "https://mcp.figma.com/mcp" },
+    sentry: { type: "http", url: "https://mcp.sentry.dev/mcp" },
+    linear: { type: "http", url: "https://mcp.linear.app/mcp" },
+    github: { type: "http", url: "https://mcp.github.com/mcp" },
+    vercel: {
+      type: "stdio",
+      command: "npx",
+      args: ["-y", "@vercel/mcp@latest"],
     },
-    sentry: {
-      type: "http",
-      url: "https://mcp.sentry.dev/mcp",
+    supabase: {
+      type: "stdio",
+      command: "npx",
+      args: ["-y", "@supabase/mcp-server@latest"],
     },
-    linear: {
-      type: "http",
-      url: "https://mcp.linear.app/mcp",
+    stripe: { type: "http", url: "https://mcp.stripe.com/mcp" },
+    postgres: {
+      type: "stdio",
+      command: "npx",
+      args: ["-y", "@modelcontextprotocol/server-postgres@latest"],
     },
+    slack: { type: "http", url: "https://mcp.slack.com/mcp" },
   };
 
   const servers: Record<string, unknown> = {};
