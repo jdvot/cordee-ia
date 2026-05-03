@@ -1,0 +1,8 @@
+node_modules
+.next
+dist
+build
+templates
+public
+pnpm-lock.yaml
+CHANGELOG.md
