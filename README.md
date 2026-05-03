@@ -96,14 +96,12 @@ pnpm lint        # next lint
 │   ├── greenfield/                 # Scaffold complet (.claude/, CLAUDE.md, DESIGN.md, .mcp.json)
 │   ├── overlay/                    # Surcouche pour repo existant
 │   └── install.sh                  # Script dual-mode greenfield/overlay
-├── examples/                       # Sorties d'exemple générées par les agents
-├── USE_CASES.md                    # 9 cas d'usage concrets
+├── docs/                           # QUICK_START + MONOREPO
+├── USE_CASES.md                    # Cas d'usage concrets
 ├── CONTRIBUTING.md                 # Comment contribuer
 ├── CODE_OF_CONDUCT.md              # Contributor Covenant 2.1
 ├── SECURITY.md                     # Politique de sécurité
-├── CHANGELOG.md                    # Historique des changements
-├── REVIEW.md                       # Audit qualité code (transparency)
-└── IMPROVEMENTS.md                 # Roadmap d'amélioration
+└── CHANGELOG.md                    # Historique des changements
 ```
 
 ## Comment ça marche
@@ -203,12 +201,12 @@ Le site est disponible en deux langues, gérées via [`next-intl`](https://next-
 
 ## Documentation associée
 
-- [USE_CASES.md](USE_CASES.md) — 9 cas d'usage concrets
+- [USE_CASES.md](USE_CASES.md) — cas d'usage concrets
 - [CONTRIBUTING.md](CONTRIBUTING.md) — guide de contribution
 - [SECURITY.md](SECURITY.md) — politique de sécurité, vulnérabilités
 - [CHANGELOG.md](CHANGELOG.md) — historique versionné
-- [REVIEW.md](REVIEW.md) — audit qualité code (transparence)
-- [IMPROVEMENTS.md](IMPROVEMENTS.md) — roadmap
+- [docs/QUICK_START.md](docs/QUICK_START.md) — démarrage en 5 étapes
+- [docs/MONOREPO.md](docs/MONOREPO.md) — utilisation en monorepo
 
 ## Roadmap
 
