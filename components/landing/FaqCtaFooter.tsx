@@ -247,7 +247,7 @@ export function CTA() {
               }}
             >
               <a
-                href="#"
+                href="/generator"
                 className="btn btn-accent btn-arrow"
                 style={{ padding: "16px 28px", fontSize: 16 }}
               >
@@ -284,7 +284,13 @@ export function CTA() {
   );
 }
 
-function FootCol({ title, links }: { title: string; links: string[] }) {
+function FootCol({
+  title,
+  items,
+}: {
+  title: string;
+  items: Array<{ label: string; href: string; external?: boolean }>;
+}) {
   return (
     <div>
       <div className="caption" style={{ marginBottom: 20 }}>
@@ -300,17 +306,20 @@ function FootCol({ title, links }: { title: string; links: string[] }) {
           gap: 12,
         }}
       >
-        {links.map((l) => (
-          <li key={l}>
+        {items.map((it) => (
+          <li key={it.label}>
             <a
-              href="#"
+              href={it.href}
+              {...(it.external
+                ? { target: "_blank", rel: "noreferrer noopener" }
+                : {})}
               style={{
                 color: "var(--color-muted-foreground)",
                 fontSize: 14,
                 transition: "color 200ms",
               }}
             >
-              {l}
+              {it.label}
             </a>
           </li>
         ))}
@@ -377,15 +386,37 @@ export function Footer() {
 
           <FootCol
             title={t("cabinet")}
-            links={t.raw("cabinetLinks") as string[]}
+            items={(t.raw("cabinetLinks") as string[]).map((label, i) => ({
+              label,
+              href: ["/#methode", "/#expertise", "/#personas", "/#use-cases", "/#faq"][i] ?? "/",
+            }))}
           />
           <FootCol
             title={t("resources")}
-            links={t.raw("resourcesLinks") as string[]}
+            items={(t.raw("resourcesLinks") as string[]).map((label, i) => ({
+              label,
+              href: [
+                "https://github.com/jdvot/cordee-ia",
+                "https://github.com/jdvot/cordee-ia/blob/main/USE_CASES.md",
+                "https://github.com/jdvot/cordee-ia/blob/main/CONTRIBUTING.md",
+                "https://github.com/jdvot/cordee-ia/blob/main/CHANGELOG.md",
+                "https://github.com/jdvot/cordee-ia/issues",
+              ][i] ?? "https://github.com/jdvot/cordee-ia",
+              external: true,
+            }))}
           />
           <FootCol
             title={t("legal")}
-            links={t.raw("legalLinks") as string[]}
+            items={(t.raw("legalLinks") as string[]).map((label, i) => ({
+              label,
+              href: [
+                "https://github.com/jdvot/cordee-ia/blob/main/LICENSE",
+                "https://github.com/jdvot/cordee-ia#privacy",
+                "https://github.com/jdvot/cordee-ia/blob/main/CODE_OF_CONDUCT.md",
+                "mailto:julien.dvt57@gmail.com",
+              ][i] ?? "/",
+              external: i < 3,
+            }))}
           />
         </div>
 
