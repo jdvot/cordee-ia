@@ -35,7 +35,6 @@ export function Nav() {
           <Link href="/generator">{t("generator")}</Link>
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-          <ColorPicker className="hidden md:inline-flex" />
           <DarkToggle />
           <LanguageSwitcher variant="nav" />
           <a href="#cta" className="btn btn-accent">

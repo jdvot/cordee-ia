@@ -9,8 +9,8 @@ import {
   buildZipTree,
   type FileTreeNode,
   type ZipSelections,
-} from "@/components/ui/FileTreePreview";
-import { FileCounter } from "@/components/ui/FileCounter";
+} from "@/components/generator/FileTreePreview";
+import { FileCounter } from "@/components/generator/FileCounter";
 
 interface Props {
   locale: string;
