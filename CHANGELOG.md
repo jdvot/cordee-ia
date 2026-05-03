@@ -7,6 +7,9 @@ Format basé sur [Keep a Changelog](https://keepachangelog.com/), versioning [Se
 ## [Unreleased]
 
 ### Ajouté
+- **USE_CASES.md** — 9 cas d'usage concrets (greenfield / overlay / atelier / talk / standardisation équipe / onboarding legacy / mission consulting / hackathon / migration depuis Cursor)
+- **SECURITY.md** — politique de sécurité, modèle de menace, surface d'attaque
+- **README.md** badges CI / License / Vercel / Issues + section Cas d'usage + section Roadmap pointant vers les Issues GitHub
 - App Next.js 16 + Tailwind v4 + Shadcn-style components
 - One-page marketing avec questionnaire 7 étapes
 - API `/api/generate` qui streame un `.zip` projet personnalisé
