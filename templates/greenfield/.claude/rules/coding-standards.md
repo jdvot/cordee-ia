@@ -18,6 +18,26 @@ alwaysApply: true
 - Type hints everywhere. `mypy --strict` if the project uses mypy.
 - Async by default for I/O (`asyncio`, `httpx`, `asyncpg`).
 
+## Go
+
+- `go fmt ./...` + `golangci-lint run` before commit.
+- Errors are values: return `error` explicitly, never `panic` outside `main` or `init`.
+- Small interfaces at the consumer side (accept interfaces, return structs).
+- Context first arg on any function that does I/O or can be cancelled.
+
+## Rust
+
+- `cargo fmt && cargo clippy -- -D warnings` before commit.
+- Prefer `Result<T, E>` over `unwrap()`. `expect()` only with a message that explains the invariant.
+- Avoid `unsafe` unless wrapping a clearly-marked FFI boundary with a safety comment.
+- Lifetimes elided where the compiler accepts it; explicit only when ambiguous.
+
+## Other stacks (Vue, SvelteKit, Astro, Remix, Hono, Express, Django, Flask, NestJS)
+
+- Use the framework's own conventions and folder layout — do not reinvent them.
+- Keep server vs client boundaries explicit (RSC, `+page.server.ts`, Astro islands, etc.).
+- Validate at request boundaries with the ecosystem's standard (Zod, Pydantic, valibot, class-validator).
+
 ## Cross-language
 
 - One responsibility per file. If a file > 400 lines, ask: should this split?
