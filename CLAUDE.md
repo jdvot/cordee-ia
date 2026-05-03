@@ -1,83 +1,76 @@
-# Cordée.IA — Site marketing one-page
+# [PROJECT NAME] — fill in at kickoff
 
-> Site de pitch consulting. Conversion = booking Cal.com 30min découverte.
+> First file Claude Code reads every session. Keep it under 300 lines.
+> Format : WHAT / WHY / HOW (https://www.humanlayer.dev/blog/writing-a-good-claude-md)
 
-## WHAT
+## WHAT — project in 2 lines
 
-Cabinet de conseil qui intègre Claude Code + Claude Design + IA générative dans les équipes existantes. Méthode 5 phases : Discovery → Pilot → Expansion → Scale → Operate. Pricing public.
+[1-2 lines: what does this project do, for whom, what does success look like.]
 
-## WHY
+## WHY — context Claude needs to make good calls
 
-- Marché = 244 healthtech FR Series A+, 200+ AI consultants en concurrence
-- Différenciateur = on code en prod, pas du PowerPoint Qualiopi
-- Wedge = AI Act août 2026 + niche healthcare où Vanta/Drata ne descendent pas
-- Lead magnet potentiel = `start.cordee.ia` (générateur web Claude workspace)
+[Domain context, business constraints, non-obvious decisions already made.]
 
 ## Stack
 
-- Next.js 16 App Router
-- React 19.2
-- Tailwind CSS v4 (`@theme inline`)
-- Shadcn UI (latest)
-- Framer Motion 12
-- Cal.com embed
-- Plausible (cookieless analytics)
-- Vercel hosting
-- TypeScript strict
+[List your stack here. No assumptions baked in.]
+- Frontend: ?
+- Backend: ?
+- DB: ?
+- Auth: ?
+- Hosting: ?
 
-## Commands (à initialiser)
+## Commands
 
 ```bash
 # Dev
-pnpm dev
+?
 
 # Build
-pnpm build
+?
 
 # Test
-pnpm test
+?
 
 # Lint
-pnpm lint
+?
 ```
 
 ## Conventions
 
-- 100% FR-natif. Pas d'anglicismes inutiles. "méthode" pas "framework", "équipe" pas "team".
-- Pas d'emojis dans le copy marketing.
-- Pas de gradient violet→rose (cliché AI startup).
-- Pas de stock photos corporate. Photos B&W montagne/cordée uniquement.
-- See `DESIGN.md` for the full design system (tokens, components, do/don't).
 - See `.claude/rules/coding-standards.md` for code style.
-- See `.claude/rules/security.md` for secrets baseline.
+- See `.claude/rules/git-workflow.md` for branching and PRs.
+- See `.claude/rules/security.md` for secrets and data handling.
+- See `DESIGN.md` for visual design system.
 
-## Sections du site
+## Agents available
 
-1. **Hero** — H1 Fraunces 80px + 4 stats animées + CTA "Réserver 30min" accent copper
-2. **Pour qui** — 3 personas cards (CTO healthtech / dirigeant PME / directeur agence)
-3. **La méthode** — Timeline 5 phases interactive (révélée au scroll comme une ascension), prix publics
-4. **Domaines d'expertise** — 4 cards avec modale détail (Claude Code / Claude Design / IA Marketing / IA Ops)
-5. **Cas clients** — 2-3 case studies avec métriques
-6. **À propos** — bio + crédibilité (Limitless, Cardio Brief)
-7. **FAQ** — 6-8 questions (tarifs, déroulement, RGPD, durée, à distance)
-8. **Contact** — Cal.com embed direct
+- `researcher` — web research expert, factual-only output
+- `challenger` — devil's advocate, attacks every decision
+- `reviewer` — code reviewer for existing code (no writing)
+- `page-writer` — owns one page (Notion or markdown)
 
-## Workflow design → code
+To launch a team: `/team` (requires Opus 4.6 + tmux/iTerm2 for split-pane).
 
-```
-1. Upload ce repo dans Claude Design
-2. Claude Design lit DESIGN.md + content/ + .claude/
-3. Itération design (4-6 prompts moyens)
-4. Bouton "Handoff to Claude Code"
-5. Bundle arrive dans ./design-output/
-6. /design-handoff [./design-output] → scaffold Next.js
-7. Code ajusté manuellement
-8. Push Vercel + domaine cordee-ia.fr
-```
+## Skills available
+
+- `/kickoff` — initialize a fresh project (run once at project start)
+- `/audit` — map an existing codebase Day 0 (run after `install.sh`)
+- `/design-handoff` — receive a Claude Design bundle and scaffold Next.js + Tailwind + Shadcn
+
+## MCPs configured
+
+- `notion` — boards, docs, tickets
+- `context7` — up-to-date library docs
+- (Optional) `playwright`, `figma`, `sentry`, `linear` — uncomment in `.mcp.json` per project need
 
 ## Don't
 
-- No big bullets > 3 lines (mobile-first readability).
-- No more than 1 accent CTA per fold (the copper button = focus, dilute and it dies).
-- No animations on first load that delay LCP.
-- No tracking beyond Plausible (cookieless).
+- Edit `.env*`, `*.key`, `credentials.json` — blocked by `.claude/hooks/pre-edit-secrets.sh`
+- Edit generated files (Prisma client, OpenAPI types, etc.) directly
+- Skip `git status` before `git add -A` (avoid leaking secrets)
+- Premature abstractions (3 similar lines > a wrong helper)
+
+## Project-specific notes
+
+[Add per-project gotchas, business rules, integrations.]

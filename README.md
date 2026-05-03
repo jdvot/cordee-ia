@@ -1,64 +1,152 @@
-# Cordée.IA — Site marketing one-page
+# Cordée.IA — Le starter unifié Claude Code + Claude Design
 
-> Cabinet de conseil qui intègre Claude Code, Claude Design et l'IA générative dans les équipes existantes.
+> Un seul repo. Deux modes : **nouveau projet** ou **projet existant**. Tout prêt à l'emploi.
 
-## Pitch
+Cordée.IA est un starter "tout-inclus" pour démarrer ou ajouter Claude Code et Claude Design dans n'importe quel projet, sans tech imposée et sans dépendances cachées.
 
-On guide les CTO de startups healthtech et de PME à passer de zéro à l'IA en production en 90 jours, via une méthode en 5 phases : **Discovery → Pilot → Expansion → Scale → Operate**.
+## Pourquoi un seul starter au lieu de deux
 
-Notre signature : intégration chirurgicale dans le code et l'organisation. Pas de big-bang, pas de PowerPoint, pas de promesse hype. On forme la cordée, on guide étape par étape, on mesure à chaque palier.
+Avant : `claude-starter` (greenfield) + `claude-overlay` (existing) en deux repos. Maintenue dans deux endroits = drift assuré.
 
-## Cibles
+Maintenant : **Cordée.IA** unifié, avec un script `install.sh` qui détecte automatiquement le mode (vide vs existant) et adapte sa sortie.
 
-- 244 healthtech FR Series A+ (TAM connue, marché validé)
-- PME tech 50-500 personnes
-- Agences créa/marketing en transition AI-native
+## Ce que tu obtiens
 
-## Différenciateur vs les ~200 agences AI consulting FR
+### Configuration `.claude/`
+- **`settings.json`** avec Agent Teams activés (`teammateMode: "auto"` — fonctionne avec ou sans tmux)
+- **5 agents génériques** prêts à l'emploi : `researcher`, `challenger`, `reviewer`, `page-writer`, plus un template `[YOUR-AGENT].md`
+- **3 skills** : `/kickoff` (init nouveau projet), `/design-handoff` (Claude Design → code), `/audit` (cartographier projet existant)
+- **2 hooks** : pre-edit secrets blocker, post-edit auto-format (bash + Python + Go + Rust)
+- **3 rules génériques** : `coding-standards.md`, `git-workflow.md`, `security.md`
 
-- On code en prod, on ne fait pas de la formation 1 jour
-- Métriques DORA + utilization trackées dès le sprint 1
-- Pricing public (Discovery 5k€ / Pilot 10k€ / Expansion 15k€ / Scale 20k€ / Operate 2-3k€/mois)
-- Maîtrise concrète Claude Code + Claude Design + tmux Agent Teams (peu de monde sait quand l'utiliser)
+### Templates Claude Design
+- **`DESIGN.md`** — template 9 sections rempli avec un exemple complet (à customiser ou remplacer)
+- Compatible direct upload Claude Design + handoff to Claude Code
 
-## Ce repo
+### Templates projet
+- **`CLAUDE.md`** — template WHAT/WHY/HOW à customiser
+- **`.mcp.json`** — Notion + Context7 actifs ; Playwright/Figma/Sentry/Linear en commentaires
+- **`.gitignore`** — couvre secrets, builds, OS, IDEs
 
-Ce repo contient :
-- `DESIGN.md` — Design system 9 sections, à uploader dans Claude Design
-- `CLAUDE.md` — Instructions pour Claude Code lors du handoff
-- `content/` — Copy/text des sections du site (FAQ, personas, hero, value prop)
-- `case-studies/` — Études de cas anonymisées (Limitless RAG biomarqueurs, Cardio Brief, etc.)
-- `.claude/` — Agents + skills + hooks pour quand on code la stack
+### Infrastructure
+- Script **`install.sh`** dual-mode (greenfield ou overlay)
+- Détection auto du stack (Next.js / NestJS / FastAPI / Go / Rust / Python)
+- Backup automatique de l'existant avant modification
 
-## Workflow
+## Installation
 
+### Mode 1 — Nouveau projet (greenfield)
+
+```bash
+# Option A : GitHub template (recommandé)
+gh repo create my-project --template jdvot/cordee-ia --public --clone
+cd my-project
+
+# Option B : clone manuel
+gh repo clone jdvot/cordee-ia my-project
+cd my-project
+rm -rf .git && git init -b main
 ```
-1. Tu uploades ce repo dans Claude Design (https://claude.ai/design)
-2. Claude Design extrait DESIGN.md + content + assets
-3. Itération design (4-6 prompts en moyenne)
-4. Handoff to Claude Code → bundle arrive ici
-5. Skill /design-handoff scaffold Next.js 16 + Tailwind v4 + Shadcn + Framer
-6. Push Vercel, domaine cordee-ia.fr connecté
+
+Puis :
+```bash
+claude
+> /kickoff
+# Claude lit ton brief, customize CLAUDE.md, propose un stack, génère DESIGN.md initial
 ```
 
-## Stack cible
+### Mode 2 — Projet existant (overlay)
 
-- Next.js 16 App Router (React 19.2)
-- Tailwind CSS v4 (`@theme inline`)
-- Shadcn UI (latest)
-- Framer Motion 12
-- Cal.com embed
-- Plausible (cookieless analytics)
-- Vercel hosting
-- TypeScript strict (no `any`, no `as unknown as`)
+```bash
+# Depuis ton projet existant
+cd /path/to/your/existing/project
+curl -sL https://raw.githubusercontent.com/jdvot/cordee-ia/main/install.sh | bash
+```
 
-## Status
+Le script :
+1. Détecte ton stack
+2. Backup ton `.claude/` existant si présent
+3. Drop les configurations
+4. Génère un `CLAUDE.md` adapté au stack
+5. Te donne les next steps
 
-Repo en préparation. Prochaines étapes :
-- [ ] DESIGN.md finalisé avec tokens précis
-- [ ] Copy FR-natif (hero, personas, FAQ, value prop)
-- [ ] 3 case studies anonymisés
-- [ ] Upload Claude Design + itération
-- [ ] Handoff Claude Code + scaffold
-- [ ] Domaine cordee-ia.fr acheté
-- [ ] Push prod Vercel
+Puis :
+```bash
+claude
+> /audit
+# Claude cartographie ton codebase, liste tech debt, suggère 3 PRs sûres
+```
+
+### Mode 3 — Avec Claude Design (workflow design-to-code)
+
+```bash
+# 1. Bootstrap le repo (mode 1)
+gh repo create my-saas --template jdvot/cordee-ia --public --clone
+cd my-saas
+
+# 2. Customize DESIGN.md avec ta marque (ou laisse le template d'exemple)
+$EDITOR DESIGN.md
+
+# 3. Upload sur Claude Design
+# https://claude.ai/design — drop ton repo, itère 4-6 prompts
+
+# 4. Handoff to Claude Code
+# Bouton "Handoff" dans Claude Design → bundle arrive
+
+# 5. Scaffold avec le skill
+claude
+> /design-handoff [path/to/handoff-bundle]
+# Génère Next.js + Tailwind v4 + Shadcn + Framer matchant le design
+```
+
+## Quand utiliser Cordée.IA vs autres starters
+
+| Starter | Focus | Greenfield | Existing | Claude Design |
+|---|---|---|---|---|
+| [`serpro69/claude-toolbox`](https://github.com/serpro69/claude-starter-kit) | Multi-lang prod-ready | ✅ | ❌ | ❌ |
+| [`halans/cc-marketplace-boilerplate`](https://github.com/halans/cc-marketplace-boilerplate) | Plugin marketplace | ✅ | ❌ | ❌ |
+| [`scotthavird/claude-code-template`](https://github.com/scotthavird/claude-code-template) | Comprehensive | ✅ | ❌ | ❌ |
+| **`jdvot/cordee-ia`** (ce repo) | **Unifié + design** | **✅** | **✅** | **✅** |
+
+## Customize après clone
+
+1. **`CLAUDE.md`** — remplace les TODOs par ton WHAT/WHY/Stack/Commands
+2. **`DESIGN.md`** — soit tu remplis à la main, soit tu uploades sur Claude Design pour itérer
+3. **`.mcp.json`** — décommente les MCPs dont tu as besoin (Playwright, Figma, Sentry, Linear)
+4. **`.claude/agents/`** — ajoute des agents domaine (ex: `db-migration-reviewer`, `api-contract-checker`)
+5. **`.claude/skills/`** — ajoute des skills custom (ex: `/release`, `/standup`)
+6. **`.claude/rules/`** — ajoute des rules métier (ex: `healthcare-compliance.md`, `gdpr.md`)
+
+## Gotchas
+
+- **Agent Teams** requiert Claude Pro/Max avec Opus 4.6. `teammateMode` est sur `"auto"` par défaut donc ça marche sans tmux mais sans split-pane visuel.
+- **Tmux split-pane** ne marche pas dans VS Code terminal, Windows Terminal, Ghostty. Utilise iTerm2 sur macOS pour la meilleure expérience visuelle.
+- **`pre-edit-secrets.sh`** requiert `jq`. Sans `jq`, le hook fail-soft (autorise au lieu de bloquer).
+- **MCPs OAuth** (Notion) : 1er prompt te demande de t'authentifier dans le navigateur.
+
+## Compatibilité testée
+
+- Next.js 15-16, React, Vue, SvelteKit
+- NestJS, Express, Hono, Fastify
+- FastAPI, Django, Flask
+- Go modules, Rust monorepos
+
+## Sources / inspirations
+
+Best practices appliquées et vérifiées en mai 2026 :
+- [Claude Code Best Practices — Anthropic](https://code.claude.com/docs/en/best-practices)
+- [How Anthropic teams use Claude Code (PDF)](https://www-cdn.anthropic.com/58284b19e702b49db9302d5b6f135ad8871e7658.pdf)
+- [Writing a good CLAUDE.md — HumanLayer](https://www.humanlayer.dev/blog/writing-a-good-claude-md)
+- [Hooks reference — Anthropic](https://code.claude.com/docs/en/hooks)
+- [Skills reference — Anthropic](https://code.claude.com/docs/en/skills)
+- [Agent Teams — Anthropic](https://code.claude.com/docs/en/agent-teams)
+- [Set up Claude Design system — Anthropic](https://support.claude.com/en/articles/14604397-set-up-your-design-system-in-claude-design)
+- [Awesome Claude Design — VoltAgent](https://github.com/VoltAgent/awesome-claude-design) (68 DESIGN.md éprouvés)
+
+## License
+
+MIT — voir [LICENSE](LICENSE).
+
+## Contribuer
+
+PRs bienvenues. Issues encore plus.
