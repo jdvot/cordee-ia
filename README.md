@@ -165,6 +165,43 @@ vercel --prod
 Voir `templates/greenfield/DESIGN.md` pour l'exemple complet du design system
 Cordée (granite + cuivre).
 
+## Internationalisation
+
+Le site est disponible en deux langues, gérées via [`next-intl`](https://next-intl.dev) :
+
+| Locale | URL                          | Default |
+| ------ | ---------------------------- | :-----: |
+| FR     | `/`, `/generator`            |   ✅    |
+| EN     | `/en`, `/en/generator`       |         |
+
+- **Stratégie d'URL** : `localePrefix: "as-needed"` — le français (langue par défaut) n'a pas de préfixe, l'anglais utilise `/en/...`.
+- **Toggle** : `<LanguageSwitcher />` est placé dans la `Nav` et le `Footer`. Il préserve la route courante (`usePathname` + `useRouter` de `next-intl/navigation`) en ne changeant que le segment locale.
+- **Sources de traduction** : `messages/fr.json` (source de vérité FR) et `messages/en.json` (traduction professionnelle, métaphore alpine préservée — *rope*, *ascent*, *summit*, *basecamp*).
+- **Métadonnées** : `generateMetadata` dans `app/[locale]/layout.tsx` lit la namespace `Metadata` pour produire un `<title>` / OG par locale.
+- **Routes API** : `app/api/generate/route.ts` reste à la racine, hors du segment `[locale]` — l'API n'a pas de UI à traduire et accepte les requêtes des deux locales.
+
+### Ajouter une 3ᵉ locale (DE, NL, ES…)
+
+1. Crée `messages/<code>.json` (copier `fr.json` puis traduire les valeurs).
+2. Ajoute le code dans `i18n/routing.ts` :
+   ```ts
+   locales: ["fr", "en", "de"] as const
+   ```
+3. Met à jour le `matcher` dans `middleware.ts` :
+   ```ts
+   matcher: ["/", "/(fr|en|de)/:path*", "/((?!api|_next|_vercel|.*\\..*).*)"]
+   ```
+4. Ajoute le bouton dans `components/LanguageSwitcher.tsx` (auto via `routing.locales`, donc rien à faire).
+5. `pnpm build` régénère les pages statiques pour la nouvelle locale.
+
+### Fichiers clés
+
+- `i18n/routing.ts` — config locales + stratégie de préfixe
+- `i18n/request.ts` — chargement messages côté serveur
+- `i18n/navigation.ts` — wrappers `Link` / `useRouter` / `usePathname` locale-aware
+- `middleware.ts` — détection locale + redirection
+- `app/[locale]/layout.tsx` — `<NextIntlClientProvider>` + `generateStaticParams`
+
 ## Documentation associée
 
 - [USE_CASES.md](USE_CASES.md) — 9 cas d'usage concrets
