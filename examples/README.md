@@ -1,6 +1,6 @@
 # `examples/` — démonstration des agents pré-configurés
 
-Ce dossier contient des **exemples de sortie** générés par les agents Claude Code pré-configurés dans `.claude/agents/`. Ils servent à montrer ce que tu peux obtenir en lançant la team sur ton propre projet.
+Ce dossier contient des **exemples de sortie** générés par les agents Claude Code pré-configurés dans `.claude/agents/`. Ils servent à montrer ce que tu peux obtenir en lançant l'équipe sur ton propre projet.
 
 **Tu peux les supprimer librement** — c'est juste de la démo.
 
@@ -30,7 +30,7 @@ claude
 2. Customize `DESIGN.md` avec ta marque (ou laisse l'exemple)
 3. Ouvre Claude Code dans le repo : `claude`
 4. Lance `/team` pour activer Agent Teams (requires Opus 4.6 + tmux)
-5. Briefe la team avec ton scope
+5. Briefe l'équipe avec ton scope
 
 ## Ne pas confondre
 

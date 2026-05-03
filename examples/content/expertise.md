@@ -9,7 +9,7 @@ Vos développeurs gardent leur IDE, leur stack et leurs revues de code. On ajout
 - RAG sur documentation technique, runbooks et architecture decision records.
 - Agents autonomes pour le triage d'incidents et la rotation de secrets.
 - Revue de code automatique alignée sur vos règles maison.
-- Migration de framework cadrée sprint par sprint.
+- Migration de cadre technique cadrée sprint par sprint.
 
 **Outils** : Claude Code, tmux Agent Teams, MCP serveurs, hooks Git, Langfuse pour l'observabilité.
 
