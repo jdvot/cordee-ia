@@ -138,6 +138,62 @@ const STACK_LABELS: Record<Payload["stack"][number], string> = {
   flask: "Flask (Python 3.12+)",
 };
 
+// ─── Stack groups (for variant agents) ─────────────────────────────────────
+//
+// Compresses the 14 stacks into 5 buckets so agent-variant trees stay finite.
+// Anything not listed (e.g. multiple languages, or "none") falls back to
+// "default".
+
+type StackGroup =
+  | "node-web"
+  | "node-server"
+  | "python"
+  | "go"
+  | "rust"
+  | "default";
+
+const STACK_GROUP: Record<Payload["stack"][number], StackGroup> = {
+  nextjs: "node-web",
+  vue: "node-web",
+  sveltekit: "node-web",
+  astro: "node-web",
+  remix: "node-web",
+  nestjs: "node-server",
+  hono: "node-server",
+  express: "node-server",
+  fastapi: "python",
+  django: "python",
+  flask: "python",
+  go: "go",
+  rust: "rust",
+  none: "default",
+};
+
+/**
+ * Pick the dominant variant for a multi-stack selection.
+ *
+ * Rule: first non-"default" stack wins. If the user picked Next.js + FastAPI,
+ * the test-writer agent gets the node-web variant — they can override later.
+ * Falls back to "default" if no stack or only "none" was picked.
+ */
+function dominantStackGroup(stacks: Payload["stack"]): StackGroup {
+  for (const s of stacks) {
+    const g = STACK_GROUP[s];
+    if (g !== "default") return g;
+  }
+  return "default";
+}
+
+/**
+ * Variant fallback chain for the dependency-updater agent. It only has 4
+ * concrete variants (node, python, go, rust) so node-web and node-server
+ * both collapse to "node".
+ */
+function dependencyUpdaterVariant(group: StackGroup): string {
+  if (group === "node-web" || group === "node-server") return "node";
+  return group;
+}
+
 // ─── Handler ───────────────────────────────────────────────────────────────
 
 export async function POST(req: NextRequest) {
@@ -265,19 +321,31 @@ async function collectFiles(
 ): Promise<ZipFile[]> {
   const out: ZipFile[] = [];
   const entries = await walk(sourceDir);
+  const stackGroup = dominantStackGroup(payload.stack);
+
+  // Variant agents: each has its own subfolder with one file per stack group
+  // plus a `default.md` fallback. Resolved AFTER the main loop so we can
+  // gracefully fall back to default when the desired variant is missing.
+  const VARIANT_AGENT_PICKS: Record<string, string> = {
+    "test-writer": stackGroup,
+    "dependency-updater": dependencyUpdaterVariant(stackGroup),
+  };
+  const variantAgentNames = new Set(Object.keys(VARIANT_AGENT_PICKS));
 
   for (const abs of entries) {
     const rel = path.relative(sourceDir, abs).split(path.sep).join("/");
 
     // Selection rules ────────────────────────────────────────────────────
     if (rel.startsWith(".claude/agents/")) {
-      const name = path.basename(rel, ".md");
-      if (
-        !payload.agents.includes(
-          name as Payload["agents"][number]
-        )
-      )
-        continue;
+      const segments = rel.split("/"); // [".claude", "agents", <name-or-folder>, ...]
+      const agentNode = segments[2];
+      if (!agentNode) continue;
+
+      // Variant folder: skip here, resolved after the loop.
+      if (variantAgentNames.has(agentNode)) continue;
+
+      const agentName = path.basename(agentNode, ".md");
+      if (!payload.agents.includes(agentName as Payload["agents"][number])) continue;
     }
 
     if (rel.startsWith(".claude/skills/")) {
@@ -319,6 +387,34 @@ async function collectFiles(
     const buf = await fs.readFile(abs);
     const isExecutable = abs.endsWith(".sh");
     out.push({ name: rel, content: buf, mode: isExecutable ? 0o755 : undefined });
+  }
+
+  // Resolve variant agents (test-writer, dependency-updater).
+  // Pick the desired variant, fall back to default.md if missing.
+  for (const [agentName, desiredVariant] of Object.entries(VARIANT_AGENT_PICKS)) {
+    if (!payload.agents.includes(agentName as Payload["agents"][number])) continue;
+
+    const variantDir = path.join(sourceDir, ".claude", "agents", agentName);
+    const desiredPath = path.join(variantDir, `${desiredVariant}.md`);
+    const fallbackPath = path.join(variantDir, "default.md");
+
+    let chosenPath: string | null = null;
+    try {
+      await fs.access(desiredPath);
+      chosenPath = desiredPath;
+    } catch {
+      try {
+        await fs.access(fallbackPath);
+        chosenPath = fallbackPath;
+      } catch {
+        // Neither variant nor default exists — skip silently.
+      }
+    }
+
+    if (chosenPath) {
+      const buf = await fs.readFile(chosenPath, "utf-8");
+      out.push({ name: `.claude/agents/${agentName}.md`, content: buf });
+    }
   }
 
   return out;
