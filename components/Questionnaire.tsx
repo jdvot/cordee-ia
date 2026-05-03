@@ -6,6 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowLeft, ArrowRight, Download, Loader2 } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
@@ -17,200 +18,182 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/RadioGroup";
 
 // ─── Schema ────────────────────────────────────────────────────────────────
 
-const FormSchema = z.object({
-  projectName: z
-    .string()
-    .min(1, "Renseigne un nom de projet")
-    .max(50, "50 caractères max"),
-  projectDescription: z.string().max(280).optional().default(""),
-  mode: z.enum(["greenfield", "overlay"]),
-  stack: z
-    .array(
-      z.enum([
-        "nextjs",
-        "nestjs",
-        "fastapi",
-        "go",
-        "rust",
-        "none",
-        "vue",
-        "sveltekit",
-        "astro",
-        "remix",
-        "hono",
-        "express",
-        "django",
-        "flask",
-      ])
-    )
-    .default([]),
-  agents: z
-    .array(
-      z.enum([
-        "researcher",
-        "challenger",
-        "reviewer",
-        "page-writer",
-        "pr-reviewer",
-        "db-migration-reviewer",
-        "a11y-auditor",
-        "doc-writer",
-        "dependency-updater",
-        "test-writer",
-      ])
-    )
-    .default([]),
-  skills: z
-    .array(
-      z.enum([
-        "kickoff",
-        "audit",
-        "design-handoff",
-        "release",
-        "standup",
-        "pr-review",
-        "test-coverage",
-        "doc-update",
-      ])
-    )
-    .default([]),
-  mcps: z
-    .array(
-      z.enum([
-        "notion",
-        "context7",
-        "playwright",
-        "figma",
-        "sentry",
-        "linear",
-        "github",
-        "vercel",
-        "supabase",
-        "stripe",
-        "postgres",
-        "slack",
-      ])
-    )
-    .default([]),
-  designSystem: z.enum(["use-example", "empty-template", "skip"]),
-  extras: z
-    .array(
-      z.enum([
-        "editorconfig",
-        "prettierrc",
-        "makefile",
-        "dockerfile",
-        "docker-compose",
-        "vscode-settings",
-        "github-ci",
-      ])
-    )
-    .default([]),
-  license: z.enum(["MIT", "Apache-2.0", "AGPL-3.0", "none"]).default("MIT"),
-});
+const STACK_VALUES = [
+  "nextjs",
+  "remix",
+  "vue",
+  "sveltekit",
+  "astro",
+  "nestjs",
+  "express",
+  "hono",
+  "fastapi",
+  "django",
+  "flask",
+  "go",
+  "rust",
+  "none",
+] as const;
 
-export type FormValues = z.infer<typeof FormSchema>;
+const AGENT_VALUES = [
+  "researcher",
+  "challenger",
+  "reviewer",
+  "pr-reviewer",
+  "db-migration-reviewer",
+  "a11y-auditor",
+  "doc-writer",
+  "dependency-updater",
+  "test-writer",
+  "page-writer",
+] as const;
 
-// ─── Step content ──────────────────────────────────────────────────────────
+const SKILL_VALUES = [
+  "kickoff",
+  "audit",
+  "design-handoff",
+  "release",
+  "standup",
+  "pr-review",
+  "test-coverage",
+  "doc-update",
+] as const;
 
-const STACK_OPTIONS: { value: FormValues["stack"][number]; label: string }[] = [
-  { value: "nextjs", label: "Next.js" },
-  { value: "remix", label: "Remix" },
-  { value: "vue", label: "Vue / Nuxt" },
-  { value: "sveltekit", label: "SvelteKit" },
-  { value: "astro", label: "Astro" },
-  { value: "nestjs", label: "NestJS" },
-  { value: "express", label: "Express" },
-  { value: "hono", label: "Hono (Edge)" },
-  { value: "fastapi", label: "FastAPI" },
-  { value: "django", label: "Django" },
-  { value: "flask", label: "Flask" },
-  { value: "go", label: "Go" },
-  { value: "rust", label: "Rust" },
-  { value: "none", label: "Pas de stack défini" },
-];
+const MCP_VALUES = [
+  "notion",
+  "context7",
+  "playwright",
+  "figma",
+  "sentry",
+  "linear",
+  "github",
+  "vercel",
+  "supabase",
+  "stripe",
+  "postgres",
+  "slack",
+] as const;
 
-const AGENT_OPTIONS: {
-  value: FormValues["agents"][number];
-  label: string;
-  hint: string;
-}[] = [
-  { value: "researcher", label: "researcher", hint: "Veille web, sources factuelles (Sonnet)" },
-  { value: "challenger", label: "challenger", hint: "Avocat du diable, critique chaque décision (Opus xhigh)" },
-  { value: "reviewer", label: "reviewer", hint: "Relecture code, sans écrire (Opus xhigh)" },
-  { value: "pr-reviewer", label: "pr-reviewer", hint: "Review une PR : diff, tests, breaking changes (Opus xhigh)" },
-  { value: "db-migration-reviewer", label: "db-migration-reviewer", hint: "Review migrations Prisma/Alembic/Drizzle (Opus xhigh)" },
-  { value: "a11y-auditor", label: "a11y-auditor", hint: "Audit accessibilité WCAG 2.2 (Sonnet)" },
-  { value: "doc-writer", label: "doc-writer", hint: "Écrit ou met à jour la doc (Sonnet)" },
-  { value: "dependency-updater", label: "dependency-updater", hint: "Bump deps + lit les changelogs (Sonnet)" },
-  { value: "test-writer", label: "test-writer", hint: "Écrit des tests Vitest/Jest/pytest (Sonnet)" },
-  { value: "page-writer", label: "page-writer", hint: "Owner d'une page Notion / markdown (Sonnet)" },
-];
+const EXTRA_VALUES = [
+  "editorconfig",
+  "prettierrc",
+  "makefile",
+  "dockerfile",
+  "docker-compose",
+  "vscode-settings",
+  "github-ci",
+] as const;
 
-const SKILL_OPTIONS: {
-  value: FormValues["skills"][number];
-  label: string;
-  hint: string;
-}[] = [
-  { value: "kickoff", label: "/kickoff", hint: "Initialiser un projet vierge" },
-  { value: "audit", label: "/audit", hint: "Cartographier un codebase existant" },
-  { value: "design-handoff", label: "/design-handoff", hint: "Recevoir un livrable Claude Design" },
-  { value: "release", label: "/release", hint: "Bump version + CHANGELOG + tag + publish" },
-  { value: "standup", label: "/standup", hint: "Synthèse quotidienne (commits + PRs + tickets)" },
-  { value: "pr-review", label: "/pr-review", hint: "Review une PR par numéro" },
-  { value: "test-coverage", label: "/test-coverage", hint: "Run coverage + suggère 3 tests prioritaires" },
-  { value: "doc-update", label: "/doc-update", hint: "Scan doc obsolète + 5 fixes" },
-];
+const LICENSE_VALUES = ["MIT", "Apache-2.0", "AGPL-3.0", "none"] as const;
 
-const MCP_OPTIONS: {
-  value: FormValues["mcps"][number];
-  label: string;
-  hint: string;
-}[] = [
-  { value: "notion", label: "notion", hint: "Tickets, docs, boards" },
-  { value: "context7", label: "context7", hint: "Docs librairies à jour" },
-  { value: "playwright", label: "playwright", hint: "E2E, screenshots" },
-  { value: "figma", label: "figma", hint: "Tokens design Figma" },
-  { value: "sentry", label: "sentry", hint: "Erreurs production" },
-  { value: "linear", label: "linear", hint: "Tickets Linear" },
-  { value: "github", label: "github", hint: "PRs, issues, repos" },
-  { value: "vercel", label: "vercel", hint: "Deploys, env vars, logs" },
-  { value: "supabase", label: "supabase", hint: "DB, auth, storage" },
-  { value: "stripe", label: "stripe", hint: "Customers, prix, webhooks" },
-  { value: "postgres", label: "postgres", hint: "Query DB direct" },
-  { value: "slack", label: "slack", hint: "Messages, channels" },
-];
+function buildSchema(messages: { required: string; max: string }) {
+  return z.object({
+    projectName: z
+      .string()
+      .min(1, messages.required)
+      .max(50, messages.max),
+    projectDescription: z.string().max(280).optional().default(""),
+    mode: z.enum(["greenfield", "overlay"]),
+    stack: z.array(z.enum(STACK_VALUES)).default([]),
+    agents: z.array(z.enum(AGENT_VALUES)).default([]),
+    skills: z.array(z.enum(SKILL_VALUES)).default([]),
+    mcps: z.array(z.enum(MCP_VALUES)).default([]),
+    designSystem: z.enum(["use-example", "empty-template", "skip"]),
+    extras: z.array(z.enum(EXTRA_VALUES)).default([]),
+    license: z.enum(LICENSE_VALUES).default("MIT"),
+  });
+}
 
-const EXTRA_OPTIONS: {
-  value: FormValues["extras"][number];
-  label: string;
-  hint: string;
-}[] = [
-  { value: "editorconfig", label: ".editorconfig", hint: "Indent + EOL + charset partagés IDE" },
-  { value: "prettierrc", label: ".prettierrc.json", hint: "Formatage Prettier (sensible defaults)" },
-  { value: "makefile", label: "Makefile", hint: "Cibles dev / build / test / lint / clean" },
-  { value: "dockerfile", label: "Dockerfile", hint: "Multi-stage build Node 24 / Python 3.12" },
-  { value: "docker-compose", label: "docker-compose.yml", hint: "App + Postgres en local" },
-  { value: "vscode-settings", label: ".vscode/settings.json", hint: "ESLint format on save, Tailwind IntelliSense" },
-  { value: "github-ci", label: ".github/workflows/ci.yml", hint: "CI lint + typecheck + build + test" },
-];
-
-const LICENSE_OPTIONS: {
-  value: FormValues["license"];
-  label: string;
-  hint: string;
-}[] = [
-  { value: "MIT", label: "MIT", hint: "Permissive, par défaut. Fork libre." },
-  { value: "Apache-2.0", label: "Apache 2.0", hint: "Permissive + clause brevets." },
-  { value: "AGPL-3.0", label: "AGPL 3.0", hint: "Copyleft fort. Toute modif réutilisée doit être OSS." },
-  { value: "none", label: "Aucune", hint: "Code privé, tous droits réservés." },
-];
+export type FormValues = z.infer<ReturnType<typeof buildSchema>>;
 
 // ─── Component ─────────────────────────────────────────────────────────────
 
 const TOTAL_STEPS = 9;
 
 export function Questionnaire() {
+  const t = useTranslations("Generator.Questionnaire");
+
+  const FormSchema = React.useMemo(
+    () =>
+      buildSchema({
+        required: t("validation.projectNameRequired"),
+        max: t("validation.projectNameMax"),
+      }),
+    [t]
+  );
+
+  const STACK_OPTIONS: { value: (typeof STACK_VALUES)[number]; label: string }[] =
+    STACK_VALUES.map((v) => ({
+      value: v,
+      label: t(`stack_options.${v}`),
+    }));
+
+  const AGENT_OPTIONS: {
+    value: (typeof AGENT_VALUES)[number];
+    label: string;
+    hint: string;
+  }[] = AGENT_VALUES.map((v) => ({
+    value: v,
+    label: v,
+    hint: t(`agent_options.${v}`),
+  }));
+
+  const SKILL_OPTIONS: {
+    value: (typeof SKILL_VALUES)[number];
+    label: string;
+    hint: string;
+  }[] = SKILL_VALUES.map((v) => ({
+    value: v,
+    label: `/${v}`,
+    hint: t(`skill_options.${v}`),
+  }));
+
+  const MCP_OPTIONS: {
+    value: (typeof MCP_VALUES)[number];
+    label: string;
+    hint: string;
+  }[] = MCP_VALUES.map((v) => ({
+    value: v,
+    label: v,
+    hint: t(`mcp_options.${v}`),
+  }));
+
+  const EXTRA_LABELS: Record<(typeof EXTRA_VALUES)[number], string> = {
+    editorconfig: ".editorconfig",
+    prettierrc: ".prettierrc.json",
+    makefile: "Makefile",
+    dockerfile: "Dockerfile",
+    "docker-compose": "docker-compose.yml",
+    "vscode-settings": ".vscode/settings.json",
+    "github-ci": ".github/workflows/ci.yml",
+  };
+
+  const EXTRA_OPTIONS: {
+    value: (typeof EXTRA_VALUES)[number];
+    label: string;
+    hint: string;
+  }[] = EXTRA_VALUES.map((v) => ({
+    value: v,
+    label: EXTRA_LABELS[v],
+    hint: t(`extra_options.${v}`),
+  }));
+
+  // Keys like "Apache-2.0" contain a `.` which next-intl treats as a path
+  // separator — use t.raw to grab the whole object.
+  const licenseMap = t.raw("license_options") as Record<
+    (typeof LICENSE_VALUES)[number],
+    { label: string; hint: string }
+  >;
+  const LICENSE_OPTIONS: {
+    value: (typeof LICENSE_VALUES)[number];
+    label: string;
+    hint: string;
+  }[] = LICENSE_VALUES.map((v) => ({
+    value: v,
+    label: licenseMap[v].label,
+    hint: licenseMap[v].hint,
+  }));
+
   const [step, setStep] = React.useState(1);
   const [isSubmitting, setIsSubmitting] = React.useState(false);
   const [error, setError] = React.useState<string | null>(null);
@@ -266,7 +249,7 @@ export function Questionnaire() {
       });
       if (!res.ok) {
         const txt = await res.text().catch(() => "");
-        throw new Error(txt || `Erreur ${res.status}`);
+        throw new Error(txt || t("errorWithCode", { code: res.status }));
       }
       const blob = await res.blob();
       const url = URL.createObjectURL(blob);
@@ -278,7 +261,7 @@ export function Questionnaire() {
       a.remove();
       URL.revokeObjectURL(url);
     } catch (e) {
-      setError(e instanceof Error ? e.message : "Erreur inconnue");
+      setError(e instanceof Error ? e.message : t("errorUnknown"));
     } finally {
       setIsSubmitting(false);
     }
@@ -292,7 +275,7 @@ export function Questionnaire() {
       <div className="mb-10">
         <div className="flex items-center justify-between mb-3">
           <span className="text-xs font-medium uppercase tracking-wider text-[var(--color-muted-foreground)]">
-            Étape {step} sur {TOTAL_STEPS}
+            {t("stepLabel", { current: step, total: TOTAL_STEPS })}
           </span>
           <span className="text-xs font-medium text-[var(--color-muted-foreground)]">
             {Math.round(progress)} %
@@ -326,18 +309,17 @@ export function Questionnaire() {
                     className="text-3xl mb-2"
                     style={{ fontFamily: "var(--font-display)" }}
                   >
-                    Comment s'appelle ton projet ?
+                    {t("step1.title")}
                   </h3>
                   <p className="text-sm text-[var(--color-muted-foreground)]">
-                    Nom de repo, slug ou nom de produit. Tu peux changer plus
-                    tard.
+                    {t("step1.subtitle")}
                   </p>
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="projectName">Nom du projet</Label>
+                  <Label htmlFor="projectName">{t("step1.nameLabel")}</Label>
                   <Input
                     id="projectName"
-                    placeholder="mon-projet-genial"
+                    placeholder={t("step1.namePlaceholder")}
                     {...register("projectName")}
                   />
                   {errors.projectName && (
@@ -348,11 +330,11 @@ export function Questionnaire() {
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="projectDescription">
-                    Description courte (optionnel)
+                    {t("step1.descLabel")}
                   </Label>
                   <Textarea
                     id="projectDescription"
-                    placeholder="2 lignes sur ce que fait ton projet."
+                    placeholder={t("step1.descPlaceholder")}
                     rows={3}
                     {...register("projectDescription")}
                   />
@@ -368,11 +350,10 @@ export function Questionnaire() {
                     className="text-3xl mb-2"
                     style={{ fontFamily: "var(--font-display)" }}
                   >
-                    Nouveau projet ou projet existant ?
+                    {t("step2.title")}
                   </h3>
                   <p className="text-sm text-[var(--color-muted-foreground)]">
-                    Le mode détermine si on scaffold tout, ou si on dépose
-                    juste l'overlay Claude par-dessus ton repo.
+                    {t("step2.subtitle")}
                   </p>
                 </div>
                 <Controller
@@ -386,14 +367,14 @@ export function Questionnaire() {
                     >
                       <RadioCardOption
                         value="greenfield"
-                        title="Nouveau projet (greenfield)"
-                        desc="On scaffold .claude/, CLAUDE.md, DESIGN.md, .mcp.json, install.sh."
+                        title={t("step2.greenfieldTitle")}
+                        desc={t("step2.greenfieldDesc")}
                         checked={field.value === "greenfield"}
                       />
                       <RadioCardOption
                         value="overlay"
-                        title="Projet existant (overlay)"
-                        desc="On ajoute uniquement les fichiers Claude par-dessus ton repo. Ton code n'est pas touché."
+                        title={t("step2.overlayTitle")}
+                        desc={t("step2.overlayDesc")}
                         checked={field.value === "overlay"}
                       />
                     </RadioGroup>
@@ -410,11 +391,10 @@ export function Questionnaire() {
                     className="text-3xl mb-2"
                     style={{ fontFamily: "var(--font-display)" }}
                   >
-                    Stack technique ?
+                    {t("step3.title")}
                   </h3>
                   <p className="text-sm text-[var(--color-muted-foreground)]">
-                    Optionnel. Sert à pré-remplir les conventions de code dans
-                    CLAUDE.md.
+                    {t("step3.subtitle")}
                   </p>
                 </div>
                 <Controller
@@ -439,11 +419,10 @@ export function Questionnaire() {
                     className="text-3xl mb-2"
                     style={{ fontFamily: "var(--font-display)" }}
                   >
-                    Agents Claude voulus ?
+                    {t("step4.title")}
                   </h3>
                   <p className="text-sm text-[var(--color-muted-foreground)]">
-                    Recommandé : researcher + challenger (couple
-                    investigation / contradiction).
+                    {t("step4.subtitle")}
                   </p>
                 </div>
                 <Controller
@@ -468,10 +447,10 @@ export function Questionnaire() {
                     className="text-3xl mb-2"
                     style={{ fontFamily: "var(--font-display)" }}
                   >
-                    Skills voulus ?
+                    {t("step5.title")}
                   </h3>
                   <p className="text-sm text-[var(--color-muted-foreground)]">
-                    Skills = slash commands réutilisables.
+                    {t("step5.subtitle")}
                   </p>
                 </div>
                 <Controller
@@ -496,10 +475,10 @@ export function Questionnaire() {
                     className="text-3xl mb-2"
                     style={{ fontFamily: "var(--font-display)" }}
                   >
-                    MCPs branchés ?
+                    {t("step6.title")}
                   </h3>
                   <p className="text-sm text-[var(--color-muted-foreground)]">
-                    Tu peux toujours en ajouter plus tard dans .mcp.json.
+                    {t("step6.subtitle")}
                   </p>
                 </div>
                 <Controller
@@ -524,11 +503,10 @@ export function Questionnaire() {
                     className="text-3xl mb-2"
                     style={{ fontFamily: "var(--font-display)" }}
                   >
-                    DESIGN.md de départ ?
+                    {t("step7.title")}
                   </h3>
                   <p className="text-sm text-[var(--color-muted-foreground)]">
-                    Le design system est la première chose qu'un agent design
-                    ouvre.
+                    {t("step7.subtitle")}
                   </p>
                 </div>
                 <Controller
@@ -542,20 +520,20 @@ export function Questionnaire() {
                     >
                       <RadioCardOption
                         value="use-example"
-                        title="Garder l'exemple Cordée (granite + cuivre)"
-                        desc="Pratique pour voir un DESIGN.md complet en action et l'adapter."
+                        title={t("step7.useExampleTitle")}
+                        desc={t("step7.useExampleDesc")}
                         checked={field.value === "use-example"}
                       />
                       <RadioCardOption
                         value="empty-template"
-                        title="Template vide à 9 sections"
-                        desc="Le squelette sans contenu. À remplir avec ton agent design."
+                        title={t("step7.emptyTitle")}
+                        desc={t("step7.emptyDesc")}
                         checked={field.value === "empty-template"}
                       />
                       <RadioCardOption
                         value="skip"
-                        title="Pas de DESIGN.md"
-                        desc="Si ton projet n'a pas d'interface."
+                        title={t("step7.skipTitle")}
+                        desc={t("step7.skipDesc")}
                         checked={field.value === "skip"}
                       />
                     </RadioGroup>
@@ -572,10 +550,10 @@ export function Questionnaire() {
                     className="text-3xl mb-2"
                     style={{ fontFamily: "var(--font-display)" }}
                   >
-                    Fichiers complémentaires
+                    {t("step8.title")}
                   </h3>
                   <p className="text-sm text-[var(--color-muted-foreground)]">
-                    Optionnels. Tu peux toujours les ajouter à la main plus tard.
+                    {t("step8.subtitle")}
                   </p>
                 </div>
                 <Controller
@@ -630,11 +608,10 @@ export function Questionnaire() {
                     className="text-3xl mb-2"
                     style={{ fontFamily: "var(--font-display)" }}
                   >
-                    Quelle licence ?
+                    {t("step9.title")}
                   </h3>
                   <p className="text-sm text-[var(--color-muted-foreground)]">
-                    Le fichier LICENSE est ajouté à la racine. Aucun cas =
-                    code privé tous droits réservés.
+                    {t("step9.subtitle")}
                   </p>
                 </div>
                 <Controller
@@ -677,12 +654,12 @@ export function Questionnaire() {
             disabled={step === 1 || isSubmitting}
           >
             <ArrowLeft className="h-4 w-4" />
-            Précédent
+            {t("back")}
           </Button>
 
           {step < TOTAL_STEPS ? (
             <Button type="button" variant="primary" onClick={next}>
-              Suivant
+              {t("next")}
               <ArrowRight className="h-4 w-4" />
             </Button>
           ) : (
@@ -695,12 +672,12 @@ export function Questionnaire() {
               {isSubmitting ? (
                 <>
                   <Loader2 className="h-4 w-4 animate-spin" />
-                  Génération…
+                  {t("submitting")}
                 </>
               ) : (
                 <>
                   <Download className="h-4 w-4" />
-                  Télécharger le zip
+                  {t("submit")}
                 </>
               )}
             </Button>
