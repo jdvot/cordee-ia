@@ -1,0 +1,38 @@
+# Secrets — never commit
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+secrets.json
+credentials.json
+
+# Dependencies
+node_modules/
+__pycache__/
+*.pyc
+.venv/
+venv/
+.uv/
+
+# Build outputs
+dist/
+build/
+.next/
+.vercel/
+.turbo/
+out/
+.cache/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/settings.json
+*.swp
+
+# Claude Code local state (DO commit .claude/ definitions, NOT the runtime state)
+.claude/.session/
+.claude/cache/

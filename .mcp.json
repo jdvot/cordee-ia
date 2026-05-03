@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "_comment": "Generic MCP starter. Uncomment what you need per project. Add API keys via env vars, NEVER inline.",
+  "mcpServers": {
+    "notion": {
+      "type": "http",
+      "url": "https://mcp.notion.com/mcp",
+      "_comment": "Project boards, docs, tickets. Auth via OAuth on first use."
+    },
+    "context7": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@upstash/context7-mcp@latest"],
+      "_comment": "Up-to-date library docs (Next.js, NestJS, Tailwind, etc.). Free, no auth."
+    },
+    "_optional_examples": {
+      "_comment": "Uncomment what your project needs:",
+      "playwright": {
+        "type": "stdio",
+        "command": "npx",
+        "args": ["-y", "@playwright/mcp@latest"],
+        "_comment": "Browser automation, E2E, screenshots."
+      },
+      "figma": {
+        "type": "http",
+        "url": "https://mcp.figma.com/mcp",
+        "_comment": "Design tokens for design-to-code handoff."
+      },
+      "sentry": {
+        "type": "http",
+        "url": "https://mcp.sentry.dev/mcp",
+        "_comment": "Production error tracking."
+      },
+      "linear": {
+        "type": "http",
+        "url": "https://mcp.linear.app/mcp",
+        "_comment": "Issue tracking."
+      }
+    }
+  }
+}
