@@ -686,8 +686,8 @@ export function Questionnaire({ onValuesChange }: QuestionnaireProps = {}) {
                                   );
                               }}
                             />
-                            <div className="flex-1">
-                              <div className="font-mono text-sm">
+                            <div className="flex-1 min-w-0">
+                              <div className="font-mono text-sm break-all">
                                 {opt.label}
                               </div>
                               <div className="text-xs text-[var(--color-muted-foreground)] mt-1">

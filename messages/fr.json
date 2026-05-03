@@ -291,10 +291,10 @@
       "ctaStart": "Démarrer le questionnaire",
       "ctaRepo": "Voir le repo GitHub",
       "stats": {
-        "agents": { "label": "Agents Claude", "sublabel": "researcher · challenger · reviewer · page-writer" },
-        "skills": { "label": "Skills inclus", "sublabel": "/kickoff · /audit · /design-handoff" },
-        "sections": { "label": "Sections DESIGN.md", "sublabel": "template prêt à remplir" },
-        "modes": { "label": "Modes", "sublabel": "nouveau projet · projet existant" }
+        "agents": { "label": "Agents Claude", "sublabel": "researcher · challenger · pr-reviewer · test-writer · +6 autres" },
+        "skills": { "label": "Skills inclus", "sublabel": "/kickoff · /audit · /design-handoff · +5 autres" },
+        "sections": { "label": "Stacks supportées", "sublabel": "Next, Nest, FastAPI, Go, Rust, Vue, Astro, +7 autres" },
+        "modes": { "label": "MCPs configurables", "sublabel": "Notion, Sentry, Figma, Playwright, GitHub, +7 autres" }
       }
     },
     "HowItWorks": {

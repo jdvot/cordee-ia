@@ -18,28 +18,28 @@ export function Nav() {
   return (
     <nav className={"nav " + (scrolled ? "scrolled" : "")}>
       <div className="container nav-inner">
-        <a href="#" className="nav-logo" aria-label={t("ariaLabel")}>
+        <Link href="/" className="nav-logo" aria-label={t("ariaLabel")}>
           <span className="mark">
             <CordeeMark size={26} />
           </span>
           <span>
             Cordée<span style={{ color: "var(--color-accent)" }}>.</span>IA
           </span>
-        </a>
+        </Link>
         <div className="nav-links">
-          <a href="#methode">{t("method")}</a>
-          <a href="#expertise">{t("expertise")}</a>
-          <a href="#personas">{t("personas")}</a>
-          <a href="#use-cases">{t("useCases")}</a>
-          <a href="#faq">{t("faq")}</a>
+          <Link href="/#methode">{t("method")}</Link>
+          <Link href="/#expertise">{t("expertise")}</Link>
+          <Link href="/#personas">{t("personas")}</Link>
+          <Link href="/#use-cases">{t("useCases")}</Link>
+          <Link href="/#faq">{t("faq")}</Link>
           <Link href="/generator">{t("generator")}</Link>
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
           <DarkToggle />
           <LanguageSwitcher variant="nav" />
-          <a href="#cta" className="btn btn-accent">
+          <Link href="/generator" className="btn btn-accent">
             {t("ctaBook")} <ArrowRight size={14} />
-          </a>
+          </Link>
         </div>
       </div>
     </nav>

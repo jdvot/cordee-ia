@@ -231,8 +231,8 @@ function Preview({
         {labels.preview}
       </div>
       <div
-        style={previewStyle}
-        className="rounded-[12px] border border-[var(--color-border)] bg-[var(--color-surface)] p-5 space-y-4"
+        style={{ ...previewStyle, background: "#F8F7F4", borderColor: "rgba(26,43,60,0.12)" }}
+        className="rounded-[12px] border p-5 space-y-4"
       >
         <p className="text-sm leading-relaxed" style={{ color: "var(--c-primary)" }}>
           {labels.previewBody}

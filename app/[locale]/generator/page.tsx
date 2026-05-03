@@ -103,25 +103,25 @@ function Hero() {
             </Button>
           </div>
 
-          {/* Stats */}
+          {/* Stats — reflect what the generator actually delivers */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 pt-12 border-t border-[var(--color-border)]">
             <Stat
-              value={4}
+              value={10}
               label={t("stats.agents.label")}
               sublabel={t("stats.agents.sublabel")}
             />
             <Stat
-              value={3}
+              value={8}
               label={t("stats.skills.label")}
               sublabel={t("stats.skills.sublabel")}
             />
             <Stat
-              value={9}
+              value={14}
               label={t("stats.sections.label")}
               sublabel={t("stats.sections.sublabel")}
             />
             <Stat
-              value={2}
+              value={12}
               label={t("stats.modes.label")}
               sublabel={t("stats.modes.sublabel")}
             />
