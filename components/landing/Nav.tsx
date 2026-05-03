@@ -37,9 +37,8 @@ export function Nav() {
         <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
           <DarkToggle />
           <LanguageSwitcher variant="nav" />
-          {/* CTA hidden on small screens — overflowed on mobile.
-              Logo and link to /generator already accessible via the hero CTA. */}
-          <Link href="/generator" className="btn btn-accent hidden md:inline-flex">
+          {/* CTA hidden on mobile (overflows). See globals.css media query. */}
+          <Link href="/generator" className="btn btn-accent nav-cta">
             {t("ctaBook")} <ArrowRight size={14} />
           </Link>
         </div>

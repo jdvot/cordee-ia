@@ -379,6 +379,9 @@ section {
   .nav-links {
     display: none;
   }
+  .nav-cta {
+    display: none !important;
+  }
   .nav-inner {
     gap: 16px;
   }
