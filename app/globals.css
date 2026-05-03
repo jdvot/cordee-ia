@@ -1,58 +1,490 @@
 @import "tailwindcss";
 
-@theme {
-  /* Granite — sérieux, expertise, structure */
+/* =========================================================
+   Cordée.IA — design tokens (granite + cuivre, 2026)
+   Source: handoff Claude Design — Instrument Serif display.
+   ========================================================= */
+
+:root {
+  /* Granite */
   --color-primary: #1a2b3c;
   --color-primary-hover: #243748;
   --color-primary-foreground: #f8f7f4;
 
-  /* Cuivre — chaleur humaine, focal points, CTA */
-  --color-accent: #d4824a;
-  --color-accent-hover: #c4723a;
+  /* Cuivre — accent (oklch driven for theming) */
+  --accent-h: 24;
+  --accent-c: 0.12;
+  --accent-l: 0.62;
+  --color-accent: oklch(var(--accent-l) var(--accent-c) var(--accent-h));
+  --color-accent-hover: oklch(calc(var(--accent-l) - 0.04) var(--accent-c) var(--accent-h));
+  --color-accent-soft: oklch(var(--accent-l) var(--accent-c) var(--accent-h) / 0.12);
   --color-accent-foreground: #1a2b3c;
 
-  /* Neige — fond, respiration */
+  /* Neige */
   --color-background: #f8f7f4;
+  --color-surface: #fdfcf9;
   --color-foreground: #0a1521;
   --color-muted: #8b9ba8;
   --color-muted-foreground: #4a5a6b;
 
+  /* Sapin */
   --color-success: #6b8b6e;
-  --color-border: #e5e2da;
 
-  /* Typography */
-  --font-display: "Fraunces", Georgia, serif;
-  --font-body: "Inter", -apple-system, sans-serif;
-  --font-mono: "JetBrains Mono", "Fira Code", monospace;
+  /* Brouillard */
+  --color-border: #e5e2da;
+  --color-border-strong: #c8c3b8;
+  --color-input: #e5e2da;
+
+  /* Type */
+  --font-display: var(--font-instrument-serif), "Fraunces", Georgia, serif;
+  --font-body: var(--font-inter), -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), "Fira Code", ui-monospace, monospace;
+
+  /* Density (default) */
+  --section-py: clamp(96px, 12vw, 192px);
+  --container-px: clamp(24px, 4vw, 48px);
+  --stack-md: 24px;
+  --stack-lg: 48px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(10, 21, 33, 0.04);
+  --shadow-md: 0 4px 12px rgba(10, 21, 33, 0.06);
+  --shadow-lg: 0 16px 40px rgba(10, 21, 33, 0.08);
+
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+
+  --ease: cubic-bezier(0.2, 0.6, 0.2, 1);
 }
 
-@layer base {
-  * {
-    border-color: var(--color-border);
-  }
+[data-theme="dark"] {
+  --color-background: #0a1521;
+  --color-surface: #131f2e;
+  --color-foreground: #f8f7f4;
+  --color-primary: oklch(var(--accent-l) var(--accent-c) var(--accent-h));
+  --color-primary-hover: oklch(calc(var(--accent-l) + 0.04) var(--accent-c) var(--accent-h));
+  --color-primary-foreground: #0a1521;
+  --color-muted: #6b7989;
+  --color-muted-foreground: #9da9b8;
+  --color-border: #1f2d3f;
+  --color-border-strong: #2c3d52;
+  --color-input: #1f2d3f;
+}
 
-  html {
-    scroll-behavior: smooth;
-  }
+/* ---------- Reset-ish ---------- */
 
-  body {
-    background-color: var(--color-background);
-    color: var(--color-foreground);
-    font-family: var(--font-body);
-    font-feature-settings: "ss01", "cv11";
-  }
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
 
-  h1,
-  h2,
-  h3 {
-    font-family: var(--font-display);
-    letter-spacing: -0.02em;
-    line-height: 1.0;
-  }
+html {
+  scroll-behavior: smooth;
+}
 
-  /* Topographic background pattern (5% opacity, generated via SVG) */
-  .topo-bg {
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="600" height="600" viewBox="0 0 600 600"><g fill="none" stroke="%231a2b3c" stroke-opacity="0.05" stroke-width="1"><circle cx="300" cy="300" r="40"/><circle cx="300" cy="300" r="80"/><circle cx="300" cy="300" r="120"/><circle cx="300" cy="300" r="160"/><circle cx="300" cy="300" r="200"/><circle cx="300" cy="300" r="240"/><circle cx="300" cy="300" r="280"/></g></svg>');
-    background-size: 600px 600px;
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  transition: background 400ms var(--ease), color 400ms var(--ease);
+}
+
+::selection {
+  background: var(--color-accent);
+  color: var(--color-accent-foreground);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-left: var(--container-px);
+  padding-right: var(--container-px);
+}
+
+.container-wide {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding-left: var(--container-px);
+  padding-right: var(--container-px);
+}
+
+/* ---------- Type ---------- */
+
+.display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 0.98;
+}
+
+.h1 {
+  font-size: clamp(48px, 8vw, 104px);
+}
+
+.h2 {
+  font-size: clamp(36px, 5vw, 64px);
+  line-height: 1.05;
+  letter-spacing: -0.015em;
+}
+
+.h3 {
+  font-size: clamp(22px, 2vw, 28px);
+  font-family: var(--font-body);
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+}
+
+.body-lg {
+  font-size: clamp(17px, 1.4vw, 20px);
+  line-height: 1.55;
+  color: var(--color-muted-foreground);
+}
+
+.body {
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--color-muted-foreground);
+}
+
+.small {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.caption {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--color-muted);
+}
+
+/* ---------- Section scaffolding ---------- */
+
+section {
+  padding-top: var(--section-py);
+  padding-bottom: var(--section-py);
+  position: relative;
+}
+
+.section-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 32px;
+}
+
+.section-eyebrow .num {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--color-muted);
+}
+
+.section-eyebrow .rule {
+  flex: 1;
+  height: 1px;
+  background: var(--color-border);
+}
+
+/* ---------- Buttons ---------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 22px;
+  border-radius: var(--radius-md);
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  transition: all 200ms var(--ease);
+  cursor: pointer;
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+.btn-primary {
+  background: var(--color-primary);
+  color: var(--color-primary-foreground);
+}
+
+.btn-primary:hover {
+  background: var(--color-primary-hover);
+}
+
+.btn-accent {
+  background: var(--color-accent);
+  color: var(--color-accent-foreground);
+}
+
+.btn-accent:hover {
+  background: var(--color-accent-hover);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--color-foreground);
+  border-color: var(--color-border);
+}
+
+.btn-ghost:hover {
+  border-color: var(--color-border-strong);
+  background: color-mix(in oklch, var(--color-foreground) 4%, transparent);
+}
+
+.btn-arrow svg {
+  transition: transform 200ms var(--ease);
+}
+
+.btn-arrow:hover svg {
+  transform: translateX(4px);
+}
+
+/* ---------- Badge ---------- */
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: color-mix(in oklch, var(--color-foreground) 6%, transparent);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-foreground);
+}
+
+.badge .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--color-accent);
+}
+
+/* ---------- Card ---------- */
+
+.card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  transition: border-color 250ms var(--ease), transform 400ms var(--ease);
+}
+
+.card.hoverable:hover {
+  border-color: var(--color-accent);
+}
+
+/* ---------- Topographic background ---------- */
+
+.topo-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.5;
+  z-index: 0;
+  overflow: hidden;
+  mask-image: radial-gradient(ellipse at center, #000 30%, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse at center, #000 30%, transparent 75%);
+}
+
+/* ---------- Nav ---------- */
+
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  padding: 20px 0;
+  transition: all 300ms var(--ease);
+}
+
+.nav.scrolled {
+  background: color-mix(in oklch, var(--color-background) 85%, transparent);
+  backdrop-filter: saturate(140%) blur(12px);
+  -webkit-backdrop-filter: saturate(140%) blur(12px);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-display);
+  font-size: 24px;
+  letter-spacing: -0.02em;
+  font-weight: 400;
+}
+
+.nav-logo .mark {
+  width: 28px;
+  height: 28px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 32px;
+}
+
+.nav-links a {
+  font-size: 14px;
+  color: var(--color-muted-foreground);
+  transition: color 200ms var(--ease);
+}
+
+.nav-links a:hover {
+  color: var(--color-foreground);
+}
+
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+  }
+}
+
+/* ---------- Imagery placeholder ---------- */
+
+.placeholder {
+  position: relative;
+  background: repeating-linear-gradient(
+    135deg,
+    color-mix(in oklch, var(--color-foreground) 4%, var(--color-surface)) 0 12px,
+    color-mix(in oklch, var(--color-foreground) 7%, var(--color-surface)) 12px 24px
+  );
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+  padding: 16px;
+  overflow: hidden;
+  color: var(--color-muted-foreground);
+}
+
+.placeholder::before {
+  content: "";
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  width: 8px;
+  height: 8px;
+  border: 1px solid currentColor;
+  opacity: 0.6;
+}
+
+.placeholder .label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+/* ---------- Stat counter ---------- */
+
+.stat .num {
+  font-family: var(--font-display);
+  font-size: clamp(56px, 7vw, 96px);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--color-foreground);
+  font-feature-settings: "tnum" 1;
+}
+
+.stat .lab {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--color-muted);
+  margin-top: 12px;
+}
+
+/* ---------- Reveal ---------- */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 700ms var(--ease), transform 700ms var(--ease);
+}
+
+.reveal.in {
+  opacity: 1;
+  transform: none;
+}
+
+/* ---------- Utility ---------- */
+
+.divider {
+  height: 1px;
+  background: var(--color-border);
+}
+
+.kicker {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--color-accent);
+  font-weight: 500;
+}
+
+.exp-cell:hover {
+  background: color-mix(in oklch, var(--color-accent) 4%, transparent);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
   }
 }
