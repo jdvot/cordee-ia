@@ -86,12 +86,31 @@ const EXTRA_VALUES = [
 
 const LICENSE_VALUES = ["MIT", "Apache-2.0", "AGPL-3.0", "none"] as const;
 
-function buildSchema(messages: { required: string; max: string }) {
+// Sanitize project name: lowercase, strip accents, spaces → dashes, drop disallowed chars.
+// Called on blur — the user can type freely, and we clean up before validation.
+function sanitizeProjectName(input: string): string {
+  return input
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[̀-ͯ]/g, "") // strip combining diacritics
+    .replace(/\s+/g, "-")
+    .replace(/[^a-z0-9._-]/g, "")
+    .replace(/-+/g, "-")
+    .replace(/^[-._]+|[-._]+$/g, "")
+    .slice(0, 50);
+}
+
+function buildSchema(messages: {
+  required: string;
+  max: string;
+  pattern: string;
+}) {
   return z.object({
     projectName: z
       .string()
       .min(1, messages.required)
-      .max(50, messages.max),
+      .max(50, messages.max)
+      .regex(/^[a-zA-Z0-9._-]+$/, messages.pattern),
     projectDescription: z.string().max(280).optional().default(""),
     mode: z.enum(["greenfield", "overlay"]),
     stack: z.array(z.enum(STACK_VALUES)).default([]),
@@ -126,6 +145,10 @@ export function Questionnaire({ onValuesChange }: QuestionnaireProps = {}) {
       buildSchema({
         required: t("validation.projectNameRequired"),
         max: t("validation.projectNameMax"),
+        pattern: t("validation.projectNamePattern", {
+          default:
+            "Lettres, chiffres, point, tiret ou underscore uniquement (pas d'espaces ni d'accents).",
+        }),
       }),
     [t]
   );
