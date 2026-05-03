@@ -1,42 +1,19 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { ArrowRight, CordeeMark, Reveal } from "./atoms";
-
-const FAQ_ITEMS = [
-  {
-    q: "Quelle différence avec un cabinet de conseil généraliste ?",
-    a: "Nous ne faisons que de l'IA appliquée — et seulement sur des terrains que nous opérons nous-mêmes. Pas de junior à 1 200 €/jour qui découvre votre métier en lisant la presse spécialisée. Trois consultants seniors au maximum, présents tous les jours sur la mission.",
-  },
-  {
-    q: "Pourquoi un forfait et pas un T&M ?",
-    a: "Le forfait nous engage sur le résultat, pas sur les heures. Si la mission dépasse, c'est notre problème, pas le vôtre. Conséquence : nous ne prenons pas tous les sujets, et nous refusons les missions mal cadrées.",
-  },
-  {
-    q: "Vous travaillez avec quels modèles / fournisseurs ?",
-    a: "Indépendants. Selon le cas : Claude, GPT, Mistral, Llama en self-hosted. Nous n'avons aucun partenariat commercial avec un éditeur de modèle. La recommandation suit la valeur métier, pas une rétrocommission.",
-  },
-  {
-    q: "Et la conformité — AI Act, RGPD, secret industriel ?",
-    a: "Cadre intégré dès la phase de cadrage. Nous travaillons régulièrement avec des équipes juridiques internes et des cabinets spécialisés. Hébergement souverain disponible (OVHcloud, Scaleway) sur demande.",
-  },
-  {
-    q: "Combien de missions menez-vous en parallèle ?",
-    a: "Trois, jamais plus. C'est ce qui nous permet de garantir la présence terrain et le forfait. Un démarrage demande typiquement 3 semaines après signature — parfois plus si nous sommes complets.",
-  },
-  {
-    q: "Travaillez-vous avec des PME ou seulement des grands comptes ?",
-    a: "Les deux, à condition que le sujet soit cadrable et que la décision puisse être prise rapidement. Nous avons accompagné des ETI familiales comme des groupes du SBF 120. Le forfait minimum est de 85 k€ HT.",
-  },
-];
+import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 
 export function Faq() {
+  const t = useTranslations("Faq");
+  const FAQ_ITEMS = t.raw("items") as Array<{ q: string; a: string }>;
   const [open, setOpen] = useState<number>(0);
   return (
     <section id="faq">
       <div className="container">
         <div className="section-eyebrow">
-          <span className="num">06 / Questions</span>
+          <span className="num">{t("eyebrow")}</span>
           <span className="rule" />
         </div>
         <div
@@ -49,14 +26,14 @@ export function Faq() {
         >
           <Reveal>
             <h2 className="display h2" style={{ margin: 0 }}>
-              On répond<br />
+              {t("titlePart1")}
+              <br />
               <em style={{ fontStyle: "italic", color: "var(--color-accent)" }}>
-                franchement.
+                {t("titleEm")}
               </em>
             </h2>
             <p className="body-lg" style={{ marginTop: 24, maxWidth: "36ch" }}>
-              Six questions qui reviennent en réunion de cadrage. Si la vôtre
-              n&apos;y est pas, écrivez-nous — on répond en moins de 24h.
+              {t("intro")}
             </p>
           </Reveal>
 
@@ -173,6 +150,7 @@ export function Faq() {
 }
 
 export function CTA() {
+  const t = useTranslations("CTA");
   return (
     <section id="cta" style={{ position: "relative", overflow: "hidden" }}>
       <div className="container-wide">
@@ -228,7 +206,7 @@ export function CTA() {
                 className="caption"
                 style={{ color: "var(--color-accent)", marginBottom: 24 }}
               >
-                Prochain départ
+                {t("eyebrow")}
               </div>
               <h2
                 className="display"
@@ -239,10 +217,11 @@ export function CTA() {
                   lineHeight: 1.0,
                 }}
               >
-                30 minutes,<br />
-                pour décider{" "}
+                {t("titlePart1")}
+                <br />
+                {t("titlePart2")}{" "}
                 <em style={{ fontStyle: "italic", color: "var(--color-accent)" }}>
-                  si on monte ensemble.
+                  {t("titleEm")}
                 </em>
               </h2>
               <p
@@ -254,8 +233,7 @@ export function CTA() {
                   maxWidth: "48ch",
                 }}
               >
-                Premier appel cadré — votre contexte, vos contraintes, ce
-                qu&apos;on peut vraiment apporter. Sans slides, sans engagement.
+                {t("intro")}
               </p>
             </Reveal>
 
@@ -273,7 +251,7 @@ export function CTA() {
                 className="btn btn-accent btn-arrow"
                 style={{ padding: "16px 28px", fontSize: 16 }}
               >
-                Réserver un créneau <ArrowRight size={16} />
+                {t("ctaBook")} <ArrowRight size={16} />
               </a>
               <a
                 href="mailto:contact@cordee.ia"
@@ -296,7 +274,7 @@ export function CTA() {
                   marginTop: 24,
                 }}
               >
-                Réponse sous 24h ouvrées
+                {t("responseTime")}
               </div>
             </Reveal>
           </div>
@@ -342,6 +320,7 @@ function FootCol({ title, links }: { title: string; links: string[] }) {
 }
 
 export function Footer() {
+  const t = useTranslations("Footer");
   return (
     <footer
       style={{
@@ -388,34 +367,25 @@ export function Footer() {
                 lineHeight: 1.55,
               }}
             >
-              Cabinet de conseil indépendant. IA appliquée pour CTO, COO et
-              comités d&apos;investissement.
+              {t("tagline")}
             </p>
-            <div className="caption">Paris &middot; Lyon &middot; Genève</div>
+            <div className="caption" style={{ marginBottom: 16 }}>
+              {t("cities")}
+            </div>
+            <LanguageSwitcher variant="footer" />
           </div>
 
           <FootCol
-            title="Cabinet"
-            links={["Méthode", "Expertise", "Pour qui", "Cas clients", "Équipe"]}
+            title={t("cabinet")}
+            links={t.raw("cabinetLinks") as string[]}
           />
           <FootCol
-            title="Ressources"
-            links={[
-              "Études",
-              "Note AI Act",
-              "Charte IA modèle",
-              "Newsletter — La Cordée",
-              "Générateur de starter",
-            ]}
+            title={t("resources")}
+            links={t.raw("resourcesLinks") as string[]}
           />
           <FootCol
-            title="Légal"
-            links={[
-              "Mentions légales",
-              "Politique de confidentialité",
-              "CGU",
-              "contact@cordee.ia",
-            ]}
+            title={t("legal")}
+            links={t.raw("legalLinks") as string[]}
           />
         </div>
 
@@ -433,8 +403,8 @@ export function Footer() {
             fontSize: 12,
           }}
         >
-          <span>© 2026 Cordée.IA SAS — Capital 50 000 € — RCS Paris 932 481 207</span>
-          <span>v.2026.05 — fait à 1&thinsp;200&thinsp;m</span>
+          <span>{t("copyright")}</span>
+          <span>{t("version")}</span>
         </div>
       </div>
     </footer>
