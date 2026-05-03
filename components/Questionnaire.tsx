@@ -110,7 +110,15 @@ export type FormValues = z.infer<ReturnType<typeof buildSchema>>;
 
 const TOTAL_STEPS = 9;
 
-export function Questionnaire() {
+interface QuestionnaireProps {
+  /**
+   * Called whenever any form value changes — used by sibling preview widgets
+   * (FileTreePreview, FileCounter) to render in real time.
+   */
+  onValuesChange?: (values: FormValues) => void;
+}
+
+export function Questionnaire({ onValuesChange }: QuestionnaireProps = {}) {
   const t = useTranslations("Generator.Questionnaire");
 
   const FormSchema = React.useMemo(
@@ -220,8 +228,20 @@ export function Questionnaire() {
     register,
     handleSubmit,
     trigger,
+    watch,
+    getValues,
     formState: { errors },
   } = form;
+
+  // Publish initial + every subsequent change so sibling previews stay in sync.
+  React.useEffect(() => {
+    if (!onValuesChange) return;
+    onValuesChange(getValues());
+    const sub = watch((values) => {
+      onValuesChange(values as FormValues);
+    });
+    return () => sub.unsubscribe();
+  }, [watch, getValues, onValuesChange]);
 
   async function next() {
     let fieldsToValidate: (keyof FormValues)[] = [];
