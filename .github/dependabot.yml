@@ -1,0 +1,43 @@
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "06:00"
+      timezone: "Europe/Paris"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+    groups:
+      # Bundle related deps to keep PR noise low.
+      next-stack:
+        patterns:
+          - "next"
+          - "next-intl"
+          - "@next/*"
+          - "react"
+          - "react-dom"
+          - "@types/react*"
+      tailwind-stack:
+        patterns:
+          - "tailwindcss"
+          - "@tailwindcss/*"
+          - "postcss"
+      types:
+        patterns:
+          - "@types/*"
+      dev:
+        dependency-type: "development"
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "06:00"
+      timezone: "Europe/Paris"
+    open-pull-requests-limit: 3
+    labels:
+      - "ci"

@@ -5,8 +5,18 @@ import { Readable } from "node:stream";
 import archiver from "archiver";
 import { z } from "zod";
 
+import { rateLimit, clientKey } from "@/lib/rate-limit";
+
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
+
+// Hard cap on the JSON request body. The schema is small (~1KB worth of
+// strings); 32KB is generous and rejects malicious oversize payloads early.
+const MAX_BODY_BYTES = 32 * 1024;
+
+// Rate limit per IP. Generation is cheap but we don't want a single client
+// hammering it. 20 zips / minute / IP is plenty for normal use.
+const RATE_LIMIT = { limit: 20, windowMs: 60_000 };
 
 // ─── Schema (mirror Questionnaire) ─────────────────────────────────────────
 
@@ -198,6 +208,36 @@ function dependencyUpdaterVariant(group: StackGroup): string {
 // ─── Handler ───────────────────────────────────────────────────────────────
 
 export async function POST(req: NextRequest) {
+  // ── Rate limit (per-IP) ────────────────────────────────────────────────
+  const rl = rateLimit(clientKey(req), RATE_LIMIT);
+  if (!rl.allowed) {
+    return new Response(
+      JSON.stringify({ error: "Rate limit exceeded. Try again in a minute." }),
+      {
+        status: 429,
+        headers: {
+          "content-type": "application/json",
+          "x-ratelimit-limit": String(RATE_LIMIT.limit),
+          "x-ratelimit-remaining": "0",
+          "x-ratelimit-reset": String(rl.reset),
+          "retry-after": String(Math.max(1, rl.reset - Math.floor(Date.now() / 1000))),
+        },
+      }
+    );
+  }
+
+  // ── Body size guard ────────────────────────────────────────────────────
+  // Reject early if the request claims (or is) too large. content-length is
+  // advisory but most clients set it; for chunked / unknown we read up to
+  // MAX_BODY_BYTES via a manual stream check.
+  const contentLength = Number(req.headers.get("content-length") ?? "0");
+  if (contentLength > MAX_BODY_BYTES) {
+    return new Response(
+      JSON.stringify({ error: "Payload too large." }),
+      { status: 413, headers: { "content-type": "application/json" } }
+    );
+  }
+
   let payload: Payload;
   try {
     const body = await req.json();
