@@ -1,0 +1,479 @@
+{
+  "Metadata": {
+    "title": "Cordée.IA — Conseil IA pour décideurs",
+    "description": "Cabinet de conseil indépendant. IA appliquée pour CTO, COO et comités d'investissement. Cinq phases. Une seule corde.",
+    "ogTitle": "Cordée.IA",
+    "ogDescription": "Conseil IA pour décideurs. Cinq phases. Une seule corde."
+  },
+  "LanguageSwitcher": {
+    "label": "Langue",
+    "fr": "FR",
+    "en": "EN"
+  },
+  "Nav": {
+    "ariaLabel": "Cordée.IA",
+    "method": "Méthode",
+    "expertise": "Expertise",
+    "personas": "Pour qui",
+    "useCases": "Cas d'usage",
+    "faq": "FAQ",
+    "generator": "Générateur",
+    "ctaBook": "Réserver 30 min"
+  },
+  "Hero": {
+    "badge": "Cabinet de conseil IA — Paris & Lyon",
+    "titlePart1": "L'altitude se gagne",
+    "titleEm": "en cordée",
+    "titlePart2": ", pas en solo.",
+    "subtitle": "Nous accompagnons les CTO et dirigeants industriels à transformer l'IA générative en levier opérationnel. Sans hype. Sans pilotes qui ne sortent jamais. Une méthode, cinq phases, des résultats mesurables.",
+    "ctaBook": "Réserver 30 min",
+    "ctaMethod": "Voir la méthode",
+    "stats": {
+      "roi": { "lab": "ROI moyen à 12 mois", "note": "Sur 32 missions" },
+      "velocity": { "lab": "Vélocité produit", "note": "Mesure DORA" },
+      "delivery": { "lab": "Premier livrable", "note": "Pilote en prod" },
+      "missions": { "lab": "Cordées depuis 2022", "note": "Aucune redescente" }
+    }
+  },
+  "Method": {
+    "eyebrow": "02 / Méthode",
+    "titlePart1": "Cinq phases.",
+    "titleEm": "Une seule corde.",
+    "intro": "Ce que nous faisons quand vous nous engagez. Pas un cadre théorique : une routine d'ascension répétée sur 32 missions. Chaque phase s'ouvre sur un livrable signé.",
+    "summit": "SOMMET",
+    "basecamp": "CAMP DE BASE",
+    "phaseLabel": "Phase",
+    "phases": [
+      {
+        "title": "Reconnaissance",
+        "sub": "Cartographier le terrain",
+        "desc": "Audit éclair de votre paysage IA : cas d'usage, données, équipes, contraintes réglementaires. On sépare les sommets accessibles des faux espoirs.",
+        "out": ["Diagnostic en 10 jours", "Carte des cas d'usage", "Matrice valeur × risque"]
+      },
+      {
+        "title": "Encordement",
+        "sub": "Aligner la cordée",
+        "desc": "Atelier dirigeants + équipe tech. On définit les rôles, les garde-fous, le rythme. Aucune ascension ne réussit sans encordement clair.",
+        "out": ["Charte IA interne", "Comité de pilotage", "Cadrage des 5 priorités"]
+      },
+      {
+        "title": "Acclimatation",
+        "sub": "Pilote sur cas réel",
+        "desc": "Un cas d'usage, ciblé, livré en six semaines. RAG, agents, fine-tuning : on choisit la bonne corde pour la bonne paroi. Pas de démo jouet.",
+        "out": ["Pilote en production", "Mesure ROI baseline", "Équipe interne formée"]
+      },
+      {
+        "title": "Ascension",
+        "sub": "Industrialiser",
+        "desc": "Passage à l'échelle : MLOps, observabilité, gouvernance. La cordée monte régulière, sans à-coups. Vous n'aurez pas besoin de nous pour la phase suivante.",
+        "out": ["Plateforme IA interne", "SLO + monitoring", "Plan de transfert"]
+      },
+      {
+        "title": "Sommet",
+        "sub": "Autonomie + mesure",
+        "desc": "On redescend. Vous gardez la cordée, les outils, l'expertise. Bilan ROI, plan de capitalisation, prochains itinéraires possibles.",
+        "out": ["ROI documenté", "Roadmap 18 mois", "Cordée autonome"]
+      }
+    ]
+  },
+  "Expertise": {
+    "eyebrow": "03 / Expertise",
+    "titlePart1": "Six terrains.",
+    "titleEm": "Aucune posture.",
+    "intro": "Nous intervenons sur ce que nous avons opéré nous-mêmes. Pas de mission « découverte » à vos frais, pas de slides recyclées d'un autre client. Si ce n'est pas dans cette liste, on vous oriente ailleurs.",
+    "items": [
+      {
+        "t": "Stratégie & cadrage IA",
+        "d": "Diagnostic, cas d'usage, business case. Décider quoi lancer, quoi arrêter, quoi attendre.",
+        "tags": ["Audit éclair", "Roadmap 18 mois", "Comité de pilotage"]
+      },
+      {
+        "t": "Architecture LLM",
+        "d": "RAG hybride, agents, fine-tuning. La bonne corde pour la bonne paroi — pas de stack imposée.",
+        "tags": ["RAG", "Agents", "Fine-tuning", "Évaluation"]
+      },
+      {
+        "t": "Industrialisation",
+        "d": "MLOps, observabilité, garde-fous métier. Sortir des proofs-of-concept qui ne sortent jamais.",
+        "tags": ["MLOps", "Observabilité", "Sécurité"]
+      },
+      {
+        "t": "Gouvernance & conformité",
+        "d": "AI Act, RGPD, charte interne. Cadre de décision robuste pour les comités d'investissement.",
+        "tags": ["AI Act", "RGPD", "Charte"]
+      },
+      {
+        "t": "Formation des équipes",
+        "d": "Montée en compétence des équipes tech et métier. Vous gardez la cordée à la fin.",
+        "tags": ["Coaching tech", "Ateliers métier"]
+      },
+      {
+        "t": "Due diligence IA",
+        "d": "Évaluation de produits ou cibles d'acquisition. Ce qui marche vraiment vs. ce qui démontre.",
+        "tags": ["DD technique", "Audit modèle"]
+      }
+    ]
+  },
+  "Personas": {
+    "eyebrow": "04 / Pour qui",
+    "titlePart1": "On encorde",
+    "titleEm": "trois profils.",
+    "titlePart2": "Pas plus.",
+    "whatWeBring": "Ce qu'on apporte",
+    "items": [
+      {
+        "role": "CTO",
+        "title": "Vous êtes CTO",
+        "quote": "« On a 14 POC. Aucun en prod. Le ComEx s'impatiente. »",
+        "points": [
+          "Cartographier ce qui mérite d'aller en production",
+          "Architecture cible robuste, pas un patchwork de démos",
+          "Plan de transfert vers vos équipes"
+        ]
+      },
+      {
+        "role": "COO / Directeur Industriel",
+        "title": "Vous êtes COO",
+        "quote": "« L'IA, oui, mais sans casser l'opérationnel. »",
+        "points": [
+          "Identifier les gisements de productivité réels",
+          "Garde-fous métier intégrés dès le pilote",
+          "Mesure d'impact côté terrain, pas en lab"
+        ]
+      },
+      {
+        "role": "Comité d'investissement",
+        "title": "Vous êtes ComEx / Board",
+        "quote": "« On finance, mais on veut comprendre ce qu'on signe. »",
+        "points": [
+          "Due diligence technique sur cibles ou produits",
+          "Lecture indépendante des promesses fournisseurs",
+          "Cadre de décision aligné sur l'AI Act"
+        ]
+      }
+    ]
+  },
+  "Process": {
+    "eyebrow": "05 / Process & livrables",
+    "titlePart1": "Six mois.",
+    "titleEm": "Cinq jalons.",
+    "intro": "Chaque jalon est un livrable signé. Pas de « rapport intermédiaire » qui prend la poussière. À J+47, vous avez un système en production. À J+180, vous n'avez plus besoin de nous.",
+    "engagement": "Engagement type",
+    "fields": {
+      "duration": "Durée",
+      "durationValue": "4 à 6 mois",
+      "team": "Cordée",
+      "teamValue": "2–3 consultants seniors",
+      "fee": "Forfait",
+      "feeValue": "À partir de 85 k€ HT",
+      "start": "Démarrage",
+      "startValue": "3 semaines après signature"
+    },
+    "deliverables": [
+      { "w": "J+10", "t": "Diagnostic", "d": "Carte des cas d'usage, matrice valeur × risque, recommandations." },
+      { "w": "J+25", "t": "Cadrage", "d": "Charte IA, comité de pilotage, choix des 5 priorités." },
+      { "w": "J+47", "t": "Pilote en prod", "d": "Premier cas d'usage livré, mesuré, transféré." },
+      { "w": "J+90", "t": "Plateforme", "d": "Architecture cible, MLOps, observabilité, garde-fous." },
+      { "w": "J+180", "t": "Bilan & passage", "d": "ROI documenté, équipes autonomes, roadmap actualisée." }
+    ]
+  },
+  "UseCases": {
+    "eyebrow": "07 / Cas d'usage",
+    "titlePart1": "Six terrains.",
+    "titleEm": "Une seule corde.",
+    "introPart1": "Cordée.IA est gratuit, open source, MIT. Voici à qui il sert concrètement et comment l'utiliser. Si ton cas n'est pas couvert,",
+    "introLink": "ouvre une issue",
+    "introPart2": ".",
+    "footnotePart1": "3 cas additionnels (mission consulting, hackathon, migration depuis Cursor) sont détaillés dans",
+    "footnoteLink": "USE_CASES.md",
+    "footnotePart2": ".",
+    "ctaBottom": "Démarrer le générateur →",
+    "items": [
+      {
+        "persona": "Indie hacker · Freelance",
+        "title": "Démarrer un projet from scratch",
+        "desc": "Réponds à 6 questions, télécharge le .zip, lance claude. 2 minutes au lieu de 2 heures de config CLAUDE.md.",
+        "cta": "Essayer le générateur"
+      },
+      {
+        "persona": "Équipe avec un repo legacy",
+        "title": "Ajouter Claude à un projet existant",
+        "desc": "Mode overlay : install.sh détecte ton stack (Next, Nest, FastAPI, Go, Rust), backup ton .claude/ existant, drop la config sans rien casser.",
+        "cta": "Essayer en mode overlay"
+      },
+      {
+        "persona": "Enseignant · Tech Lead",
+        "title": "Animer un atelier ou un cours",
+        "desc": "Génère un starter identique pour 30 étudiants. Distribue le .zip via Moodle ou drive partagé. Tout le monde commence sur le même pied.",
+        "cta": "Voir le scénario"
+      },
+      {
+        "persona": "Speaker conférence",
+        "title": "Démo Claude Design dans un talk",
+        "desc": "DESIGN.md prêt à uploader sur claude.ai/design. Bouton Handoff to Claude Code. Skill /design-handoff scaffold le Next.js. Chaîne complète en 5 min.",
+        "cta": "Voir le DESIGN.md d'exemple"
+      },
+      {
+        "persona": "CTO · Tech Lead",
+        "title": "Standardiser une équipe",
+        "desc": "Génère le starter officiel de ton équipe une fois, push-le sur un repo template GitHub. Tous les nouveaux projets l'héritent automatiquement.",
+        "cta": "Préparer le template équipe"
+      },
+      {
+        "persona": "Nouveau dev · Consultant",
+        "title": "Onboarding rapide sur un legacy",
+        "desc": "Drop l'overlay, lance /audit. Claude cartographie le codebase, liste 5 zones risquées, 5 zones safe pour commencer, suggère 3 PRs sûres.",
+        "cta": "Lancer l'overlay"
+      }
+    ]
+  },
+  "Faq": {
+    "eyebrow": "06 / Questions",
+    "titlePart1": "On répond",
+    "titleEm": "franchement.",
+    "intro": "Six questions qui reviennent en réunion de cadrage. Si la vôtre n'y est pas, écrivez-nous — on répond en moins de 24h.",
+    "items": [
+      {
+        "q": "Quelle différence avec un cabinet de conseil généraliste ?",
+        "a": "Nous ne faisons que de l'IA appliquée — et seulement sur des terrains que nous opérons nous-mêmes. Pas de junior à 1 200 €/jour qui découvre votre métier en lisant la presse spécialisée. Trois consultants seniors au maximum, présents tous les jours sur la mission."
+      },
+      {
+        "q": "Pourquoi un forfait et pas un T&M ?",
+        "a": "Le forfait nous engage sur le résultat, pas sur les heures. Si la mission dépasse, c'est notre problème, pas le vôtre. Conséquence : nous ne prenons pas tous les sujets, et nous refusons les missions mal cadrées."
+      },
+      {
+        "q": "Vous travaillez avec quels modèles / fournisseurs ?",
+        "a": "Indépendants. Selon le cas : Claude, GPT, Mistral, Llama en self-hosted. Nous n'avons aucun partenariat commercial avec un éditeur de modèle. La recommandation suit la valeur métier, pas une rétrocommission."
+      },
+      {
+        "q": "Et la conformité — AI Act, RGPD, secret industriel ?",
+        "a": "Cadre intégré dès la phase de cadrage. Nous travaillons régulièrement avec des équipes juridiques internes et des cabinets spécialisés. Hébergement souverain disponible (OVHcloud, Scaleway) sur demande."
+      },
+      {
+        "q": "Combien de missions menez-vous en parallèle ?",
+        "a": "Trois, jamais plus. C'est ce qui nous permet de garantir la présence terrain et le forfait. Un démarrage demande typiquement 3 semaines après signature — parfois plus si nous sommes complets."
+      },
+      {
+        "q": "Travaillez-vous avec des PME ou seulement des grands comptes ?",
+        "a": "Les deux, à condition que le sujet soit cadrable et que la décision puisse être prise rapidement. Nous avons accompagné des ETI familiales comme des groupes du SBF 120. Le forfait minimum est de 85 k€ HT."
+      }
+    ]
+  },
+  "CTA": {
+    "eyebrow": "Prochain départ",
+    "titlePart1": "30 minutes,",
+    "titlePart2": "pour décider",
+    "titleEm": "si on monte ensemble.",
+    "intro": "Premier appel cadré — votre contexte, vos contraintes, ce qu'on peut vraiment apporter. Sans slides, sans engagement.",
+    "ctaBook": "Réserver un créneau",
+    "responseTime": "Réponse sous 24h ouvrées"
+  },
+  "Footer": {
+    "tagline": "Cabinet de conseil indépendant. IA appliquée pour CTO, COO et comités d'investissement.",
+    "cities": "Paris · Lyon · Genève",
+    "cabinet": "Cabinet",
+    "cabinetLinks": ["Méthode", "Expertise", "Pour qui", "Cas clients", "Équipe"],
+    "resources": "Ressources",
+    "resourcesLinks": ["Études", "Note AI Act", "Charte IA modèle", "Newsletter — La Cordée", "Générateur de starter"],
+    "legal": "Légal",
+    "legalLinks": ["Mentions légales", "Politique de confidentialité", "CGU", "contact@cordee.ia"],
+    "copyright": "© 2026 Cordée.IA SAS — Capital 50 000 € — RCS Paris 932 481 207",
+    "version": "v.2026.05 — fait à 1 200 m"
+  },
+  "Generator": {
+    "Hero": {
+      "badge": "Cordée.IA — open source, MIT",
+      "title": "Démarre un projet Claude Code + Claude Design en 2 minutes",
+      "subtitle": "Réponds à 6 questions. Télécharge un .zip prêt à l'emploi. Gratuit, open source, MIT.",
+      "ctaStart": "Démarrer le questionnaire",
+      "ctaRepo": "Voir le repo GitHub",
+      "stats": {
+        "agents": { "label": "Agents Claude", "sublabel": "researcher · challenger · reviewer · page-writer" },
+        "skills": { "label": "Skills inclus", "sublabel": "/kickoff · /audit · /design-handoff" },
+        "sections": { "label": "Sections DESIGN.md", "sublabel": "template prêt à remplir" },
+        "modes": { "label": "Modes", "sublabel": "nouveau projet · projet existant" }
+      }
+    },
+    "HowItWorks": {
+      "eyebrow": "Workflow",
+      "title": "Comment ça marche",
+      "subtitle": "Quatre étapes, dans cet ordre. Pas de compte, pas de paywall.",
+      "steps": [
+        { "title": "Réponds aux 6 questions", "desc": "Nom du projet, mode, stack, agents, skills, MCPs. 2 minutes max." },
+        { "title": "On customize les templates", "desc": "Le générateur ne garde que ce que tu as choisi et personnalise CLAUDE.md, .mcp.json, .claude/." },
+        { "title": "Tu télécharges le zip", "desc": "Un .zip prêt à dézipper dans ton repo (greenfield) ou par-dessus un repo existant (overlay)." },
+        { "title": "Tu lances claude et tu codes", "desc": "Premier prompt suggéré : /kickoff (greenfield) ou /audit (overlay). C'est parti." }
+      ]
+    },
+    "WhatYouGet": {
+      "eyebrow": "Livrable",
+      "title": "Ce que tu reçois dans le zip",
+      "subtitle": "Tout est versionnable, lisible, modifiable. Aucun fichier binaire, aucun lock-in.",
+      "items": [
+        { "name": ".claude/", "desc": "settings, 4 agents, 3 skills, 2 hooks, 3 rules." },
+        { "name": "CLAUDE.md", "desc": "Instructions Claude Code customisées avec ton stack." },
+        { "name": "DESIGN.md", "desc": "Design system 9 sections (vide ou exemple Cordée)." },
+        { "name": ".mcp.json", "desc": "MCPs sélectionnés (notion, context7, figma…)." },
+        { "name": "install.sh", "desc": "Script d'installation dual-mode (greenfield ou overlay)." },
+        { "name": "README.md", "desc": "Doc projet avec ton nom, ta stack, tes choix." }
+      ]
+    },
+    "QuestionnaireSection": {
+      "eyebrow": "Configuration",
+      "title": "Configure ton starter",
+      "subtitle": "Six étapes. Aucun compte. La génération se fait côté serveur Next.js, rien n'est stocké."
+    },
+    "Faq": {
+      "eyebrow": "Questions fréquentes",
+      "title": "FAQ",
+      "subtitle": "Six réponses honnêtes. S'il manque quelque chose, ouvre une issue sur GitHub.",
+      "items": [
+        { "q": "C'est vraiment gratuit ?", "a": "Oui. Le code est sous licence MIT, le générateur est open source, jamais de paywall." },
+        { "q": "Mes données sont-elles envoyées à un serveur ?", "a": "Tout est généré côté serveur Next.js, à la volée, en mémoire. Rien n'est stocké, rien n'est envoyé à OpenAI ni à Anthropic. Le payload du formulaire vit le temps de la requête HTTP." },
+        { "q": "Je peux modifier le zip ensuite ?", "a": "Oui, c'est ton repo. Modifie, supprime, ajoute, force-push. Cordée.IA n'a aucun lien avec le projet une fois généré." },
+        { "q": "Pourquoi Claude Code et pas Cursor ou Cline ?", "a": "Le starter est tool-agnostic — les agents et skills marchent avec n'importe quel outil qui lit les fichiers .md. Mais la structure .claude/ et les hooks sont optimisés pour Claude Code." },
+        { "q": "Comment vous gagnez de l'argent ?", "a": "On ne gagne pas. Le repo est OSS. Je consulte à côté (Cordée.IA consulting). Le générateur est ma manière de partager ce qui marche en mission." },
+        { "q": "Et si j'ai un projet existant ?", "a": "Choisis « Projet existant » dans le questionnaire. Le install.sh ajoute uniquement les fichiers Claude par-dessus ton repo, sans rien casser. Backup automatique du .claude/ existant." }
+      ]
+    },
+    "Footer": {
+      "copyright": "Cordée.IA — MIT — 2026",
+      "linkedin": "LinkedIn",
+      "contact": "Contact"
+    },
+    "Questionnaire": {
+      "stepLabel": "Étape {current} sur {total}",
+      "back": "Précédent",
+      "next": "Suivant",
+      "submit": "Télécharger le zip",
+      "submitting": "Génération…",
+      "errorUnknown": "Erreur inconnue",
+      "errorWithCode": "Erreur {code}",
+      "validation": {
+        "projectNameRequired": "Renseigne un nom de projet",
+        "projectNameMax": "50 caractères max"
+      },
+      "step1": {
+        "title": "Comment s'appelle ton projet ?",
+        "subtitle": "Nom de repo, slug ou nom de produit. Tu peux changer plus tard.",
+        "nameLabel": "Nom du projet",
+        "namePlaceholder": "mon-projet-genial",
+        "descLabel": "Description courte (optionnel)",
+        "descPlaceholder": "2 lignes sur ce que fait ton projet."
+      },
+      "step2": {
+        "title": "Nouveau projet ou projet existant ?",
+        "subtitle": "Le mode détermine si on scaffold tout, ou si on dépose juste l'overlay Claude par-dessus ton repo.",
+        "greenfieldTitle": "Nouveau projet (greenfield)",
+        "greenfieldDesc": "On scaffold .claude/, CLAUDE.md, DESIGN.md, .mcp.json, install.sh.",
+        "overlayTitle": "Projet existant (overlay)",
+        "overlayDesc": "On ajoute uniquement les fichiers Claude par-dessus ton repo. Ton code n'est pas touché."
+      },
+      "step3": {
+        "title": "Stack technique ?",
+        "subtitle": "Optionnel. Sert à pré-remplir les conventions de code dans CLAUDE.md."
+      },
+      "step4": {
+        "title": "Agents Claude voulus ?",
+        "subtitle": "Recommandé : researcher + challenger (couple investigation / contradiction)."
+      },
+      "step5": {
+        "title": "Skills voulus ?",
+        "subtitle": "Skills = slash commands réutilisables."
+      },
+      "step6": {
+        "title": "MCPs branchés ?",
+        "subtitle": "Tu peux toujours en ajouter plus tard dans .mcp.json."
+      },
+      "step7": {
+        "title": "DESIGN.md de départ ?",
+        "subtitle": "Le design system est la première chose qu'un agent design ouvre.",
+        "useExampleTitle": "Garder l'exemple Cordée (granite + cuivre)",
+        "useExampleDesc": "Pratique pour voir un DESIGN.md complet en action et l'adapter.",
+        "emptyTitle": "Template vide à 9 sections",
+        "emptyDesc": "Le squelette sans contenu. À remplir avec ton agent design.",
+        "skipTitle": "Pas de DESIGN.md",
+        "skipDesc": "Si ton projet n'a pas d'interface."
+      },
+      "step8": {
+        "title": "Fichiers complémentaires",
+        "subtitle": "Optionnels. Tu peux toujours les ajouter à la main plus tard."
+      },
+      "step9": {
+        "title": "Quelle licence ?",
+        "subtitle": "Le fichier LICENSE est ajouté à la racine. Aucun cas = code privé tous droits réservés."
+      },
+      "stack_options": {
+        "nextjs": "Next.js",
+        "remix": "Remix",
+        "vue": "Vue / Nuxt",
+        "sveltekit": "SvelteKit",
+        "astro": "Astro",
+        "nestjs": "NestJS",
+        "express": "Express",
+        "hono": "Hono (Edge)",
+        "fastapi": "FastAPI",
+        "django": "Django",
+        "flask": "Flask",
+        "go": "Go",
+        "rust": "Rust",
+        "none": "Pas de stack défini"
+      },
+      "agent_options": {
+        "researcher": "Veille web, sources factuelles (Sonnet)",
+        "challenger": "Avocat du diable, critique chaque décision (Opus xhigh)",
+        "reviewer": "Relecture code, sans écrire (Opus xhigh)",
+        "pr-reviewer": "Review une PR : diff, tests, breaking changes (Opus xhigh)",
+        "db-migration-reviewer": "Review migrations Prisma/Alembic/Drizzle (Opus xhigh)",
+        "a11y-auditor": "Audit accessibilité WCAG 2.2 (Sonnet)",
+        "doc-writer": "Écrit ou met à jour la doc (Sonnet)",
+        "dependency-updater": "Bump deps + lit les changelogs (Sonnet)",
+        "test-writer": "Écrit des tests Vitest/Jest/pytest (Sonnet)",
+        "page-writer": "Owner d'une page Notion / markdown (Sonnet)"
+      },
+      "skill_options": {
+        "kickoff": "Initialiser un projet vierge",
+        "audit": "Cartographier un codebase existant",
+        "design-handoff": "Recevoir un livrable Claude Design",
+        "release": "Bump version + CHANGELOG + tag + publish",
+        "standup": "Synthèse quotidienne (commits + PRs + tickets)",
+        "pr-review": "Review une PR par numéro",
+        "test-coverage": "Run coverage + suggère 3 tests prioritaires",
+        "doc-update": "Scan doc obsolète + 5 fixes"
+      },
+      "mcp_options": {
+        "notion": "Tickets, docs, boards",
+        "context7": "Docs librairies à jour",
+        "playwright": "E2E, screenshots",
+        "figma": "Tokens design Figma",
+        "sentry": "Erreurs production",
+        "linear": "Tickets Linear",
+        "github": "PRs, issues, repos",
+        "vercel": "Deploys, env vars, logs",
+        "supabase": "DB, auth, storage",
+        "stripe": "Customers, prix, webhooks",
+        "postgres": "Query DB direct",
+        "slack": "Messages, channels"
+      },
+      "extra_options": {
+        "editorconfig": "Indent + EOL + charset partagés IDE",
+        "prettierrc": "Formatage Prettier (sensible defaults)",
+        "makefile": "Cibles dev / build / test / lint / clean",
+        "dockerfile": "Multi-stage build Node 24 / Python 3.12",
+        "docker-compose": "App + Postgres en local",
+        "vscode-settings": "ESLint format on save, Tailwind IntelliSense",
+        "github-ci": "CI lint + typecheck + build + test"
+      },
+      "license_options": {
+        "MIT": "Permissive, par défaut. Fork libre.",
+        "Apache-2.0": "Permissive + clause brevets.",
+        "AGPL-3.0": "Copyleft fort. Toute modif réutilisée doit être OSS.",
+        "none": "Code privé, tous droits réservés.",
+        "MIT_label": "MIT",
+        "Apache-2.0_label": "Apache 2.0",
+        "AGPL-3.0_label": "AGPL 3.0",
+        "none_label": "Aucune"
+      }
+    }
+  }
+}
