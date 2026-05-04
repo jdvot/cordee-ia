@@ -395,31 +395,25 @@ section {
     grid-template-columns: 1fr !important;
     gap: 24px !important;
   }
-  /* CTA section grid: stack title + button block on mobile. The 2-column
-     grid leaves ~120 px for the text on iPhones, causing 1-word-per-line
-     wrapping. Force 1 col + tighten the padding/title size below. */
+  /* CTA section: stack to 1 col on mobile but keep the elegant inline
+     button + caption block of the desktop. We do NOT force the button to
+     full-width (preserves the spacing and accent that look great on
+     desktop) — we just ungrid the layout and tighten the padding so the
+     1.4fr text column doesn't wrap 1-word-per-line. */
   .cta-grid {
     grid-template-columns: 1fr !important;
-    gap: 32px !important;
-    align-items: stretch !important;
+    gap: 40px !important;
+    align-items: start !important;
   }
-  /* Wrapper (the dark padded box) */
+  /* Wrapper (the granite padded box) — keep generous breathing room.
+     Default clamp(48,8vw,120) ate 96px on iPhone; 32px is balanced. */
   section[id="cta"] > .container-wide > div {
-    padding: 40px 24px !important;
-    border-radius: 16px !important;
+    padding: 56px 32px !important;
   }
-  /* Title — reduce clamp lower bound so it fits 390px viewport */
+  /* Title — slightly tighter clamp so the 'your next project' italic
+     em fits without cutting off. */
   section[id="cta"] .cta-grid h2 {
-    font-size: clamp(36px, 9vw, 56px) !important;
-  }
-  /* Right column: keep button + email + caption on full width */
-  section[id="cta"] .cta-grid > div:last-child {
-    align-items: flex-start !important;
-    width: 100%;
-  }
-  section[id="cta"] .cta-grid .btn {
-    width: 100%;
-    justify-content: center;
+    font-size: clamp(40px, 9vw, 64px) !important;
   }
 }
 
