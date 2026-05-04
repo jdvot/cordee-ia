@@ -1,97 +1,77 @@
-# [PROJECT NAME] — fill in at kickoff
+# [PROJECT NAME]
 
-> First file Claude Code reads every session. Keep it under 300 lines.
-> Format : WHAT / WHY / HOW (https://www.humanlayer.dev/blog/writing-a-good-claude-md)
+> Claude Code reads this on every session. Keep it concise (Anthropic guidance: under 300 lines, shorter is better).
+> Structure follows WHAT / WHY / HOW. Reference: https://www.humanlayer.dev/blog/writing-a-good-claude-md
 
-## WHAT — project in 2 lines
+## WHAT
 
-[1-2 lines: what does this project do, for whom, what does success look like.]
+[1-2 lines: what does this project do, for whom.]
 
-## WHY — context Claude needs to make good calls
-
-[Domain context, business constraints, non-obvious decisions already made.]
-
-## Stack
-
-[List your stack here. No assumptions baked in.]
-- Frontend: ?
-- Backend: ?
+**Stack**
+- Frontend: [FRONTEND]
+- Backend: [BACKEND]
 - DB: ?
 - Auth: ?
 - Hosting: ?
 
-## Commands
+## WHY
 
+[Domain context, business constraints, non-obvious decisions already made.
+This is what Claude can't infer from the code. Keep it 3-5 bullets.]
+
+- ?
+- ?
+- ?
+
+## HOW
+
+**Commands**
 ```bash
-# Dev
-?
-
-# Build
-?
-
-# Test
-?
-
-# Lint
-?
+[COMMANDS_BLOCK]
 ```
 
-## Conventions
+**Conventions**
+- Code style → `.claude/rules/coding-standards.md`
+- Git workflow → `.claude/rules/git-workflow.md`
+- Secrets and data → `.claude/rules/security.md`
+- Visual design → `DESIGN.md`
 
-- See `.claude/rules/coding-standards.md` for code style.
-- See `.claude/rules/git-workflow.md` for branching and PRs.
-- See `.claude/rules/security.md` for secrets and data handling.
-- See `DESIGN.md` for visual design system.
+**Don't**
+- Edit `.env*`, `*.key`, `credentials.json` (blocked by `.claude/hooks/pre-edit-secrets.sh`)
+- Edit generated files (Prisma client, OpenAPI types, etc.)
+- `git add -A` without `git status` first (leak risk)
+- Premature abstractions (3 similar lines beats a wrong helper)
 
-## Agents available
+## Tooling
 
-- `researcher` — web research expert, factual-only output
-- `challenger` — devil's advocate, attacks every decision
-- `reviewer` — code reviewer for existing code (no writing)
-- `page-writer` — owns one page (Notion or markdown)
+**Agents** (in `.claude/agents/`) — invoked via `Task(subagent_type=…)`. List: `ls .claude/agents/`.
 
-To launch a team: `/team` (requires Opus 4.7 + tmux/iTerm2 for split-pane).
+**Skills** (in `.claude/skills/`) — invoked as slash commands.
+Day 0:
+- `/kickoff` — fill in the blanks above by asking you questions
+- `/audit` — map an existing codebase
 
-## Modèles Claude — routing recommandé
+**MCPs** (in `.mcp.json`) — already configured per the questionnaire.
 
-- **Tâches mécaniques / factuelles** (research, doc, bump deps, restructure) : `model: sonnet` (Sonnet 4.6 par défaut).
-- **Reasoning lourd** (challenger, code review, db migration review, security audit) : `model: opus` + `effort: xhigh`.
-- **Agent Teams (`/team`)** : nécessite **Opus 4.7** (Pro / Max / Enterprise) — Sonnet 4.6 ne supporte pas le mode multi-équipiers.
-- **1M context** : disponible sur Opus 4.7 — utile pour `/audit` sur gros monorepo (100k+ lignes).
-- **`teammateMode: "auto"`** : par défaut, compatible Sonnet pour les tâches simples ; `"tmux"` force le routage Opus.
+## Models (90/10 routing)
 
-Recommandation Anthropic : **90 % Sonnet 4.6, 10 % Opus 4.7** = jusqu'à -70 % de coût avec qualité préservée sur la majorité des workflows.
+90 % Sonnet 4.6 (mechanical: research, docs, deps, restructure).
+10 % Opus 4.7 + `effort: xhigh` (reasoning: challenger, code review, db migrations, security audit).
 
-## Marketplace Anthropic
+`teammateMode: "auto"` (default) routes to Sonnet for simple tasks. `"tmux"` forces Opus 4.7 + multi-pane.
 
-Avant d'écrire un skill ou un agent maison, vérifie si Anthropic ou la communauté propose déjà l'équivalent officiel :
+Anthropic guidance: this 90/10 routing cuts cost by up to 70 % with no measurable quality loss on most workflows.
 
-- [`anthropics/skills`](https://github.com/anthropics/skills) — skills officiels (frontend-design, claude-api, etc.).
-- [`anthropics/claude-plugins-official`](https://github.com/anthropics/claude-plugins-official) — plugins vérifiés Anthropic.
-- Marketplace : [marketplace.anthropic.com](https://marketplace.anthropic.com).
-- Installation : `/plugin install <name>@claude-plugins-official`.
+## Marketplace
 
-Réutiliser un plugin officiel évite la dette de maintenance et bénéficie des mises à jour upstream.
+Before writing a custom skill or agent, check if Anthropic ships it:
+- [`anthropics/skills`](https://github.com/anthropics/skills)
+- [`anthropics/claude-plugins-official`](https://github.com/anthropics/claude-plugins-official)
+- [marketplace.anthropic.com](https://marketplace.anthropic.com)
 
-## Skills available
-
-- `/kickoff` — initialize a fresh project (run once at project start)
-- `/audit` — map an existing codebase Day 0 (run after `install.sh`)
-- `/design-handoff` — receive a Claude Design bundle and scaffold Next.js + Tailwind + Shadcn
-
-## MCPs configured
-
-- `notion` — boards, docs, tickets
-- `context7` — up-to-date library docs
-- (Optional) `playwright`, `figma`, `sentry`, `linear` — uncomment in `.mcp.json` per project need
-
-## Don't
-
-- Edit `.env*`, `*.key`, `credentials.json` — blocked by `.claude/hooks/pre-edit-secrets.sh`
-- Edit generated files (Prisma client, OpenAPI types, etc.) directly
-- Skip `git status` before `git add -A` (avoid leaking secrets)
-- Premature abstractions (3 similar lines > a wrong helper)
+Install: `/plugin install <name>@claude-plugins-official`.
 
 ## Project-specific notes
 
-[Add per-project gotchas, business rules, integrations.]
+[Gotchas, business rules, third-party integrations, on-call info.
+This section grows over time. Edit as you learn.]
