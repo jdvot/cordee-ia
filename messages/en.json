@@ -283,6 +283,26 @@
     "copyright": "© 2026 Julien Devot, Cordée.IA is MIT-licensed",
     "version": "v.2026.05, made in France"
   },
+  "Challenger": {
+    "panelLabel": "Pre-download review",
+    "eyebrow": "Challenger",
+    "intro": "{count, plural, =1 {# question on your config before you download.} other {# questions on your config before you download.}}",
+    "dismiss": "Dismiss",
+    "rules": {
+      "manyAgentsNoMcps": "You picked {count} agents but zero MCPs. Agents like pr-reviewer or db-migration-reviewer typically need Notion, Linear, GitHub or Postgres MCPs to do useful work. Intentional?",
+      "opusHeavy": "{count} Opus-tier agents selected. Anthropic's 90/10 routing recommends keeping Opus for heavy reasoning only (~10% of tasks). Heavy Opus use multiplies cost. Are all {count} truly worth Opus over Sonnet 4.6?",
+      "frontendNoDesign": "Frontend stack picked but DESIGN.md is set to skip. Claude Design will not be able to scaffold the UI from your starter. Consider 'empty-template' at minimum.",
+      "testWriterNoCoverage": "test-writer agent picked but /test-coverage skill is missing. The agent will work, but you lose the day-1 'run coverage + suggest 3 priority tests' workflow.",
+      "prReviewerNoSkill": "pr-reviewer agent picked but /pr-review skill is missing. The agent works ad-hoc, but the skill gives you a quick `/pr-review <number>` slash command.",
+      "dbReviewerNoDbMcp": "db-migration-reviewer agent picked but no DB MCP (Postgres or Supabase). The agent reviews migration files but can't introspect your live schema. Worth pairing with a DB MCP.",
+      "greenfieldNoKickoff": "Greenfield mode without /kickoff skill. Without it, you start with a blank CLAUDE.md and have to manually scaffold the project structure. Recommended.",
+      "overlayNoAudit": "Overlay mode without /audit skill. Without it, Claude won't have a fast 'map this codebase' first prompt. Recommended for legacy onboarding.",
+      "teamSetupSoloAgent": "Team setup is on (CONTRIBUTING.md, CODEOWNERS, PR templates) but you only picked 1 agent. The team artifacts will ship but feel orphaned. Add 2-3 more agents or turn team setup off.",
+      "noAgents": "No agents selected. Claude Code will work, but you'll only get the slash skills. Adding researcher and challenger costs nothing and unlocks the typical reasoning patterns.",
+      "noSkills": "No skills selected. Claude Code will work via raw prompts, but you'll miss /kickoff, /audit and the day-1 workflow shortcuts.",
+      "noStack": "No stack selected. CLAUDE.md commands will be empty placeholders, and stack-aware agents (test-writer, dependency-updater) will fall back to a generic variant."
+    }
+  },
   "Generator": {
     "Hero": {
       "badge": "Cordée.IA, open source, MIT",
