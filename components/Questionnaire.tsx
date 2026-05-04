@@ -20,6 +20,7 @@ import {
   DEFAULT_COLORS,
   type ColorsValue,
 } from "@/components/generator/ColorPicker";
+import { ChallengerPanel } from "@/components/generator/ChallengerPanel";
 
 // ─── Schema ────────────────────────────────────────────────────────────────
 
@@ -779,6 +780,24 @@ export function Questionnaire({ onValuesChange }: QuestionnaireProps = {}) {
           <div className="text-sm text-red-600 bg-red-50 border border-red-200 rounded-[10px] p-3">
             {error}
           </div>
+        )}
+
+        {step === TOTAL_STEPS && (
+          <ChallengerPanel
+            input={{
+              projectName: watch("projectName") ?? "",
+              projectDescription: watch("projectDescription") ?? "",
+              mode: watch("mode") ?? "greenfield",
+              stack: watch("stack") ?? [],
+              agents: watch("agents") ?? [],
+              skills: watch("skills") ?? [],
+              mcps: watch("mcps") ?? [],
+              designSystem: watch("designSystem") ?? "empty-template",
+              extras: watch("extras") ?? [],
+              license: watch("license") ?? "MIT",
+              teamSetup: watch("teamSetup") ?? false,
+            }}
+          />
         )}
 
         <div className="flex items-center justify-between pt-4 border-t border-[var(--color-border)]">

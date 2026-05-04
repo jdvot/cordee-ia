@@ -283,6 +283,26 @@
     "copyright": "© 2026 Julien Devot, Cordée.IA est sous licence MIT",
     "version": "v.2026.05, fait en France"
   },
+  "Challenger": {
+    "panelLabel": "Revue pré-téléchargement",
+    "eyebrow": "Challenger",
+    "intro": "{count, plural, =1 {# question sur ta config avant de télécharger.} other {# questions sur ta config avant de télécharger.}}",
+    "dismiss": "Ignorer",
+    "rules": {
+      "manyAgentsNoMcps": "Tu as coché {count} agents mais zéro MCP. Des agents comme pr-reviewer ou db-migration-reviewer ont besoin de Notion, Linear, GitHub ou Postgres pour bosser sérieusement. Volontaire ?",
+      "opusHeavy": "{count} agents Opus cochés. Le routing 90/10 d'Anthropic recommande de garder Opus pour le reasoning lourd (~10% des tâches). Tous les {count} sont vraiment plus utiles en Opus qu'en Sonnet 4.6 ?",
+      "frontendNoDesign": "Stack frontend choisie mais DESIGN.md est sur 'skip'. Claude Design ne pourra pas scaffolder l'UI. Au minimum 'empty-template'.",
+      "testWriterNoCoverage": "Agent test-writer coché mais skill /test-coverage absent. L'agent fonctionne, mais tu perds le workflow day-1 'lance coverage + propose 3 tests prioritaires'.",
+      "prReviewerNoSkill": "Agent pr-reviewer coché mais skill /pr-review absent. L'agent marche à la demande, mais la skill donne le raccourci /pr-review <numero>.",
+      "dbReviewerNoDbMcp": "Agent db-migration-reviewer coché mais pas de MCP DB (Postgres ou Supabase). L'agent review les fichiers de migration mais ne peut pas inspecter le schéma live.",
+      "greenfieldNoKickoff": "Greenfield sans skill /kickoff. Sans, tu démarres avec un CLAUDE.md vide et tu scaffoldes manuellement.",
+      "overlayNoAudit": "Overlay sans skill /audit. Claude n'aura pas de 'map this codebase' day-1. Recommandé pour l'onboarding legacy.",
+      "teamSetupSoloAgent": "Team setup activé (CONTRIBUTING.md, CODEOWNERS, PR templates) mais 1 seul agent. Les artefacts d'équipe semblent orphelins. Ajoute 2-3 agents ou coupe team setup.",
+      "noAgents": "Aucun agent. Claude Code marche en raw, mais tu perds les patterns de reasoning. researcher + challenger ne coûtent rien à inclure.",
+      "noSkills": "Aucune skill. Tu perds /kickoff, /audit et les raccourcis day-1.",
+      "noStack": "Aucune stack. Les commands de CLAUDE.md restent vides, et les agents stack-aware (test-writer, dependency-updater) tombent en variant générique."
+    }
+  },
   "Generator": {
     "Hero": {
       "badge": "Cordée.IA, open source, MIT",
