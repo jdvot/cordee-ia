@@ -576,19 +576,142 @@ function customizeDesignMd(raw: string, p: Payload): string {
   return out;
 }
 
+// ─── CLAUDE.md per-stack profile ───────────────────────────────────────────
+//
+// Each profile pre-fills the CLAUDE.md "Stack" + "Commands" sections so the
+// user doesn't re-type what they just selected in the questionnaire.
+// `/kickoff` then asks for the rest (DB, Auth, Hosting, business context).
+
+interface StackProfile {
+  frontend: string; // value for "Frontend:" line, or "?" if N/A
+  backend: string; // value for "Backend:" line, or "?" if N/A
+  commands: string; // multiline `# Dev / # Build / # Test / # Lint` block
+}
+
+const STACK_PROFILES: Record<Payload["stack"][number], StackProfile> = {
+  nextjs: {
+    frontend: "Next.js 16 (App Router, React 19, Tailwind v4)",
+    backend: "?",
+    commands:
+      "# Dev\npnpm dev\n\n# Build\npnpm build\n\n# Test\npnpm test\n\n# Lint\npnpm lint && pnpm typecheck",
+  },
+  vue: {
+    frontend: "Vue 3 / Nuxt 3",
+    backend: "?",
+    commands:
+      "# Dev\npnpm dev\n\n# Build\npnpm build\n\n# Test\npnpm test\n\n# Lint\npnpm lint && pnpm typecheck",
+  },
+  sveltekit: {
+    frontend: "SvelteKit (Vite)",
+    backend: "?",
+    commands:
+      "# Dev\npnpm dev\n\n# Build\npnpm build\n\n# Test\npnpm test\n\n# Lint\npnpm check && pnpm lint",
+  },
+  astro: {
+    frontend: "Astro 5",
+    backend: "?",
+    commands:
+      "# Dev\npnpm dev\n\n# Build\npnpm build\n\n# Test\npnpm test\n\n# Lint\npnpm astro check",
+  },
+  remix: {
+    frontend: "Remix (React Router 7)",
+    backend: "?",
+    commands:
+      "# Dev\npnpm dev\n\n# Build\npnpm build\n\n# Test\npnpm test\n\n# Lint\npnpm typecheck && pnpm lint",
+  },
+  nestjs: {
+    frontend: "?",
+    backend: "NestJS (Node 24)",
+    commands:
+      "# Dev\npnpm start:dev\n\n# Build\npnpm build\n\n# Test\npnpm test && pnpm test:e2e\n\n# Lint\npnpm lint",
+  },
+  hono: {
+    frontend: "?",
+    backend: "Hono (Edge runtime)",
+    commands:
+      "# Dev\npnpm dev\n\n# Build\npnpm build\n\n# Test\npnpm test\n\n# Lint\npnpm typecheck",
+  },
+  express: {
+    frontend: "?",
+    backend: "Express (Node 24)",
+    commands:
+      "# Dev\npnpm dev\n\n# Build\npnpm build\n\n# Test\npnpm test\n\n# Lint\npnpm lint",
+  },
+  fastapi: {
+    frontend: "?",
+    backend: "FastAPI (Python 3.12+)",
+    commands:
+      "# Dev\nuvicorn app.main:app --reload\n\n# Build (lock deps)\nuv lock\n\n# Test\npytest\n\n# Lint\nruff check && ruff format --check",
+  },
+  django: {
+    frontend: "?",
+    backend: "Django 5 (Python 3.12+)",
+    commands:
+      "# Dev\npython manage.py runserver\n\n# Build (collect static, migrate)\npython manage.py collectstatic --noinput && python manage.py migrate\n\n# Test\npytest\n\n# Lint\nruff check && ruff format --check",
+  },
+  flask: {
+    frontend: "?",
+    backend: "Flask (Python 3.12+)",
+    commands:
+      "# Dev\nflask --app app run --debug\n\n# Build\nuv lock\n\n# Test\npytest\n\n# Lint\nruff check && ruff format --check",
+  },
+  go: {
+    frontend: "?",
+    backend: "Go",
+    commands:
+      "# Dev\ngo run ./...\n\n# Build\ngo build ./...\n\n# Test\ngo test -race ./...\n\n# Lint\ngolangci-lint run",
+  },
+  rust: {
+    frontend: "?",
+    backend: "Rust",
+    commands:
+      "# Dev\ncargo run\n\n# Build\ncargo build --release\n\n# Test\ncargo test\n\n# Lint\ncargo fmt --check && cargo clippy -- -D warnings",
+  },
+  none: {
+    frontend: "?",
+    backend: "?",
+    commands: "# Dev\n?\n\n# Build\n?\n\n# Test\n?\n\n# Lint\n?",
+  },
+};
+
 function customizeClaudeMd(raw: string, p: Payload): string {
   let out = raw;
   out = out.replaceAll("[PROJECT NAME]", p.projectName);
+  // Legacy [STACK] one-liner placeholder (kept for older templates).
   out = out.replaceAll(
     "[STACK]",
     p.stack.length ? p.stack.map((s) => STACK_LABELS[s]).join(" + ") : "Unspecified"
   );
+
+  // Pre-fill Frontend / Backend / Commands from the dominant stack profile.
+  // If multiple stacks are picked, merge: first frontend wins, first backend wins.
+  let frontend = "?";
+  let backend = "?";
+  let commands = STACK_PROFILES.none.commands;
+  for (const s of p.stack) {
+    const prof = STACK_PROFILES[s];
+    if (!prof) continue;
+    if (frontend === "?" && prof.frontend !== "?") frontend = prof.frontend;
+    if (backend === "?" && prof.backend !== "?") backend = prof.backend;
+    if (commands === STACK_PROFILES.none.commands) commands = prof.commands;
+  }
+  out = out.replaceAll("[FRONTEND]", frontend);
+  out = out.replaceAll("[BACKEND]", backend);
+  out = out.replaceAll("[COMMANDS_BLOCK]", commands);
+
+  // Project description: substitute the placeholder if user typed something.
   if (p.projectDescription.trim()) {
+    out = out.replace(
+      "[1-2 lines: what does this project do, for whom.]",
+      p.projectDescription.trim()
+    );
+    // Legacy placeholder for older templates.
     out = out.replace(
       "[1-2 lines: what does this project do, for whom, what does success look like.]",
       p.projectDescription.trim()
     );
   }
+
   return out;
 }
 
