@@ -192,6 +192,7 @@ export function CTA() {
           </svg>
 
           <div
+            className="cta-grid"
             style={{
               position: "relative",
               zIndex: 1,

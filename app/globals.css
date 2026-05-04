@@ -395,6 +395,32 @@ section {
     grid-template-columns: 1fr !important;
     gap: 24px !important;
   }
+  /* CTA section grid: stack title + button block on mobile. The 2-column
+     grid leaves ~120 px for the text on iPhones, causing 1-word-per-line
+     wrapping. Force 1 col + tighten the padding/title size below. */
+  .cta-grid {
+    grid-template-columns: 1fr !important;
+    gap: 32px !important;
+    align-items: stretch !important;
+  }
+  /* Wrapper (the dark padded box) */
+  section[id="cta"] > .container-wide > div {
+    padding: 40px 24px !important;
+    border-radius: 16px !important;
+  }
+  /* Title — reduce clamp lower bound so it fits 390px viewport */
+  section[id="cta"] .cta-grid h2 {
+    font-size: clamp(36px, 9vw, 56px) !important;
+  }
+  /* Right column: keep button + email + caption on full width */
+  section[id="cta"] .cta-grid > div:last-child {
+    align-items: flex-start !important;
+    width: 100%;
+  }
+  section[id="cta"] .cta-grid .btn {
+    width: 100%;
+    justify-content: center;
+  }
 }
 
 /* =========================================================
