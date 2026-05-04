@@ -14,7 +14,7 @@ Cordée.IA est un générateur de starter Claude Code + Claude Design. Voici **9
 
 ```bash
 # 1. Va sur https://cordee-ia.vercel.app/generator
-# 2. Réponds aux 6 questions : nom, mode "nouveau projet", stack, agents, skills, MCPs, design system
+# 2. Réponds aux 9 questions : nom, mode "nouveau projet", stack, agents, skills, MCPs, design system
 # 3. Télécharge le .zip → décompresse
 cd ~/Downloads/mon-projet
 git init -b main && git add -A && git commit -m "init from cordee-ia"
@@ -137,7 +137,7 @@ claude
 **Solution** :
 
 1. Vendredi soir, en arrivant : ouvre https://cordee-ia.vercel.app/generator depuis ton portable.
-2. Réponds aux 6 questions en 2 minutes (nom, mode greenfield, stack Next.js, agents researcher + reviewer, skills /kickoff + /design-handoff, MCPs Notion + Context7, design system empty-template).
+2. Réponds aux 9 questions en 2 minutes (nom, mode greenfield, stack Next.js, agents researcher + reviewer, skills /kickoff + /design-handoff, MCPs Notion + Context7, design system empty-template).
 3. Décompresse, `git init`, `claude`, `/kickoff`.
 4. Tu codes ta feature. Le jury vote dimanche soir.
 
