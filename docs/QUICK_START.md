@@ -9,20 +9,22 @@
                 │  cordee-ia.vercel.app/generator     │
                 └──────────────┬──────────────────────┘
                                │
-                          (7 questions)
+                          (9 questions, 2 min)
                                │
                                ▼
                 ┌─────────────────────────────────────┐
                 │   <ton-projet>.zip                  │
                 │   .claude/  CLAUDE.md  DESIGN.md    │
                 │   .mcp.json  hooks  agents  skills  │
+                │   + extras + LICENSE + README       │
                 └──────────────┬──────────────────────┘
                                │
                           unzip + claude
                                │
                                ▼
                 ┌─────────────────────────────────────┐
-                │   /kickoff                          │
+                │   /kickoff (greenfield)             │
+                │   /audit   (overlay)                │
                 │   tu codes ta feature               │
                 └─────────────────────────────────────┘
 ```
@@ -33,18 +35,19 @@
 
 [cordee-ia.vercel.app/generator](https://cordee-ia.vercel.app/generator)
 
-### 2. Réponds aux 7 questions
+### 2. Réponds aux 9 questions
 
-Mode complet (~ 2 minutes) ou mode express (~ 30 secondes) si tu es pressé.
-Tu choisis :
+Compte 2 minutes. Tu choisis dans cet ordre :
 
-- Nom de projet + description
-- Mode (greenfield from scratch / overlay sur repo existant)
-- Stack (Next.js, NestJS, FastAPI, Django, Rails, Go, etc.)
-- Agents Claude à inclure (researcher, challenger, reviewer, doc-writer, etc.)
-- Skills (`/kickoff`, `/audit`, `/design-handoff`, `/release`, etc.)
-- MCPs (Notion, Linear, Sentry, Playwright, Figma, etc.)
-- Design system (Cordée granite + cuivre, custom, ou skip)
+1. **Nom de projet + description**
+2. **Mode** (greenfield from scratch ou overlay sur repo existant) + option Team setup
+3. **Stack** (14 au choix : Next.js, NestJS, FastAPI, Django, Flask, Go, Rust, Vue, SvelteKit, Astro, Remix, Hono, Express, ou aucune)
+4. **Agents Claude** (10 au choix, dont test-writer + dependency-updater stack-aware)
+5. **Skills** (8 au choix : `/kickoff`, `/audit`, `/design-handoff`, `/release`, `/standup`, `/pr-review`, `/test-coverage`, `/doc-update`)
+6. **MCPs** (12 au choix : Notion, Sentry, Figma, Playwright, GitHub, Linear, Vercel, Supabase, Stripe, Postgres, Slack, Context7)
+7. **Design system** + couleurs (exemple Cordée, template vide à 9 sections, ou skip + ColorPicker primary/accent)
+8. **Fichiers complémentaires** (.editorconfig, Prettier, Makefile, Dockerfile, docker-compose, .vscode, GitHub Actions CI)
+9. **License** (MIT, Apache-2.0, AGPL-3.0, ou aucune)
 
 ### 3. Télécharge le `.zip`
 
